@@ -9,6 +9,11 @@ h1 em { color: #73e4ba; font-family: Georgia, serif; font-weight: 400; }
 .summary { color: #b3c9c1; font-size: 1.12rem; line-height: 1.65; max-width: 590px; }
 button { background: #73e4ba; color: #062117; border: 0; border-radius: .55rem; font-weight: 800; padding: .85rem 1.1rem; cursor: pointer; margin-top: 1rem; }
 .success { color: #73e4ba; }.error { color: #ff9d94; }
+button:disabled { opacity: .6; cursor: progress; }
+.checks { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: .5rem; max-width: 460px; }
+.checks li { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid #1c332a; padding-bottom: .5rem; }
+.checks li span { color: #9db6ad; font-size: .9rem; }
+.checks .pending { color: #e2c675; }
 .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-top: 1px solid #29463b; margin-top: 6rem; padding-top: 1rem; }
 article { display: grid; gap: .55rem; padding: 1.2rem 0; } article strong { font-size: 1.05rem; } article span { color: #9db6ad; line-height: 1.5; }
 @media (max-width: 700px) { main { padding-top: 4rem; }.principles { grid-template-columns: 1fr; margin-top: 3rem; } }

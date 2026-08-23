@@ -1,0 +1,5 @@
+* text=auto eol=lf
+
+# A CRLF shebang makes the container fail with a confusing "no such file or directory".
+*.sh text eol=lf
+Dockerfile text eol=lf

@@ -12,4 +12,9 @@ __pycache__/
 coverage/
 *.py[cod]
 *.log
-
+.astro/
+*.tsbuildinfo
+# Generated from the running app; see `python -m app.openapi`.
+services/backend/openapi.json
+# Was `*.my-claude-skills-main`, which matched nothing: this is a directory, not a suffix.
+my-claude-skills-main/

@@ -11,14 +11,55 @@ jobs:
     defaults:
       run:
         working-directory: services/backend
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: hypersale
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d hypersale"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@localhost:5432/hypersale
+      # Integration tests skip silently without this, which would hide tenancy regressions.
+      TEST_DATABASE_URL: postgresql+asyncpg://postgres:postgres@localhost:5432/hypersale
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: pip
+          cache-dependency-path: services/backend/pyproject.toml
       - run: pip install -e '.[dev]'
       - run: ruff check .
-      - run: pytest
+      - name: Migrations apply and roll back cleanly
+        run: |
+          alembic upgrade head
+          alembic downgrade base
+          alembic upgrade head
+      - name: Schema matches the ORM models
+        # A drifted model is a silent production bug; autogenerate must find nothing to do.
+        run: alembic check
+      - run: pytest -q
+
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the single API/worker image
+        run: docker build -t hypersale-backend:ci services/backend
+      - name: Entrypoint rejects an unknown role
+        run: |
+          set +e
+          docker run --rm -e PROCESS_ROLE=nonsense hypersale-backend:ci
+          test $? -eq 64
+
   web:
     runs-on: ubuntu-latest
     steps:
@@ -31,4 +72,4 @@ jobs:
           node-version: 20
           cache: pnpm
       - run: pnpm install --frozen-lockfile=false
-      - run: pnpm --dir apps/web build
+      - run: pnpm -r build

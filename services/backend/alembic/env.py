@@ -1,35 +1,57 @@
+"""Alembic environment.
+
+Runs migrations through the same asyncpg URL the application uses. The previous sync
+`engine_from_config` path silently required psycopg2, which is not a dependency, so
+`alembic upgrade` could not run anywhere.
+"""
+import asyncio
 from logging.config import fileConfig
 
-from alembic import context
-from sqlalchemy import engine_from_config, pool
+from sqlalchemy.engine import Connection
+from sqlalchemy.ext.asyncio import create_async_engine
 
+from alembic import context
 from app.config import get_settings
+from app.db import models  # noqa: F401  (import registers tables on the metadata)
 from app.db.base import Base
-from app.db import models  # noqa: F401
 
 config = context.config
-config.set_main_option("sqlalchemy.url", get_settings().database_url.replace("+asyncpg", ""))
 if config.config_file_name:
     fileConfig(config.config_file_name)
+
+database_url = get_settings().database_url
+config.set_main_option("sqlalchemy.url", database_url)
 target_metadata = Base.metadata
 
 
 def run_migrations_offline() -> None:
-    context.configure(url=config.get_main_option("sqlalchemy.url"), target_metadata=target_metadata, literal_binds=True)
+    context.configure(
+        url=database_url,
+        target_metadata=target_metadata,
+        literal_binds=True,
+        dialect_opts={"paramstyle": "named"},
+    )
     with context.begin_transaction():
         context.run_migrations()
 
 
-def run_migrations_online() -> None:
-    connectable = engine_from_config(config.get_section(config.config_ini_section, {}), prefix="sqlalchemy.", poolclass=pool.NullPool)
-    with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata)
-        with context.begin_transaction():
-            context.run_migrations()
+def do_run_migrations(connection: Connection) -> None:
+    context.configure(connection=connection, target_metadata=target_metadata)
+    with context.begin_transaction():
+        context.run_migrations()
+
+
+async def run_migrations_online() -> None:
+    # Supavisor transaction pooling cannot reuse asyncpg prepared statements.
+    engine = create_async_engine(database_url, connect_args={"statement_cache_size": 0})
+    try:
+        async with engine.connect() as connection:
+            await connection.run_sync(do_run_migrations)
+    finally:
+        await engine.dispose()
 
 
 if context.is_offline_mode():
     run_migrations_offline()
 else:
-    run_migrations_online()
-
+    asyncio.run(run_migrations_online())

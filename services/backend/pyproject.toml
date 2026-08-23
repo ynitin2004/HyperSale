@@ -17,7 +17,15 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.3,<9", "pytest-asyncio>=0.25,<1", "ruff>=0.9,<1"]
+dev = ["pytest>=8.3,<9", "pytest-asyncio>=0.25,<1", "ruff>=0.9,<1", "alembic>=1.14,<2"]
+migrations = ["alembic>=1.14,<2"]
+# Exporters are optional: the app degrades to structured stdout logs without them.
+telemetry = [
+  "sentry-sdk[fastapi]>=2.20,<3",
+  "opentelemetry-sdk>=1.30,<2",
+  "opentelemetry-exporter-otlp-proto-http>=1.30,<2",
+  "opentelemetry-instrumentation-fastapi>=0.51b0"
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["app"]
@@ -25,8 +33,15 @@ packages = ["app"]
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+pythonpath = ["."]
 
 [tool.ruff]
 line-length = 100
 target-version = "py312"
 
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# Alembic revisions are generated stubs with module-level identifiers by convention.
+"alembic/versions/*" = ["E402"]

@@ -61,8 +61,21 @@ Unit tests cover evidence negative cases, score math, provenance, jobs, and rete
 
 ## Living memory and decision log
 
-**Current state:** Greenfield HyperSale repository created; M0 has begun.  
-**Active risks:** voice cost unknown; cross-browser remote-track capture unknown; raters not recruited; Supabase project credentials pending.  
-**Next actions:** finish M0 persistence/auth setup; configure Supabase; run real cost and audio spikes; record results here.  
+**Current state:** M0 code is complete and unit-tested. The protected API path, workspace tenancy, durable `SKIP LOCKED` queue, usage metering, and telemetry all exist. What remains in M0 is not code: it is credentials and two measurement spikes.
+
+**Active risks:** voice cost still unmeasured, so every cost figure is currently `rate_missing`; cross-browser remote-track capture untested; raters not recruited; Supabase project credentials pending; integration tests have never run against a real Postgres outside CI.
+
+**Next actions:** provision Supabase and run `alembic upgrade head` against it; create the unprivileged application role and the `BYPASSRLS` worker role; run a three-minute voice session and set the measured `REALTIME_AUDIO_*` rates; test Chrome and Safari audio capture; record all results here.
+
 **2026-08-24:** HyperSale root created. The master document was committed as the product baseline; no existing `demo/` files were changed.
+
+**2026-08-24 (M0 build):** Decisions worth remembering, because each one is a place the obvious implementation is wrong.
+
+- *RLS was inert as first written.* Policies had no `WITH CHECK`, so a session pinned to one workspace could still insert rows into another, and `FORCE` was missing, so the table owner bypassed the policies entirely. Both are fixed in `20260824_0002`. Postgres still exempts superusers, so the application must connect as an unprivileged role in every environment.
+- *Membership lookup cannot be workspace-scoped.* Resolving which workspace a caller may use requires reading `memberships` before a workspace is known. The policy therefore also admits a caller's own rows via an `app.user_id` GUC, and `identity_session` sets only that one.
+- *The queue dispatcher is the single cross-tenant component.* It runs under `system_session`, which sets no GUC and so needs a `BYPASSRLS` role. Handlers always run under `tenant_session`, so a handler cannot reach another tenant even by mistake.
+- *`SET LOCAL` cannot take bind parameters.* The original tenant session would have failed against a real database; GUCs now go through `set_config(..., true)`.
+- *Migrations could not run at all.* `alembic/env.py` built a sync engine, which silently required psycopg2, which is not a dependency. It now runs async through the same asyncpg URL as the app.
+- *Realtime credential minting trusted a body field.* `POST /practice/realtime/session` took `user_id` from the request, so any caller could mint provider credentials against another identity, unauthenticated. Identity now comes from the verified token. Per-user rate limiting is still missing and is the remaining abuse risk on that endpoint.
+- *Unmeasured cost is not zero cost.* Rates are configuration defaulting to zero, and a zero rate applied to real audio is persisted as `rate_missing` so summaries report a floor, never a false free.
 
