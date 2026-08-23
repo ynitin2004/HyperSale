@@ -16,5 +16,11 @@ coverage/
 *.tsbuildinfo
 # Generated from the running app; see `python -m app.openapi`.
 services/backend/openapi.json
+# graphify: GRAPH_REPORT.md is the reviewable output and is tracked. The graph itself and
+# its viewer are large (~1.1MB) and regenerate from source, so they stay local.
+graphify-out/.graphify_*
+graphify-out/cache/
+graphify-out/graph.json
+graphify-out/graph.html
 # Was `*.my-claude-skills-main`, which matched nothing: this is a directory, not a suffix.
 my-claude-skills-main/
