@@ -1,0 +1,2 @@
+"""HyperSale backend modular monolith."""
+

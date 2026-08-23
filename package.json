@@ -1,0 +1,15 @@
+{
+  "name": "hypersale",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev:web": "pnpm --dir apps/web dev",
+    "dev:marketing": "pnpm --dir apps/marketing dev",
+    "build": "pnpm -r build",
+    "test:e2e": "pnpm --dir apps/web test:e2e"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  }
+}
+
