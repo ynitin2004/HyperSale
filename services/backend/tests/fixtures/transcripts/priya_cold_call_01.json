@@ -1,0 +1,28 @@
+{
+  "fixture_id": "priya_cold_call_01",
+  "captured_at": "2026-09-16",
+  "persona": "priya-raghavan",
+  "provider": "azure_speech_voice_live",
+  "model": "gpt-realtime",
+  "region": "centralindia",
+  "note": "First real roleplay captured during M0 Spike 1. Kept verbatim, including two turn-detection artifacts (consecutive same-speaker turns at indices 9-10 and 11-12) where VAD split or merged a turn. Those artifacts are the point: scoring must not mis-attribute across them, and D13's attribution check is what catches it. The rep performs badly here on purpose-of-record - vague, no value proposition, and he reverses roles by asking the buyer for advice - which makes this a useful low-score fixture for the eval harness.",
+  "turns": [
+    { "index": 0, "speaker": "buyer", "text": "Priya speaking." },
+    { "index": 1, "speaker": "buyer", "text": "Who's this? Why are you calling?" },
+    { "index": 2, "speaker": "rep", "text": "How's going on, Priya?" },
+    { "index": 3, "speaker": "buyer", "text": "Sorry, I'm not following. What exactly are you asking about?" },
+    { "index": 4, "speaker": "rep", "text": "This is Nithin this side, I want to know regarding how can we increase our sales service?" },
+    { "index": 5, "speaker": "buyer", "text": "Which sales service are you talking about? Be specific." },
+    { "index": 6, "speaker": "rep", "text": "I'm asking about the sales service." },
+    { "index": 7, "speaker": "buyer", "text": "Alright. What are you trying to solve with it?" },
+    { "index": 8, "speaker": "rep", "text": "I want to talk about my Salesforce CRM sales service." },
+    { "index": 9, "speaker": "buyer", "text": "Yeah, but how? What's the real issue you're dealing with?" },
+    { "index": 10, "speaker": "rep", "text": "I'm trying to solve, basically to increase the sales percentage of my company." },
+    { "index": 11, "speaker": "rep", "text": "Please, I want to ask, are you an AI?" },
+    { "index": 12, "speaker": "buyer", "text": "I don't understand what you mean. Let's stick to the call—what's your main challenge with your sales team?" },
+    { "index": 13, "speaker": "buyer", "text": "What's stopping you? Time, tools, or the reps themselves?" },
+    { "index": 14, "speaker": "rep", "text": "We are facing challenges regarding we are not being able to reach our sales level that we are thinking of." },
+    { "index": 15, "speaker": "rep", "text": "So help me guide us regarding it." },
+    { "index": 16, "speaker": "buyer", "text": "We already do ride-alongs. What's different about what you're suggesting?" }
+  ]
+}
