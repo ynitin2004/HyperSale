@@ -20,7 +20,7 @@ boundaries. Full rationale for every choice: `DECISIONS.md`.
 | Job queue | Postgres `FOR UPDATE SKIP LOCKED` job table |
 | Cache / rate limit | Upstash Redis (never the durable queue) |
 | Server → browser | SSE (job progress, live transcript, streamed criteria) |
-| Voice | OpenAI Realtime API over WebRTC, browser↔provider direct; backend mints ephemeral tokens |
+| Voice | Azure Speech Voice Live (GPT Realtime), browser↔provider direct; backend mints ephemeral tokens (D21). Central India region — a US region measured ~5 s vs ~2 s |
 | Scoring / reports LLM | Claude Opus 5 (`claude-opus-5`) via official `anthropic` Python SDK |
 | High-volume LLM | Claude Haiku 4.5 (`claude-haiku-4-5`) — tagging, drills, metadata |
 | Transcription (M3) | Managed STT with diarization behind a `Transcriber` protocol |
@@ -33,16 +33,17 @@ boundaries. Full rationale for every choice: `DECISIONS.md`.
 
 | Role | Provider / model | Why |
 |---|---|---|
-| Live voice buyer | OpenAI Realtime API (WebRTC, speech-to-speech). Exact model ID verified against OpenAI's live docs at implementation time, held in `adapters/llm/models.py` | Anthropic has **no realtime speech-to-speech API** — a Claude key cannot power the voice layer. OpenAI Realtime is the fastest path to natural interruptible voice (D8) |
+| Live voice buyer | **Azure Speech Voice Live**, generative model `GPT Realtime` (speech-to-speech). Model and voice IDs held in `adapters/llm/models.py` | Anthropic has **no realtime speech-to-speech API** — a Claude key cannot power the voice layer. OpenAI Realtime direct could not be provisioned; Azure serves the same model and keeps D8's speech-to-speech design intact (D21). Measured ~2 s turn, barge-in working |
 | Scoring & reports | `claude-opus-5` — $5/M input, $25/M output tokens | Structured outputs (`output_config.format` / `messages.parse()`) give schema-guaranteed rubric JSON; adaptive thinking; prompt caching for the static rubric+scenario prefix. ~6k in + 2k out per report ≈ **$0.08/session** — negligible vs voice minutes |
 | High-volume tasks | `claude-haiku-4-5` — $1/M in, $5/M out | Tagging, drill selection, metadata extraction |
 | Disputed-score adjudication (only if measured need) | `claude-fable-5` — $10/M in, $50/M out | D9: add a frontier tier only when evals show Opus 5 disagreement clusters; 2× Opus price buys headroom scoring doesn't normally need |
 | Transcription (M3) | Deepgram or AssemblyAI (verify current pricing) | Diarization + word timestamps; replaceable behind `Transcriber` |
 
 Rules: all model IDs and prices live **only** in `adapters/llm/models.py` · Anthropic calls use
-the official `anthropic` SDK (never raw HTTP, never OpenAI-compatible shims) · OpenAI calls only
-inside `adapters/voice/` · keys are server-side env vars, never in the browser; the browser gets
-short-lived ephemeral Realtime tokens minted by `api`.
+the official `anthropic` SDK (never raw HTTP, never OpenAI-compatible shims) · voice-provider calls
+only inside `adapters/voice/`, behind the `VoiceProvider` protocol · persona instructions come from
+Postgres per session, never from the provider's own agent config (D21) · keys are server-side env
+vars, never in the browser; the browser gets short-lived ephemeral tokens minted by `api`.
 
 ## 3. Module map
 
@@ -62,7 +63,7 @@ SQL joins. This keeps later extraction (e.g. `scoring` as its own service) mecha
 
 ## 4. Voice session & the recording gap
 
-Browser ↔ OpenAI Realtime directly over WebRTC; our server never proxies audio. Consequences:
+Browser ↔ Azure Speech Voice Live directly; our server never proxies audio. Consequences:
 
 - **Transcript:** Realtime data-channel transcript events are forwarded to `api` live (with turn
   + speaker boundaries — attribution verification depends on them). Durable server-side
