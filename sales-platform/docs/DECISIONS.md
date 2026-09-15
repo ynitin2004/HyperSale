@@ -50,7 +50,9 @@ audio. Lowest latency and most natural interruptions; cost is the recording gap 
 browser-side, ARCHITECTURE.md §4) and per-minute price (metered from day one). Highest-risk
 decision → de-risked by M0 Spikes 1–2. Thin `VoiceProvider` protocol keeps a composed
 STT→LLM→TTS pipeline as a contained escape hatch. **Revisit:** per-minute cost hurts at real
-usage.
+usage. **Vendor settled by D21** — the trigger that actually fired was provider *availability*,
+which this entry failed to anticipate. The architecture below is unchanged; the escape hatch
+stays unbuilt.
 
 ## D9 — Two model tiers. Not four/five.
 Mid-tier reasoning for scoring/reports; cheap model for volume tasks; frontier tier only for
@@ -112,10 +114,32 @@ rubric prefix, and a report costs ≈ $0.08 — negligible vs voice minutes. Vol
 optional adjudication tier per D9. Two API keys required (OpenAI + Anthropic); both server-side
 only. Note: a Claude Code subscription is not an API key — product API access is provisioned
 separately in the Anthropic Console. **Revisit:** Anthropic ships a realtime voice API, or voice
-cost forces the composed-pipeline escape hatch in D8.
+cost forces the composed-pipeline escape hatch in D8. **Voice vendor superseded by D21** — still
+GPT Realtime, now reached through Azure. The provider *split* (OpenAI family for voice, Claude for
+scoring) is unchanged.
 
 ## D20 — Docs split into per-concern files under `docs/`, indexed by CLAUDE.md.
 Replaces the single master document. PRD / ARCHITECTURE / RULES / PHASES / DESIGN / DECISIONS /
 FLOW / MEMORY / V2-ROADMAP, each with an owner-doc rule ("if it's not in these files, it's not
 decided"). FLOW.md additionally institutionalizes the staff-engineer onboarding pass so fresh
 sessions verify the map instead of re-deriving it.
+
+## D21 — Voice runs on Azure Speech Voice Live (GPT Realtime), not OpenAI direct.
+D8 listed only cost as its escape-hatch trigger and assumed the provider would stay obtainable.
+OpenAI Realtime API access could not be provisioned at all — a harder blocker than price. Azure
+Speech Voice Live serves **the same GPT Realtime model** with speech-to-speech intact, so D8's
+architecture survives whole: browser↔provider direct, backend mints a short-lived credential,
+server never proxies audio. The composed STT→LLM→TTS pipeline stays unbuilt, and with it the
+turn-taking and barge-in work that pipeline would have forced us to own.
+
+Measured in the Foundry playground before committing: **~2 s response, barge-in cuts the buyer off
+mid-sentence, persona held under a direct "are you an AI?" probe.** The same config in a US region
+measured ~5 s — **region is load-bearing, not incidental**; the resource lives in Central India
+next to the `ap-south-1` Supabase project.
+
+Consequences: one voice provider, not two (an OpenAI implementation we cannot obtain would rot
+untested), and `OPENAI_API_KEY` leaves the required set. Persona instructions live in Postgres and
+ship per session, never in the Azure agent config — D16 needs `prompt_version` in the provenance
+tuple, and a prompt living in a vendor console cannot be versioned, reviewed, or tested.
+**Revisit:** turn latency regresses past 2 s p95 measured from a real client rather than the
+playground, or OpenAI Realtime becomes obtainable and measurably faster.
