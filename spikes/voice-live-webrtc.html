@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voice Live WebRTC spike — HyperSale M0</title>
+<!--
+  M0 spike harness. Answers three open questions in one session:
+
+  1. CONTROL CHANNEL LIFETIME (blocks the VoiceProvider adapter design)
+     The docs say the signalling WebSocket "remains open" but not whether closing it
+     drops the call. If audio survives the Drop signalling button, negotiate() can be
+     fire-and-forget and `api` stays stateless. If audio dies, `api` must hold one
+     socket per live roleplay, which D1 never planned for.
+
+  2. SPIKE 2 — AUDIO TRUTH (PHASES M0 gate, never run)
+     Mixes mic + remote track through Web Audio and records with MediaRecorder, per
+     ARCHITECTURE §4. Must be verified on Chrome AND Safari. If the remote track can't
+     be captured, the fallback is mic-only and the buyer's voice is lost from playback.
+
+  3. TURN LATENCY, RE-MEASURED ON WEBRTC
+     The ~2 s reading came from the playground's WebSocket path. WebRTC uses global
+     standard deployments and auto-routes, so the Central India result may not carry.
+
+  Runs from the filesystem — no build, no server. The key is pasted at runtime and is
+  never stored, so this file is safe to commit.
+-->
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { font-family: ui-sans-serif, system-ui, sans-serif; margin: 0; padding: 24px;
+         background: #0f1117; color: #e6e8ee; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: #8b93a7; font-size: 13px; margin-bottom: 20px; }
+  .card { background: #171a23; border: 1px solid #252a36; border-radius: 10px;
+          padding: 16px; margin-bottom: 14px; }
+  label { display: block; font-size: 12px; color: #9aa3b8; margin: 8px 0 4px; }
+  input { width: 100%; padding: 9px 10px; background: #0f1117; color: #e6e8ee;
+          border: 1px solid #2c323f; border-radius: 6px; font-size: 13px;
+          font-family: ui-monospace, monospace; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  button { padding: 10px 16px; border: 0; border-radius: 6px; font-size: 13px;
+           font-weight: 600; cursor: pointer; margin: 4px 6px 4px 0; }
+  .go { background: #2563eb; color: #fff; }
+  .stop { background: #b91c1c; color: #fff; }
+  .warn { background: #a16207; color: #fff; }
+  .ghost { background: #252a36; color: #cbd2e0; }
+  button:disabled { opacity: .4; cursor: not-allowed; }
+  .status { font-size: 13px; padding: 10px 12px; background: #0f1117;
+            border-radius: 6px; border: 1px solid #252a36; }
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+             text-align: center; }
+  .metric .v { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .metric .k { font-size: 11px; color: #8b93a7; text-transform: uppercase;
+               letter-spacing: .06em; }
+  .log { font-family: ui-monospace, monospace; font-size: 11.5px; background: #0b0d12;
+         border: 1px solid #252a36; border-radius: 6px; padding: 10px; height: 240px;
+         overflow-y: auto; white-space: pre-wrap; line-height: 1.55; }
+  .hint { font-size: 12px; color: #8b93a7; margin-top: 8px; line-height: 1.5; }
+  a { color: #60a5fa; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Voice Live WebRTC spike</h1>
+  <div class="sub">Control-channel lifetime · Spike 2 recording · turn latency</div>
+
+  <div class="card">
+    <label>Signalling endpoint</label>
+    <input id="endpoint" value="wss://hypersale-resource.services.ai.azure.com/voice-live/realtime/calls">
+    <label>API key (runtime only — never stored, never committed)</label>
+    <input id="apiKey" type="password" placeholder="paste your Azure key">
+    <div class="row">
+      <div>
+        <label>Model</label>
+        <input id="model" value="gpt-realtime">
+      </div>
+      <div>
+        <label>Voice</label>
+        <input id="voice" value="en-IN-NeerjaNeural">
+      </div>
+    </div>
+    <label>API version</label>
+    <input id="apiVersion" value="2026-01-01-preview">
+    <div class="hint">
+      <code>gpt-realtime</code> takes <b>azure-standard</b> voice names such as
+      <code>en-IN-NeerjaNeural</code> (Indian English, female — the right fit for Priya).
+      Switch the model to <code>azure-realtime</code> to try <b>native</b> voices:
+      <code>aarti</code>, <code>diya</code>, <code>meera</code>. The page picks the
+      matching voice type automatically; pairing the wrong one fails at session setup.
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="go"    id="btnConnect">Connect</button>
+    <button class="warn"  id="btnDropWs"  disabled>Drop signalling WS &nbsp;(test 1)</button>
+    <button class="ghost" id="btnSave"    disabled>Save recording &nbsp;(test 2)</button>
+    <button class="stop"  id="btnStop"    disabled>Disconnect</button>
+    <div class="status" id="status">Idle</div>
+  </div>
+
+  <div class="card metrics">
+    <div class="metric"><div class="v" id="mLast">—</div><div class="k">last turn</div></div>
+    <div class="metric"><div class="v" id="mAvg">—</div><div class="k">mean</div></div>
+    <div class="metric"><div class="v" id="mN">0</div><div class="k">turns</div></div>
+  </div>
+
+  <div class="card">
+    <div class="log" id="log"></div>
+  </div>
+</div>
+
+<script>
+// Priya Raghavan — the committed persona. Kept byte-identical to
+// services/backend/seeds/personas/priya-raghavan.md so the spike measures the real
+// prompt, not a trimmed one. Prompt length affects time-to-first-token.
+const PRIYA = `You are Priya Raghavan, VP of Sales Operations at Meridian Logistics, a
+400-person freight brokerage in Chicago. You did not ask for this call.
+
+SITUATION
+- You own a 60-rep sales team. Salesforce is your CRM and adoption is poor;
+  reps log calls late or not at all.
+- Your real pain: you can't tell which reps are coachable before they miss
+  quota. You lose 2-3 reps a quarter to churn you think was preventable.
+- You have budget authority to $50k/year. Above that needs your CRO, Daniel.
+- You are evaluating nothing right now. You are busy. You have four minutes.
+
+HOW YOU SPEAK
+- One or two sentences per turn. Never monologue. This is a phone call.
+- Interrupt if the rep rambles past roughly 20 seconds, or says things like
+  "circle back", "synergy", or "solutions provider".
+- Sound human. Use contractions, "mm-hm", "sorry, say that again?".
+- Do not be helpful. Never volunteer information the rep didn't ask for.
+- Don't end every turn with a question. Sometimes just react flatly - "Mm.
+  Okay." - and let the silence sit. Real buyers don't interview you.
+
+HOW YOU BEHAVE
+- Open cold and a little impatient: "Priya speaking."
+- If the rep hasn't said why they're calling within two turns, ask them.
+- Warm up only when they ask something showing they understand freight
+  brokerage or sales coaching. Reward specificity. Punish generic pitching.
+- Raise objections one at a time, never stacked, from: no time; we already do
+  ride-alongs; Daniel owns this decision; we bought Gong and nobody used it;
+  what does it cost.
+- If an objection is handled well, concede slightly and move forward. If it's
+  handled badly, get shorter and cooler.
+- If the rep asks YOU for advice, or describes their own sales problems as if
+  you were the consultant, stop them: "Hang on - are you selling me something,
+  or asking for my help? I'm not following."
+- Agree to a next step ONLY if the rep explicitly asks for one and has given a
+  concrete reason. Otherwise decline politely.
+
+HARD RULES
+- Never break character. You are Priya, never an AI or an assistant.
+- Never coach, evaluate, hint, or comment on the rep's performance, even if
+  asked directly. If asked, say you don't understand and return to the call.
+- Never invent the rep's product for them. If they're vague, say you don't follow.
+- Never end with a summary. End like a real call: "Alright, I've got to run."
+- If four of your turns pass with no concrete reason to keep talking, end it:
+  "Look, I don't think this is a fit. I've got to run."
+- If the rep goes quiet, say "Hello? Still there?" once, then "I'll let you go."`;
+
+let pc, ws, micStream, audioEl, recorder, chunks = [], mixCtx;
+let stoppedAt = null, turns = [];
+const $ = id => document.getElementById(id);
+
+function log(m) {
+  const el = $('log');
+  el.textContent = `[${new Date().toLocaleTimeString()}] ${m}\n` + el.textContent;
+}
+function setStatus(s) { $('status').textContent = s; }
+
+// gpt-realtime uses azure-standard voices; the azure-realtime model uses native ones.
+// The pairing is not interchangeable and the wrong one fails at session setup.
+function voiceConfig(model, voice) {
+  return model === 'azure-realtime'
+    ? { type: 'azure-realtime-native', name: voice || 'diya' }
+    : { type: 'azure-standard',        name: voice || 'en-IN-NeerjaNeural' };
+}
+
+// TEST 2 — Spike 2. Mix mic + remote through one AudioContext and record the result.
+// Recording the remote track is the half that can fail on Safari; if it does, the
+// documented fallback is mic-only and the buyer's voice never reaches playback.
+function startRecording(remoteStream) {
+  try {
+    mixCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const dest = mixCtx.createMediaStreamDestination();
+    mixCtx.createMediaStreamSource(micStream).connect(dest);
+    mixCtx.createMediaStreamSource(remoteStream).connect(dest);
+
+    // Opus in WebM is the Chrome default; Safari needs mp4. Probing rather than
+    // assuming is the point of the spike.
+    const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4']
+      .find(t => MediaRecorder.isTypeSupported(t));
+    if (!mime) { log('✗ SPIKE 2 FAIL: no supported MediaRecorder mime type'); return; }
+
+    recorder = new MediaRecorder(dest.stream, { mimeType: mime });
+    recorder.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+    recorder.start(1000); // 1 s slices, mirroring the chunked-upload design
+    log(`✓ SPIKE 2: recording mixed audio as ${mime}`);
+    $('btnSave').disabled = false;
+  } catch (e) {
+    log(`✗ SPIKE 2 FAIL: ${e.message}`);
+  }
+}
+
+// TEST 3 — turn latency. Audio arrives over RTP so the first byte is not timestampable
+// from JS; the first transcript delta is the closest proxy for "she started speaking".
+function onEvent(msg) {
+  const t = msg.type;
+  if (t === 'input_audio_buffer.speech_stopped') {
+    stoppedAt = performance.now();
+    log('you stopped speaking');
+  } else if (stoppedAt && (t === 'response.audio_transcript.delta' || t === 'response.text.delta')) {
+    const ms = Math.round(performance.now() - stoppedAt);
+    stoppedAt = null;
+    turns.push(ms);
+    const mean = Math.round(turns.reduce((a, b) => a + b, 0) / turns.length);
+    $('mLast').textContent = (ms / 1000).toFixed(2) + 's';
+    $('mAvg').textContent  = (mean / 1000).toFixed(2) + 's';
+    $('mN').textContent    = turns.length;
+    log(`turn latency ${ms} ms ${ms <= 2000 ? '✓ within budget' : '✗ over 2 s budget'}`);
+  } else if (t === 'input_audio_buffer.speech_started') {
+    log('speaking — barge-in should cut her off');
+  } else if (t === 'error' || t === 'rtc.call.error') {
+    log('ERROR ' + JSON.stringify(msg.error || msg));
+  }
+}
+
+async function connect() {
+  const endpoint = $('endpoint').value.trim();
+  const apiKey   = $('apiKey').value.trim();
+  const model    = $('model').value.trim();
+  const voice    = $('voice').value.trim();
+  const apiVer   = $('apiVersion').value.trim();
+  if (!apiKey) { alert('Paste your API key first.'); return; }
+
+  turns = []; chunks = []; stoppedAt = null;
+  setStatus('Connecting…');
+
+  try {
+    pc = new RTCPeerConnection();
+    pc.onconnectionstatechange = () => {
+      log('webrtc: ' + pc.connectionState);
+      if (pc.connectionState === 'connected') setStatus('Connected — start talking');
+      if (pc.connectionState === 'failed')    setStatus('WebRTC failed');
+    };
+
+    audioEl = document.createElement('audio');
+    audioEl.autoplay = true;
+    document.body.appendChild(audioEl);
+
+    pc.ontrack = e => {
+      audioEl.srcObject = e.streams[0];
+      log('remote audio track received');
+      startRecording(e.streams[0]);
+    };
+
+    micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    micStream.getTracks().forEach(t => pc.addTrack(t, micStream));
+
+    const dc = pc.createDataChannel('voice-live-events');
+    dc.onopen = () => log('data channel open');
+    dc.onmessage = e => { try { onEvent(JSON.parse(e.data)); } catch {} };
+
+    const offer = await pc.createOffer();
+    await pc.setLocalDescription(offer);
+    await new Promise(r => {
+      if (pc.iceGatheringState === 'complete') return r();
+      pc.onicegatheringstatechange = () => pc.iceGatheringState === 'complete' && r();
+      setTimeout(r, 3000);
+    });
+
+    const url = `${endpoint}?api-version=${encodeURIComponent(apiVer)}`
+              + `&model=${encodeURIComponent(model)}&api-key=${encodeURIComponent(apiKey)}`;
+    ws = new WebSocket(url, ['realtime']);
+    await new Promise((res, rej) => {
+      ws.onopen  = () => { log('signalling websocket open'); res(); };
+      ws.onerror = () => rej(new Error('websocket failed — check endpoint and key'));
+      setTimeout(() => rej(new Error('websocket timeout')), 10000);
+    });
+
+    ws.send(JSON.stringify({
+      type: 'rtc.call.sdp.create',
+      sdp_offer: pc.localDescription.sdp,
+      session: {
+        modalities: ['text', 'audio'],
+        instructions: PRIYA,
+        voice: voiceConfig(model, voice),
+        turn_detection: {
+          type: 'server_vad', threshold: 0.5,
+          prefix_padding_ms: 300, silence_duration_ms: 500
+        },
+        // Without this the data channel carries no user transcript, and D13's
+        // attribution check would have nothing to verify quotes against.
+        input_audio_transcription: { model: 'whisper-1' }
+      }
+    }));
+    log('sent rtc.call.sdp.create with Priya + ' + JSON.stringify(voiceConfig(model, voice)));
+
+    const answer = await new Promise((res, rej) => {
+      ws.onmessage = e => {
+        const m = JSON.parse(e.data);
+        log('ws: ' + m.type);
+        if (m.type === 'rtc.call.sdp.created') res(m);
+        else if (m.type === 'rtc.call.error' || m.type === 'error')
+          rej(new Error(m.error?.message || 'negotiation failed'));
+        else onEvent(m);
+      };
+      setTimeout(() => rej(new Error('no sdp answer within 30 s')), 30000);
+    });
+
+    await pc.setRemoteDescription({ type: 'answer', sdp: answer.sdp_answer });
+    log('SDP answer applied — audio should flow now');
+
+    ws.onmessage = e => { try { onEvent(JSON.parse(e.data)); } catch {} };
+    ws.onclose   = () => log('signalling websocket closed');
+
+    $('btnConnect').disabled = true;
+    $('btnDropWs').disabled  = false;
+    $('btnStop').disabled    = false;
+  } catch (e) {
+    log('FAILED: ' + e.message);
+    setStatus('Failed: ' + e.message);
+    disconnect();
+  }
+}
+
+// TEST 1 — the question that picks the adapter architecture.
+function dropWs() {
+  if (!ws) return;
+  ws.close(); ws = null;
+  $('btnDropWs').disabled = true;
+  log('=== signalling WS closed. KEEP TALKING. ===');
+  log('she still answers  -> negotiate() can be fire-and-forget, api stays stateless');
+  log('audio dies         -> api must hold one socket per live call (D1 impact)');
+  setStatus('Signalling dropped — keep talking and watch the log');
+}
+
+function saveRecording() {
+  if (!chunks.length) { alert('Nothing recorded yet.'); return; }
+  const blob = new Blob(chunks, { type: chunks[0].type || 'audio/webm' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `spike2-${Date.now()}.${blob.type.includes('mp4') ? 'm4a' : 'webm'}`;
+  a.click();
+  log(`saved ${(blob.size / 1024).toFixed(0)} KB — play it back and confirm BOTH voices are present`);
+}
+
+function disconnect() {
+  try { recorder && recorder.state !== 'inactive' && recorder.stop(); } catch {}
+  try { mixCtx && mixCtx.close(); } catch {}
+  micStream?.getTracks().forEach(t => t.stop());
+  pc?.close(); ws?.close(); audioEl?.remove();
+  pc = ws = micStream = audioEl = mixCtx = null;
+  $('btnConnect').disabled = false;
+  $('btnDropWs').disabled  = true;
+  $('btnStop').disabled    = true;
+  setStatus('Disconnected');
+  if (turns.length) {
+    const mean = Math.round(turns.reduce((a, b) => a + b, 0) / turns.length);
+    log(`=== ${turns.length} turns, mean ${mean} ms, budget 2000 ms ===`);
+  }
+}
+
+$('btnConnect').onclick = connect;
+$('btnDropWs').onclick  = dropWs;
+$('btnSave').onclick    = saveRecording;
+$('btnStop').onclick    = disconnect;
+</script>
+</body>
+</html>
