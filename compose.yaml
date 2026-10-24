@@ -1,3 +1,20 @@
+# Local stack: `docker compose up --build` gives Postgres, migrations, the API and the
+# worker from the one backend image (M0 "working local stack" gate). Provider keys for
+# live voice/scoring come from the git-ignored .env; everything else is self-contained.
+#
+# The local database URLs are set explicitly on every service so a hosted
+# ALEMBIC_DATABASE_URL / WORKER_DATABASE_URL in .env can never leak into this stack.
+x-backend: &backend
+  build: services/backend
+  env_file:
+    - path: .env
+      required: false
+  environment: &backend-env
+    APP_ENV: development
+    DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/hypersale
+    ALEMBIC_DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/hypersale
+    WORKER_DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/hypersale
+
 services:
   db:
     image: postgres:16-alpine
@@ -15,6 +32,39 @@ services:
     volumes:
       - hypersale-postgres:/var/lib/postgresql/data
 
+  migrate:
+    <<: *backend
+    environment:
+      <<: *backend-env
+      PROCESS_ROLE: migrate
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api:
+    <<: *backend
+    environment:
+      <<: *backend-env
+      PROCESS_ROLE: api
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  worker:
+    <<: *backend
+    environment:
+      <<: *backend-env
+      PROCESS_ROLE: worker
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
 volumes:
   hypersale-postgres:
-

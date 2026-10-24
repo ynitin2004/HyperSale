@@ -7,12 +7,15 @@ name = "hypersale-backend"
 version = "0.0.1"
 requires-python = ">=3.12"
 dependencies = [
+  "anthropic>=2.3,<3",
   "asyncpg>=0.30,<1",
   "fastapi>=0.115,<1",
   "httpx>=0.28,<1",
   "pydantic-settings>=2.8,<3",
   "PyJWT[crypto]>=2.10,<3",
-  "sqlalchemy>=2.0.38,<3",
+  # SQLAlchemy 2.1 moved greenlet behind the asyncio extra; without it the image boots
+  # on Windows (transitive greenlet) and dies on Linux at the first async engine import.
+  "sqlalchemy[asyncio]>=2.0.38,<3",
   "uvicorn[standard]>=0.34,<1"
 ]
 

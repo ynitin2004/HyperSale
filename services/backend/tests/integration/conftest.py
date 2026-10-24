@@ -37,7 +37,9 @@ def admin_url() -> str:
 
 @pytest.fixture(scope="session")
 def app_url(admin_url: str) -> str:
-    return str(make_url(admin_url).set(username=APP_ROLE, password=APP_PASSWORD))
+    return make_url(admin_url).set(username=APP_ROLE, password=APP_PASSWORD).render_as_string(
+        hide_password=False
+    )
 
 
 @pytest.fixture

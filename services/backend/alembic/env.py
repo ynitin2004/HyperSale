@@ -19,8 +19,10 @@ config = context.config
 if config.config_file_name:
     fileConfig(config.config_file_name)
 
-database_url = get_settings().database_url
-config.set_main_option("sqlalchemy.url", database_url)
+settings = get_settings()
+database_url = settings.alembic_database_url or settings.database_url
+# ConfigParser treats percent signs as interpolation, including URL-encoded passwords.
+config.set_main_option("sqlalchemy.url", database_url.replace("%", "%%"))
 target_metadata = Base.metadata
 
 
