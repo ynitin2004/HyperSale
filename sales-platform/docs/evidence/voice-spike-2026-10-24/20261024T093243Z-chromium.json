@@ -1,0 +1,118 @@
+{
+  "run": "20261024T093243Z",
+  "browser": "chromium",
+  "browser_version": "156.0.8078.4",
+  "model": "gpt-realtime",
+  "control_channel": {
+    "dropped_after_turn": 3,
+    "turns_total": 3,
+    "turns_after_drop": 0,
+    "audio_survives_signalling_drop": false
+  },
+  "audio_truth": {
+    "recorded": true,
+    "file": "recording.webm",
+    "bytes": 1009003,
+    "mime": "audio/webm;codecs=opus",
+    "duration_s": 141.06,
+    "decode_error": null,
+    "rep_spans": 3,
+    "buyer_spans": 3,
+    "rms_rep": 0.082,
+    "rms_buyer": 0.103,
+    "rms_quiet": 0.0099,
+    "both_voices_present": true
+  },
+  "latency": {
+    "harness_transcript_ms": [
+      139,
+      181,
+      132
+    ],
+    "harness_mean_ms": 151,
+    "audible_ms": [
+      632,
+      579
+    ],
+    "audible_mean_ms": 606,
+    "audible_p95_ms": 632,
+    "budget_ms": 2000
+  },
+  "cost_truth": {
+    "usage_tokens": {
+      "text_in": 676,
+      "text_in_cached": 1280,
+      "audio_in": 268,
+      "audio_in_cached": 0,
+      "text_out": 21,
+      "audio_out": 149,
+      "input_tokens": 2224,
+      "output_tokens": 170,
+      "responses": 3
+    },
+    "rates_usd_per_1m": {
+      "text_in": 4.0,
+      "text_in_cached": 0.4,
+      "audio_in": 32.0,
+      "audio_in_cached": 0.4,
+      "text_out": 16.0,
+      "audio_out": 64.0,
+      "source": "gpt-realtime list price per 1M tokens (OpenAI/Azure global), web-verified 2026-10-24, pending official Azure page"
+    },
+    "cost": {
+      "text_in": 0.002704,
+      "text_in_cached": 0.000512,
+      "audio_in": 0.008576,
+      "audio_in_cached": 0.0,
+      "text_out": 0.000336,
+      "audio_out": 0.009536,
+      "total_usd": 0.021664,
+      "total_microusd": 21664
+    },
+    "session_seconds": 26.3,
+    "usd_per_minute": 0.0494
+  },
+  "transcript": [
+    {
+      "who": "buyer",
+      "text": "Priya speaking."
+    },
+    {
+      "who": "buyer",
+      "text": "Priya speaking."
+    },
+    {
+      "who": "rep",
+      "text": "Hi Priya, this is Arjun from Hypersale."
+    },
+    {
+      "who": "rep",
+      "text": "Hi Priya, this is Arjun from Hypersale."
+    },
+    {
+      "who": "buyer",
+      "text": "Alright, what\u2019s this about?"
+    },
+    {
+      "who": "buyer",
+      "text": "Alright, what\u2019s this about?"
+    },
+    {
+      "who": "rep",
+      "text": "I know you didn't ask for this call, so I'll be quick."
+    },
+    {
+      "who": "rep",
+      "text": "I know you didn't ask for this call, so I'll be quick."
+    },
+    {
+      "who": "buyer",
+      "text": "Mm. And?"
+    },
+    {
+      "who": "buyer",
+      "text": "Mm. And?"
+    }
+  ],
+  "errors": []
+}

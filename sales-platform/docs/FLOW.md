@@ -3,7 +3,44 @@
 Living map of how the code runs. **Every PR that adds or changes an execution path updates this
 file** (RULES.md §1). Status: written ahead of code (M0 not started) — chains below are the
 planned shape; correct them as code lands and mark each chain `[verified]` once it matches
-reality.
+reality. The migration and database setup chain below is verified as of 2026-10-16;
+the product roleplay/scoring chains remain planned.
+
+### Verified chains (2026-10-24)
+
+**Boot.** `services/backend/app/main.py` -> `setup_telemetry` (JSON logs always; Sentry/OTel
+only with DSN/endpoint) -> `app/db/session.py` builds the runtime engine from `DATABASE_URL`
+(hypersale_app, transaction pooler 6543) and a dispatch engine from `WORKER_DATABASE_URL`
+(hypersale_worker, BYPASSRLS; D26). `/health` liveness, `/api/v1/ready` touches the DB.
+
+**Auth -> protected route.** Supabase Auth password sign-in -> ES256 JWT -> `HTTPBearer` ->
+`TokenVerifier` (JWKS cache) -> `identity_session` + `resolve_membership` -> `Principal` ->
+`/api/v1/whoami`, `/api/v1/me`. Verified against the hosted project with a seeded user
+(`scripts/seed_dev_user.py`): 200 with a token, 401 without.
+
+**Usage metering (money path, M0 Spike 1).** Browser (or `scripts/report_spike_usage.py`)
+-> `POST /api/v1/practice/realtime/usage` with the six `response.done.usage` token buckets ->
+`enqueue` (idempotency `realtime-usage:<session_ref>`) -> 202 -> worker `system_session`
+claims -> `tenant_session(workspace)` -> `record_realtime_usage` -> `realtime_token_cost`
+(D25) -> `record_usage` (dedupe `realtime:<session_ref>`) -> hosted `usage_events` ->
+`GET /api/v1/usage/summary` (manager role). Verified end to end: 141,823 microusd in the
+ledger equals the spike's own computation.
+
+**Migrations.** Alembic -> `ALEMBIC_DATABASE_URL` (session pooler 5432 as `postgres`) ->
+0001 -> 0002, one statement per execution (D22). Local up/down/up + `alembic check` and
+hosted `alembic check` pass; 13 integration tests run as an unprivileged role on Docker.
+
+**Local stack.** `docker compose up --build` -> db (healthy) -> `migrate` (PROCESS_ROLE) ->
+`api` + `worker` from the one image, local URLs pinned so `.env` hosted URLs cannot leak in.
+
+**Voice spike (not product code).** `spikes/run_voice_spike.py` -> SAPI TTS rep WAV -> Chromium/
+Edge fake mic -> `spikes/voice-live-webrtc.html` -> Azure Voice Live WebRTC + signalling WS ->
+events, mixed recording, latency, usage -> `report.json` (archived in `docs/evidence/`).
+Findings feed D23/D24/D25.
+
+**Scoring spike (blocked).** `spikes/run_scoring_spike.py` -> `adapters/llm/client.py`
+(official SDK, `ANTHROPIC_BASE_URL`) -> tool-forced rubric JSON -> D13 existence +
+attribution checks. Gateway currently returns 503/403 (D27); no score has been produced yet.
 
 ## 0. Onboarding pass (adapted from the "staff engineer" prompt)
 
@@ -25,12 +62,14 @@ goal is a mental model, not code changes:
 
 | Entry point | File (planned) | Triggers |
 |---|---|---|
-| HTTP API | `services/backend/app/api/main.py` (uvicorn) | All SPA calls, webhooks |
+| HTTP API | `services/backend/app/main.py` (uvicorn; `/health`, `/api/v1/*`) | All SPA calls, webhooks |
 | Worker | `services/backend/app/workers/main.py` (`python -m`) | Claims jobs from Postgres queue |
 | SPA | `apps/web/src/main.tsx` → TanStack Router | Browser |
 | Migrations | `alembic upgrade head` | Deploy step |
 | Evals | `python -m evals.harness` | CI on prompt/model change; manual |
-| Seeds | `services/backend/app/db/seed.py` | Local dev, demo workspace |
+| Seeds | `scripts/seed_dev_user.py` (auth user + workspace); persona seeds planned | Local dev, demo workspace |
+| Ops scripts | `scripts/provision_runtime_roles.py`, `scripts/report_spike_usage.py` | Hosted role setup; pushing spike usage through the ledger |
+| Spikes | `spikes/run_voice_spike.py`, `spikes/run_scoring_spike.py` | M0 evidence runs (not product code) |
 
 ## 2. Execution chains (planned order — verify as built)
 
@@ -42,7 +81,7 @@ goal is a mental model, not code changes:
 1. `POST /sessions` (practice) → `WorkspaceContext` → `practice.service.start_session` →
    creates `practice_session` row + **mints ephemeral Realtime token** via `adapters/voice/` →
    returns token + session id. *(≤ 300 ms budget)*
-2. Browser: preflight (DESIGN.md §4) → WebRTC connect **directly to OpenAI** → conversation.
+2. Browser: preflight (DESIGN.md §4) → WebRTC connect **directly to Azure Voice Live**, holding the signalling WS for the call's lifetime (D23) → conversation.
 3. Browser → `POST /sessions/{id}/transcript-events` (batched): `practice.service.ingest_events`
    → append transcript turns (speaker + timestamps) → fan out to SSE `GET /sessions/{id}/stream`.
 4. Browser → chunked recording upload to signed storage URLs (parallel, independent).
@@ -74,7 +113,7 @@ registering it here fails review.
 |---|---|---|---|---|
 | AI-1 | `scoring/` criterion scores + evidence | `claude-opus-5` | Strict JSON schema | Existence + attribution verified in code; provenance; retry-then-degrade; eval-gated in CI |
 | AI-2 | `scoring/` drill recommendations | `claude-haiku-4-5` | Choice from seeded drill catalog only | Cannot invent drills; invalid id → fallback to rule-based pick |
-| AI-3 | Live buyer persona | OpenAI Realtime | Speech | Persona instructions only; **no tools in hot path**; session cap server-side; transcript logged for later audit |
+| AI-3 | Live buyer persona | Azure Voice Live `gpt-realtime` (D21) | Speech | Persona instructions only; **no tools in hot path**; session cap server-side; transcript logged for later audit |
 | AI-4 (M3) | `review/` call tagging/metadata | `claude-haiku-4-5` | Enum tags | Schema-constrained; tags advisory, never gate anything |
 
 Standing rule: no AI output ever directly controls billing, certification, or data deletion.

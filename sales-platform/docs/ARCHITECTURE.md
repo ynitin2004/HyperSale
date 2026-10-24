@@ -73,6 +73,10 @@ Browser ↔ Azure Speech Voice Live directly; our server never proxies audio. Co
   uploads ~10 s chunks to signed URLs **during** the session.
 - **Audio (fallback, if M0 Spike 2 fails on a target browser):** record mic track only;
   reconstruct buyer side from transcript. Playback degrades; scoring unaffected.
+  Measured 2026-10-24 on Chromium and Edge: both voices present in the mixed recording (D24).
+- **Control channel (D23):** the Voice Live signalling WebSocket must stay open for the whole
+  call - closing it leaves WebRTC "connected" but the buyer never answers again. The browser
+  holds it; `api` only mints the short-lived credential and never keeps per-call state.
 
 ## 5. Latency budgets (hard numbers, measured per stage)
 
@@ -88,7 +92,17 @@ Browser ↔ Azure Speech Voice Live directly; our server never proxies audio. Co
 
 Every stage emits an OTel span; the p95s live on one dashboard from M1.
 
+Measured 2026-10-24 (`spikes/run_voice_spike.py`, Central India, gpt-realtime, 19 turns):
+connect 2.1-5.6 s; rep stops -> first transcript delta mean 203 ms; rep stops -> first audible
+buyer audio mean 758 ms, p95 1087 ms. Within the 1-2 s p95 turn budget.
+
 ## 6. Multi-tenancy — enforced twice
+
+Connection setup: runtime reads `DATABASE_URL` (transaction pooler); Alembic prefers
+`ALEMBIC_DATABASE_URL` (direct or session connection) and falls back to `DATABASE_URL`.
+Credentials must be URL-encoded, with percent escaping at the ConfigParser boundary (D22).
+As of 2026-10-16, hosted migrations/schema pass, but the configured hosted postgres role
+has BYPASSRLS. The restricted runtime-role requirement below is still pending deployment.
 
 1. **Application layer (primary):** every repository function requires `workspace_id`;
    `WorkspaceContext` resolves it from the JWT once per request.

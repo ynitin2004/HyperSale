@@ -143,3 +143,68 @@ ship per session, never in the Azure agent config — D16 needs `prompt_version`
 tuple, and a prompt living in a vendor console cannot be versioned, reviewed, or tested.
 **Revisit:** turn latency regresses past 2 s p95 measured from a real client rather than the
 playground, or OpenAI Realtime becomes obtainable and measurably faster.
+
+## D22 - Execute migration statements individually with asyncpg.
+Approved by the user on 2026-10-16 after reproducing CI's migration failure. SQLAlchemy's
+asyncpg dialect prepares each execution and rejects multiple top-level SQL commands in one
+call. Split existing migration batches into individual executions, preserving SQL, order,
+revision IDs, RLS policies, and final schema. Function bodies remain single SQL statements.
+Validate upgrade/downgrade/upgrade on a separate local database, schema drift, and real
+unprivileged-role integration tests. Do not downgrade hosted data as a verification step.
+`ALEMBIC_DATABASE_URL` optionally selects the direct/session connection for migrations;
+`DATABASE_URL` remains the runtime transaction pooler. Preserve URL encoding of credentials
+and escape percent signs for Alembic's ConfigParser; never log credential-bearing URLs.
+
+## D23 - The signalling WebSocket is the call's lifeline; the browser owns it.
+Measured 2026-10-24 with `spikes/run_voice_spike.py` (three sessions, Playwright Chromium and
+Edge 156): after `ws.close()` the RTCPeerConnection stays `connected`, the remote track stays
+`live`, yet the server emits no further events or audio - 0 turns completed after the drop
+in every run while rep audio kept playing. So `negotiate()` cannot be fire-and-forget: whoever
+opens the socket must hold it for the whole roleplay. Holding one socket per live call inside
+`api` would make the API stateful and break D1's two-unit shape, so the **browser owns the
+WebSocket** and `api` stays stateless. Consequence for M1: the browser needs a short-lived,
+non-API-key credential for Azure Voice Live (Entra/issued token minted by `api`, the D8
+"ephemeral token"); verifying that credential path is the first M1 task. **Fallback** if no
+browser-safe credential exists: `api` holds the socket with sticky sessions, recorded as a
+D1 amendment. **Revisit:** Azure documents the socket as closable without ending the call.
+
+## D24 - Safari verification deferred; audio truth accepted on Chromium and Edge.
+Spike 2 required Chrome and Safari. No Apple device is available to this solo build, and
+the automated spike now proves the mixed mic+buyer recording on Playwright Chromium and
+Microsoft Edge (both voices measured: RMS 0.07-0.10 against a 0.01-0.02 quiet floor, Opus/WebM,
+`decodeAudioData` clean). M0 closes on that evidence; Safari (mp4 recorder path, autoplay
+rules) becomes an M1 exit gate the first time a Mac or iPhone is at hand. The mic-only
+fallback in ARCHITECTURE §4 stays documented and unbuilt. **Revisit:** a design partner on
+Safari, or the first Safari run failing.
+
+## D25 - Realtime usage is metered in provider token buckets, not seconds.
+`response.done.usage` reports text/audio input (plus cached) and text/audio output tokens, and
+that is what the provider bills. The ledger now records those six buckets with rates in
+micro-USD per 1M tokens (`REALTIME_*_MICROUSD_PER_1M`); the per-minute seconds path remains
+only for clients that cannot see usage, and any used bucket without a rate still flags
+`rate_missing`. Measured 2026-10-24: a 170 s Priya roleplay (20 responses) cost **$0.142 =
+$0.050 per talking minute** at gpt-realtime list prices, written to hosted `usage_events`
+through API -> queue -> worker and read back by `/usage/summary` with the identical figure.
+Session caps and trial limits can now be set from a number, not a guess. **Revisit:** Azure
+publishes different Voice Live rates than the OpenAI list prices used here.
+
+## D26 - Two runtime database roles; admin traffic uses the IPv4 session pooler.
+The hosted `postgres` credential has BYPASSRLS, which silently disabled the second tenancy
+boundary. `scripts/provision_runtime_roles.py` creates `hypersale_app` (LOGIN, NOBYPASSRLS,
+DML only, no `alembic_version`) for the API and `hypersale_worker` (BYPASSRLS) used solely by
+`system_session` for queue dispatch, writes both URLs to the ignored `.env`, and verifies the
+app role sees zero rows without a tenant GUC. Migrations stay on `postgres`. The direct host
+`db.<ref>.supabase.co` is IPv6-only and unreachable from the development network, so Alembic
+and admin scripts use the Supavisor session pooler (port 5432); runtime keeps the transaction
+pooler (6543). **Revisit:** Supabase offers an IPv4 add-on or the network gains IPv6.
+
+## D27 - Scoring may reach Claude through an Anthropic-compatible gateway, never a shim.
+The only available scoring credential is an Agent Router token. The gateway rejects raw HTTP
+("unauthorized client") but accepts the official `anthropic` SDK with `base_url`, which is
+exactly what D19 permits: the SDK is unchanged, `ANTHROPIC_BASE_URL` and
+`ANTHROPIC_AUTH_TOKEN` are configuration, and model IDs stay in `adapters/llm/models.py`.
+Spoofing another client's identity to satisfy the gateway is out of bounds. Status on
+2026-10-24: the token permits only `claude-opus-5-5`, for which the gateway has no upstream
+channel (503), so Spike 3 stays open until the token gains `claude-opus-5` or a direct key
+or OpenRouter credential arrives. **Revisit:** when a model answers, re-run
+`spikes/run_scoring_spike.py` and record its cost beside D19's $0.08 estimate.

@@ -1,0 +1,417 @@
+{
+  "run": "20261024T093756Z",
+  "browser": "chromium",
+  "browser_version": "156.0.8078.4",
+  "model": "gpt-realtime",
+  "control_channel": {
+    "dropped_after_turn": null,
+    "turns_total": 19,
+    "turns_after_drop": null,
+    "peer_connection_8s_after_drop": null,
+    "audio_survives_signalling_drop": false
+  },
+  "audio_truth": {
+    "recorded": true,
+    "file": "recording.webm",
+    "bytes": 3205103,
+    "mime": "audio/webm;codecs=opus",
+    "duration_s": 201.54,
+    "decode_error": null,
+    "rep_spans": 20,
+    "buyer_spans": 34,
+    "rms_rep": 0.0676,
+    "rms_buyer": 0.0956,
+    "rms_quiet": 0.0185,
+    "both_voices_present": true
+  },
+  "latency": {
+    "harness_transcript_ms": [
+      132,
+      187,
+      147,
+      174,
+      151,
+      167,
+      190,
+      177,
+      272,
+      172,
+      226,
+      201,
+      208,
+      269,
+      363,
+      201,
+      200,
+      216,
+      212
+    ],
+    "harness_mean_ms": 203,
+    "audible_ms": [
+      575,
+      638,
+      1021,
+      649,
+      942,
+      852,
+      622,
+      656,
+      691,
+      1087,
+      684,
+      675
+    ],
+    "audible_mean_ms": 758,
+    "audible_p95_ms": 1087,
+    "budget_ms": 2000
+  },
+  "cost_truth": {
+    "usage_tokens": {
+      "text_in": 1339,
+      "text_in_cached": 14400,
+      "audio_in": 1550,
+      "audio_in_cached": 7488,
+      "text_out": 206,
+      "audio_out": 1169,
+      "input_tokens": 24777,
+      "output_tokens": 1375,
+      "responses": 20
+    },
+    "rates_usd_per_1m": {
+      "text_in": 4.0,
+      "text_in_cached": 0.4,
+      "audio_in": 32.0,
+      "audio_in_cached": 0.4,
+      "text_out": 16.0,
+      "audio_out": 64.0,
+      "source": "gpt-realtime list price per 1M tokens (OpenAI/Azure global), web-verified 2026-10-24, pending official Azure page"
+    },
+    "cost": {
+      "text_in": 0.005356,
+      "text_in_cached": 0.00576,
+      "audio_in": 0.0496,
+      "audio_in_cached": 0.0029952000000000004,
+      "text_out": 0.003296,
+      "audio_out": 0.074816,
+      "total_usd": 0.141823,
+      "total_microusd": 141823
+    },
+    "session_seconds": 169.8,
+    "usd_per_minute": 0.0501
+  },
+  "transcript": [
+    {
+      "who": "buyer",
+      "text": "Priya speaking."
+    },
+    {
+      "who": "buyer",
+      "text": "Priya speaking."
+    },
+    {
+      "who": "rep",
+      "text": "Hi Priya, this is Arjun from Hypersale."
+    },
+    {
+      "who": "rep",
+      "text": "Hi Priya, this is Arjun from Hypersale."
+    },
+    {
+      "who": "buyer",
+      "text": "Mm. Okay. Why are you calling?"
+    },
+    {
+      "who": "buyer",
+      "text": "Mm. Okay. Why are you calling?"
+    },
+    {
+      "who": "rep",
+      "text": "I know you didn't ask for this call, so I'll be quick."
+    },
+    {
+      "who": "rep",
+      "text": "I know you didn't ask for this call, so I'll be quick."
+    },
+    {
+      "who": "buyer",
+      "text": "Alright, but what exactly are you offering?"
+    },
+    {
+      "who": "buyer",
+      "text": "Alright, but what exactly are you offering?"
+    },
+    {
+      "who": "rep",
+      "text": "I'm calling because freight brokerages like Meridian lose two or three reps a quarter, and most of those were coachable before they missed quota."
+    },
+    {
+      "who": "rep",
+      "text": "I'm calling because freight brokerages like Meridian lose two or three reps a quarter, and most of those were coachable before they missed quota."
+    },
+    {
+      "who": "buyer",
+      "text": "How\u2019s that different from what Gong does?"
+    },
+    {
+      "who": "buyer",
+      "text": "How\u2019s that different from what Gong does?"
+    },
+    {
+      "who": "rep",
+      "text": "We record practice calls and score them against evidence, so you can see which reps are coachable in week 2 instead of month 4."
+    },
+    {
+      "who": "rep",
+      "text": "We record practice calls and score them against evidence, so you can see which reps are coachable in week 2 instead of month 4."
+    },
+    {
+      "who": "buyer",
+      "text": "Mm-hm. Go on."
+    },
+    {
+      "who": "buyer",
+      "text": "Mm-hm. Go on."
+    },
+    {
+      "who": "rep",
+      "text": "Totally fair."
+    },
+    {
+      "who": "rep",
+      "text": "Totally fair."
+    },
+    {
+      "who": "buyer",
+      "text": "Alright, and what does this cost?"
+    },
+    {
+      "who": "buyer",
+      "text": "Alright, and what does this cost?"
+    },
+    {
+      "who": "rep",
+      "text": "Ride-alongs are great, but they don't scale to 60 reps, and the notes live in a manager's head."
+    },
+    {
+      "who": "rep",
+      "text": "Ride-alongs are great, but they don't scale to 60 reps, and the notes live in a manager's head."
+    },
+    {
+      "who": "rep",
+      "text": "We give you the same signal from recorded calls."
+    },
+    {
+      "who": "rep",
+      "text": "We give you the same signal from recorded calls."
+    },
+    {
+      "who": "buyer",
+      "text": "Hang on\u2014are you selling me something, or asking for my help? I'm not following."
+    },
+    {
+      "who": "buyer",
+      "text": "Hang on\u2014are you selling me something, or asking for my help? I'm not following."
+    },
+    {
+      "who": "rep",
+      "text": "I hear that about gong a lot."
+    },
+    {
+      "who": "rep",
+      "text": "I hear that about gong a lot."
+    },
+    {
+      "who": "buyer",
+      "text": "Mm. And your price?"
+    },
+    {
+      "who": "buyer",
+      "text": "Mm. And your price?"
+    },
+    {
+      "who": "rep",
+      "text": "It records real calls after the fact and hands managers more to read."
+    },
+    {
+      "who": "rep",
+      "text": "It records real calls after the fact and hands managers more to read."
+    },
+    {
+      "who": "buyer",
+      "text": "Okay, but I need to know\u2014what\u2019s the price?"
+    },
+    {
+      "who": "buyer",
+      "text": "Okay, but I need to know\u2014what\u2019s the price?"
+    },
+    {
+      "who": "rep",
+      "text": "We give reps practice before the call, and a score with the exact quote behind it."
+    },
+    {
+      "who": "rep",
+      "text": "We give reps practice before the call, and a score with the exact quote behind it."
+    },
+    {
+      "who": "buyer",
+      "text": "Alright, I\u2019ve got to run."
+    },
+    {
+      "who": "buyer",
+      "text": "Alright, I\u2019ve got to run."
+    },
+    {
+      "who": "rep",
+      "text": "Most teams start under 50,000 a year, which I believe sits inside your authority."
+    },
+    {
+      "who": "rep",
+      "text": "Most teams start under 50,000 a year, which I believe sits inside your authority."
+    },
+    {
+      "who": "rep",
+      "text": "I understand Daniel owns the final call."
+    },
+    {
+      "who": "buyer",
+      "text": "Look, I don't think this is a fit. I've got to run."
+    },
+    {
+      "who": "rep",
+      "text": "I understand Daniel owns the final call."
+    },
+    {
+      "who": "buyer",
+      "text": "Look, I don't think this is a fit. I've got to run."
+    },
+    {
+      "who": "buyer",
+      "text": "No, I\u2019ll pass. Take care."
+    },
+    {
+      "who": "buyer",
+      "text": "No, I\u2019ll pass. Take care."
+    },
+    {
+      "who": "rep",
+      "text": "Would a 20-minute walkthrough with both of you next Tuesday be a reasonable next step?"
+    },
+    {
+      "who": "rep",
+      "text": "Would a 20-minute walkthrough with both of you next Tuesday be a reasonable next step?"
+    },
+    {
+      "who": "buyer",
+      "text": "I've got to run."
+    },
+    {
+      "who": "buyer",
+      "text": "I've got to run."
+    },
+    {
+      "who": "rep",
+      "text": "What would you need to see in that walkthrough for it to be worth Daniel's 20 minutes?"
+    },
+    {
+      "who": "rep",
+      "text": "What would you need to see in that walkthrough for it to be worth Daniel's 20 minutes?"
+    },
+    {
+      "who": "rep",
+      "text": "Understood."
+    },
+    {
+      "who": "buyer",
+      "text": "Alright. Take care."
+    },
+    {
+      "who": "rep",
+      "text": "Understood."
+    },
+    {
+      "who": "buyer",
+      "text": "Alright. Take care."
+    },
+    {
+      "who": "rep",
+      "text": "Which two Reps would you say are on the bubble right now?"
+    },
+    {
+      "who": "rep",
+      "text": "Which two Reps would you say are on the bubble right now?"
+    },
+    {
+      "who": "buyer",
+      "text": "I'm not following. This conversation's done."
+    },
+    {
+      "who": "buyer",
+      "text": "I'm not following. This conversation's done."
+    },
+    {
+      "who": "buyer",
+      "text": "Alright, I've got to run."
+    },
+    {
+      "who": "buyer",
+      "text": "Alright, I've got to run."
+    },
+    {
+      "who": "rep",
+      "text": "That's exactly the case we built this for."
+    },
+    {
+      "who": "rep",
+      "text": "That's exactly the case we built this for."
+    },
+    {
+      "who": "buyer",
+      "text": "I\u2019m off now. Take care."
+    },
+    {
+      "who": "buyer",
+      "text": "I\u2019m off now. Take care."
+    },
+    {
+      "who": "rep",
+      "text": "I'll keep the walkthrough to those two reps."
+    },
+    {
+      "who": "rep",
+      "text": "I'll keep the walkthrough to those two reps."
+    },
+    {
+      "who": "rep",
+      "text": "I'll send an invite for Tuesday at 10."
+    },
+    {
+      "who": "rep",
+      "text": "I'll send an invite for Tuesday at 10."
+    },
+    {
+      "who": "buyer",
+      "text": "No, I\u2019m not available. I\u2019ve got to run."
+    },
+    {
+      "who": "buyer",
+      "text": "No, I\u2019m not available. I\u2019ve got to run."
+    },
+    {
+      "who": "buyer",
+      "text": "Alright. Take care."
+    },
+    {
+      "who": "buyer",
+      "text": "Alright. Take care."
+    },
+    {
+      "who": "rep",
+      "text": "Thanks for the time, Priya."
+    },
+    {
+      "who": "rep",
+      "text": "Thanks for the time, Priya."
+    }
+  ],
+  "errors": []
+}
