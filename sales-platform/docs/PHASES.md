@@ -18,7 +18,7 @@ is from runs this session; JSON reports archived in `docs/evidence/voice-spike-2
 | Turn latency (real client) | **Measured** | 19 turns: transcript-delta mean 203 ms; audible mean 758 ms, p95 1,087 ms; connect 2.1-5.6 s. Within budget. |
 | Spike 3 — scoring call | **Open (external)** | `spikes/run_scoring_spike.py` + `adapters/llm/client.py` ready (tool-forced schema, D13 checks). Gateway: 403 for `claude-opus-5`, 503 "no channel" for `claude-opus-5-5` (D27). Needs model enablement or another credential. |
 | Sentry + OTel wired | **Code present** | `telemetry.py` degrades to JSON logs without DSN/endpoint; exporters unverified (no accounts). |
-| CI green on public repo | **Pending push** | All local equivalents of the backend/web jobs pass; commits + push to GitHub and GitLab follow this checkpoint. |
+| CI green on public repo | **Closed (GitHub)** | Run #6 at `8bcd5a9` failed one RLS test (dispatch factory bound at import; console in `docs/evidence/ci-2026-10-24/`). Fixed in `0b5b923`; run #7 (40086352860): backend, web, image all success. GitLab mirrors the same jobs; its console needs a `read_api` token to archive. |
 | External raters (gates M2) | **Open (human)** | Not started; user action. |
 
 M0 is closed on every gate the solo build can close itself. Two items remain external:

@@ -29,8 +29,9 @@ provisioning + pushes. The user pasted an Agent Router key into chat; it is in `
    `spikes/run_scoring_spike.py` is ready; needs model enablement or another credential (D27).
 2. External raters not recruited (gates M2). User action.
 3. Safari run deferred to M1 exit (D24). Sentry/OTel exporters unverified (no accounts).
-4. Hosted CI: commits + push to GitHub and GitLab are the next action after this update;
-   `gh` CLI is absent, check runs via the public GitHub API.
+4. Hosted CI: GitHub run #7 at `0b5b923` green (backend/web/image) after run #6 failed one
+   RLS test. GitLab pipeline console unread: git OAuth token lacks `read_api`; ask the
+   user for a `GITLAB_TOKEN` (read_api) in `.env` or a pasted console. `gh` CLI absent.
 
 ### Environment facts that bit
 
@@ -43,7 +44,7 @@ provisioning + pushes. The user pasted an Agent Router key into chat; it is in `
 
 ## Next actions
 
-- Push, then confirm GitHub Actions and GitLab pipelines green; fix anything hosted-only.
+- Archive the GitLab pipeline console once a read_api token or paste is available.
 - Start M1: browser-safe Azure Voice Live credential minted by `api` (D23), Azure
   `VoiceProvider` adapter, session flow, scoring module on `adapters/llm/client.py`.
 - User: fix the scoring credential (enable `claude-opus-5` on the Agent Router token, or
