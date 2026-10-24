@@ -92,7 +92,8 @@ web:
       - .pnpm-store
   before_script:
     - corepack enable
-    - corepack prepare pnpm@9 --activate
+    # Match package.json and GitHub's pnpm/action-setup version source.
+    - corepack prepare "$(node -p 'require("./package.json").packageManager')" --activate
     - pnpm config set store-dir .pnpm-store
   script:
     - pnpm install --frozen-lockfile=false
