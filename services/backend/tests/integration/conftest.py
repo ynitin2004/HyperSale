@@ -80,6 +80,9 @@ async def app_session_factory(
     factory = async_sessionmaker(engine, expire_on_commit=False)
     monkeypatch.setattr(db_session, "engine", engine)
     monkeypatch.setattr(db_session, "SessionFactory", factory)
+    # Dispatch must also run as the unprivileged role here: the BYPASSRLS worker credential
+    # is a deployment concern, and these tests prove what happens without it.
+    monkeypatch.setattr(db_session, "WorkerSessionFactory", None)
     try:
         yield factory
     finally:

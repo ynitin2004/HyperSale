@@ -45,10 +45,17 @@ engine: AsyncEngine = _create_engine()
 SessionFactory = async_sessionmaker(engine, expire_on_commit=False)
 
 # The dispatch credential may bypass RLS; it is only ever used by `system_session`.
-# Without WORKER_DATABASE_URL it shares the runtime engine, which is the local-dev shape.
+# Without WORKER_DATABASE_URL there is no separate engine and dispatch shares the runtime
+# one, resolved at call time so tests that swap `SessionFactory` swap dispatch too.
 _worker_url = get_settings().worker_database_url
-worker_engine: AsyncEngine = _create_engine(_worker_url) if _worker_url else engine
-WorkerSessionFactory = async_sessionmaker(worker_engine, expire_on_commit=False)
+worker_engine: AsyncEngine | None = _create_engine(_worker_url) if _worker_url else None
+WorkerSessionFactory: async_sessionmaker[AsyncSession] | None = (
+    async_sessionmaker(worker_engine, expire_on_commit=False) if worker_engine else None
+)
+
+
+def _dispatch_factory() -> async_sessionmaker[AsyncSession]:
+    return WorkerSessionFactory or SessionFactory
 
 
 async def _set_guc(session: AsyncSession, name: str, value: str) -> None:
@@ -82,7 +89,7 @@ async def system_session() -> AsyncIterator[AsyncSession]:
     Sets no tenant GUC, so under RLS it returns nothing unless the connecting role holds
     BYPASSRLS. That role arrives via WORKER_DATABASE_URL; never point user-facing code here.
     """
-    async with WorkerSessionFactory() as session, session.begin():
+    async with _dispatch_factory()() as session, session.begin():
         yield session
 
 
@@ -94,5 +101,5 @@ async def ping() -> bool:
 
 async def dispose_engine() -> None:
     await engine.dispose()
-    if worker_engine is not engine:
+    if worker_engine is not None:
         await worker_engine.dispose()

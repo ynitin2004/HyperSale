@@ -42,11 +42,15 @@ From `services/backend`:
 ```
 .venv/Scripts/python -m ruff check . ../../scripts ../../spikes      -> All checks passed!
 .venv/Scripts/python -m pytest -q --ignore=tests/integration          -> 42 passed
-set DATABASE_URL / ALEMBIC_DATABASE_URL / TEST_DATABASE_URL to postgresql+asyncpg://postgres:postgres@localhost:5432/hypersale
+set DATABASE_URL / ALEMBIC_DATABASE_URL / TEST_DATABASE_URL to postgresql+asyncpg://postgres:postgres@localhost:5432/hypersale_test
 .venv/Scripts/python -m alembic upgrade head && downgrade base && upgrade head
 .venv/Scripts/python -m alembic check                                 -> No new upgrade operations detected.
 .venv/Scripts/python -m pytest -q tests/integration                   -> 13 passed (unprivileged role, RLS enforced)
 ```
+
+Use a database the compose stack does not run against (`CREATE DATABASE hypersale_test` once
+on the compose Postgres). The compose `worker` polls `hypersale` every second and will claim
+or requeue the queue tests' jobs, which shows up as flaky `test_queue_db` failures.
 
 ## 3. Hosted Supabase: roles, auth user, protected route
 
