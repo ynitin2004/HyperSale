@@ -1,4 +1,5 @@
 import hashlib
+from typing import Literal
 
 import httpx
 from fastapi import APIRouter
@@ -16,11 +17,25 @@ REALTIME_CLIENT_SECRET_URL = "https://api.openai.com/v1/realtime/client_secrets"
 PROVIDER_TIMEOUT_SECONDS = 15.0
 
 
+class RealtimeTokenReport(BaseModel):
+    """Token buckets from the provider's `response.done.usage`, summed over the session."""
+
+    text_in: int = Field(default=0, ge=0, le=50_000_000)
+    text_in_cached: int = Field(default=0, ge=0, le=50_000_000)
+    audio_in: int = Field(default=0, ge=0, le=50_000_000)
+    audio_in_cached: int = Field(default=0, ge=0, le=50_000_000)
+    text_out: int = Field(default=0, ge=0, le=50_000_000)
+    audio_out: int = Field(default=0, ge=0, le=50_000_000)
+
+
 class RealtimeUsageReport(BaseModel):
     session_ref: str = Field(min_length=1, max_length=120)
     input_seconds: float = Field(ge=0, le=28_800)
     output_seconds: float = Field(ge=0, le=28_800)
+    provider: Literal["azure", "openai"] = "azure"
     model_id: str | None = Field(default=None, max_length=120)
+    # Preferred: realtime bills per token. Seconds remain for clients that cannot see usage.
+    tokens: RealtimeTokenReport | None = None
 
 
 class RealtimeUsageAccepted(BaseModel):
@@ -78,16 +93,23 @@ async def report_realtime_usage(
     principal: CurrentPrincipal, session: TenantSession, payload: RealtimeUsageReport
 ) -> RealtimeUsageAccepted:
     """Queue the metering write so a slow ledger never delays the end of a roleplay."""
+    settings = get_settings()
+    default_model = (
+        settings.azure_voice_live_model
+        if payload.provider == "azure"
+        else settings.openai_realtime_model
+    )
     result = await enqueue(
         session,
         workspace_id=principal.workspace_id,
         job_type=JOB_RECORD_REALTIME_USAGE,
         payload={
             "session_ref": payload.session_ref,
-            "provider": "openai",
-            "model_id": payload.model_id or get_settings().openai_realtime_model,
+            "provider": payload.provider,
+            "model_id": payload.model_id or default_model,
             "input_seconds": payload.input_seconds,
             "output_seconds": payload.output_seconds,
+            "tokens": payload.tokens.model_dump() if payload.tokens else None,
         },
         idempotency_key=f"realtime-usage:{payload.session_ref}",
     )

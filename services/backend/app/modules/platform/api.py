@@ -22,7 +22,7 @@ async def public_config(request: Request) -> dict[str, Any]:
     return {
         "environment": settings.app_env,
         "auth_configured": settings.auth_configured,
-        "realtime_configured": bool(settings.openai_api_key),
+        "realtime_configured": bool(settings.azure_voice_live_api_key or settings.openai_api_key),
         "request_id": request.state.request_id,
     }
 

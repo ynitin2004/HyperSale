@@ -72,6 +72,44 @@ def realtime_audio_cost(
     return UsageCost(cost_microusd=int(cost), rate_missing=rate_missing)
 
 
+@dataclass(frozen=True)
+class RealtimeTokens:
+    """One session's token buckets as the provider reports them in `response.done.usage`."""
+
+    text_in: int = 0
+    text_in_cached: int = 0
+    audio_in: int = 0
+    audio_in_cached: int = 0
+    text_out: int = 0
+    audio_out: int = 0
+
+    @property
+    def input_total(self) -> int:
+        return self.text_in + self.text_in_cached + self.audio_in + self.audio_in_cached
+
+    @property
+    def output_total(self) -> int:
+        return self.text_out + self.audio_out
+
+
+def realtime_token_cost(tokens: RealtimeTokens, settings: Settings | None = None) -> UsageCost:
+    """Price a realtime session by token bucket. Any used bucket without a rate is flagged."""
+    settings = settings or get_settings()
+    buckets = (
+        (tokens.text_in, settings.realtime_text_input_microusd_per_1m),
+        (tokens.text_in_cached, settings.realtime_text_cached_input_microusd_per_1m),
+        (tokens.audio_in, settings.realtime_audio_input_microusd_per_1m),
+        (tokens.audio_in_cached, settings.realtime_audio_cached_input_microusd_per_1m),
+        (tokens.text_out, settings.realtime_text_output_microusd_per_1m),
+        (tokens.audio_out, settings.realtime_audio_output_microusd_per_1m),
+    )
+    if any(count < 0 for count, _ in buckets):
+        raise ValueError("Token counts cannot be negative")
+    rate_missing = any(count > 0 and rate <= 0 for count, rate in buckets)
+    cost = sum(round(count * rate / 1_000_000) for count, rate in buckets)
+    return UsageCost(cost_microusd=int(cost), rate_missing=rate_missing)
+
+
 async def record_usage(
     session: AsyncSession,
     *,
