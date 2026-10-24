@@ -24,3 +24,7 @@ graphify-out/graph.json
 graphify-out/graph.html
 # Was `*.my-claude-skills-main`, which matched nothing: this is a directory, not a suffix.
 my-claude-skills-main/
+# Voice spike runs hold multi-MB WAV/WebM; the JSON reports are archived under docs/evidence.
+spikes/runs/
+# Local Codex/MCP config (project-scoped Supabase token); never committed.
+.codex/

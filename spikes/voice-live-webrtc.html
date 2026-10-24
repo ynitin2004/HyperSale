@@ -223,6 +223,11 @@ function onEvent(msg) {
     log(`turn latency ${ms} ms ${ms <= 2000 ? '✓ within budget' : '✗ over 2 s budget'}`);
   } else if (t === 'input_audio_buffer.speech_started') {
     log('speaking — barge-in should cut her off');
+  } else if (t === 'response.done' && msg.response?.usage) {
+    // Cost truth (PHASES M0 spike 1): token usage per response, straight from the provider.
+    const u = msg.response.usage, i = u.input_token_details || {}, o = u.output_token_details || {};
+    log(`usage in=${u.input_tokens} (text ${i.text_tokens ?? '?'}, audio ${i.audio_tokens ?? '?'}, cached ${i.cached_tokens ?? 0})`
+      + ` out=${u.output_tokens} (text ${o.text_tokens ?? '?'}, audio ${o.audio_tokens ?? '?'})`);
   } else if (t === 'error' || t === 'rtc.call.error') {
     log('ERROR ' + JSON.stringify(msg.error || msg));
   }
