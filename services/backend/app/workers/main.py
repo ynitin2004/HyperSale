@@ -132,13 +132,37 @@ def _install_signal_handlers(worker: Worker) -> None:
             signal.signal(sig, lambda *_: worker.stop())
 
 
+HEALTH_RESPONSE = (
+    b"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 2\r\n"
+    b"Connection: close\r\n\r\nok"
+)
+
+
+async def _serve_health(port: int) -> asyncio.Server:
+    """Minimal liveness endpoint: orchestrators (and the E2E harness) need something to
+    probe, and a worker has no other port. Any request gets 200 while the loop is alive."""
+
+    async def handle(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
+        with contextlib.suppress(Exception):
+            await reader.read(1024)
+            writer.write(HEALTH_RESPONSE)
+            await writer.drain()
+        writer.close()
+
+    return await asyncio.start_server(handle, "127.0.0.1", port)
+
+
 async def run() -> None:
     setup_telemetry()
-    worker = Worker()
+    settings = get_settings()
+    worker = Worker(settings)
     _install_signal_handlers(worker)
+    health = await _serve_health(settings.worker_health_port) if settings.worker_health_port else None
     try:
         await worker.run_forever()
     finally:
+        if health is not None:
+            health.close()
         await dispose_engine()
 
 

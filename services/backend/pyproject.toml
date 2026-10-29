@@ -16,7 +16,9 @@ dependencies = [
   # SQLAlchemy 2.1 moved greenlet behind the asyncio extra; without it the image boots
   # on Windows (transitive greenlet) and dies on Linux at the first async engine import.
   "sqlalchemy[asyncio]>=2.0.38,<3",
-  "uvicorn[standard]>=0.34,<1"
+  "uvicorn[standard]>=0.34,<1",
+  "websockets>=13,<18",
+  "python-dotenv>=1,<2"
 ]
 
 [project.optional-dependencies]

@@ -21,7 +21,7 @@ def _kwargs(settings: Settings) -> dict:
             "Set ANTHROPIC_API_KEY or ANTHROPIC_AUTH_TOKEN to enable scoring",
             status_code=503,
         )
-    kwargs: dict = {"max_retries": 2, "timeout": settings.anthropic_timeout_seconds}
+    kwargs: dict = {"max_retries": 1, "timeout": settings.anthropic_timeout_seconds}
     if settings.anthropic_base_url:
         kwargs["base_url"] = settings.anthropic_base_url
     if settings.anthropic_api_key:

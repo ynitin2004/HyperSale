@@ -30,4 +30,5 @@ def test_error_response_carries_the_caller_request_id(client: TestClient) -> Non
 
 def test_public_config_never_exposes_provider_keys(client: TestClient) -> None:
     body = client.get("/api/v1/config").json()
-    assert set(body) == {"environment", "auth_configured", "realtime_configured", "request_id"}
+    assert set(body) == {"environment", "auth_configured", "realtime_configured", "voice_provider",
+                         "scoring_provider", "request_id"}

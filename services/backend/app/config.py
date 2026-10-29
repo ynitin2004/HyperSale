@@ -2,13 +2,14 @@ from functools import lru_cache
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from app.adapters.llm.models import VOICE_LIVE_MODEL
+from app.adapters.llm.models import OPENAI_REALTIME_MODEL, VOICE_LIVE_MODEL
 
 
 class Settings(BaseSettings):
     app_env: str = "development"
     log_level: str = "INFO"
     service_name: str = "hypersale-api"
+    cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
 
     database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/hypersale"
     # Optional direct/session connection for DDL; runtime stays on the transaction pooler.
@@ -30,14 +31,30 @@ class Settings(BaseSettings):
     jwks_cache_seconds: int = 600
 
     openai_api_key: str | None = None
-    openai_realtime_model: str = "gpt-realtime-2.1"
+    openai_realtime_model: str = OPENAI_REALTIME_MODEL
     openai_safety_identifier_salt: str | None = None
 
     # Scoring LLM (D19). Either credential works; a gateway sets the base URL.
     anthropic_api_key: str | None = None
     anthropic_auth_token: str | None = None
     anthropic_base_url: str | None = None
-    anthropic_timeout_seconds: float = 120.0
+    # A hung gateway call must not stall a report: fail fast, let the queue retry (D28).
+    anthropic_timeout_seconds: float = 60.0
+
+    # Provider selection (D31). `stub` runs the whole loop with no spend, for CI and E2E.
+    voice_provider: str = "azure"
+    scoring_provider: str = "llm"
+    stub_voice_turn_gap_seconds: float = 0.35
+    # Voice minutes are the dominant cost (RULES §3): the api hangs up at the cap (D29).
+    session_cap_seconds: int = 300
+
+    # Recordings (D31): `local` writes under recording_dir; `supabase` uses a private bucket.
+    recording_store: str = "local"
+    recording_dir: str = "var/recordings"
+    recording_bucket: str = "recordings"
+    recording_max_chunk_bytes: int = 2_000_000
+    supabase_url: str | None = None
+    supabase_secret_key: str | None = None
 
     # Azure Voice Live (D21). The key stays server-side; the browser gets a negotiated call.
     azure_voice_live_endpoint: str | None = None
@@ -59,6 +76,8 @@ class Settings(BaseSettings):
     realtime_audio_output_microusd_per_1m: int = 0
 
     worker_id: str = "worker-local"
+    # Optional liveness port for orchestrators and the E2E harness; 0 disables it.
+    worker_health_port: int = 0
     worker_batch_size: int = 5
     worker_poll_seconds: float = 1.0
     worker_stall_seconds: int = 120

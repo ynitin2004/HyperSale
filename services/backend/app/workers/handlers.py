@@ -1,13 +1,17 @@
-"""M0 job handlers.
+"""Job handlers.
 
-Only one job exists at M0, and it exists because the M0 gate demands it: a real voice
-session must leave a durable, costed usage record without blocking the request path.
+`platform.record_realtime_usage` meters client-reported voice usage (the M0 path, now a
+fallback under D29); `scoring.score_report` is FLOW chain C, the report pipeline.
 """
 import logging
+from datetime import datetime
+from uuid import UUID
 
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.adapters.llm.scorer import build_scorer
+from app.db.session import tenant_session
 from app.modules.platform.jobs import JOB_RECORD_REALTIME_USAGE
 from app.modules.platform.queue import ClaimedJob
 from app.modules.platform.usage import (
@@ -17,6 +21,8 @@ from app.modules.platform.usage import (
     realtime_token_cost,
     record_usage,
 )
+from app.modules.scoring import service as scoring_service
+from app.modules.scoring.service import JOB_SCORE_REPORT
 from app.workers.registry import register
 
 log = logging.getLogger("hypersale.worker.handlers")
@@ -80,3 +86,24 @@ async def record_realtime_usage(session: AsyncSession, job: ClaimedJob) -> None:
             "usage recorded without a configured rate",
             extra={"usage_event_id": str(usage_id), "session_ref": payload.session_ref},
         )
+
+
+@register(JOB_SCORE_REPORT)
+async def score_report(session: AsyncSession, job: ClaimedJob) -> None:
+    """FLOW chain C. Retries come from the queue (max 3); the last failure is user-visible."""
+    report_id = UUID(job.payload["report_id"])
+    ended_at = job.payload.get("ended_at")
+    try:
+        report = await scoring_service.score_report(
+            session, build_scorer(), workspace_id=job.workspace_id, report_id=report_id,
+            ended_at=datetime.fromisoformat(ended_at) if ended_at else None,
+        )
+    except Exception as exc:
+        if job.is_final_attempt:
+            # The job's own transaction rolls back, so the failure is written separately.
+            async with tenant_session(job.workspace_id) as tx:
+                await scoring_service.mark_failed(tx, job.workspace_id, report_id,
+                                                  f"{type(exc).__name__}: {exc}")
+        raise
+    log.info("report scored", extra={"report_id": str(report_id), "status": report.status,
+                                     "timings": report.timings})
