@@ -1,0 +1,356 @@
+{
+  "run": "20261029T173419Z",
+  "browser": "chromium",
+  "scenario": "dana-incumbent-objections",
+  "rep": {
+    "seed": 132598,
+    "skill": "strong",
+    "angle": "lead with a recent hiring push you noticed",
+    "name": "Dev"
+  },
+  "rep_lines": [
+    {
+      "text": "Hi Dana, Dev from HyperSale. I noticed Brightpath\u2019s recent sales hiring push\u2014can I take 30 seconds to explain why ramp consistency prompted my call?",
+      "llm_ms": 3825,
+      "end": false,
+      "audio_s": 10.57
+    },
+    {
+      "text": "HyperSale lets new reps practice realistic buyer calls before prospects, while managers see quote-backed progress weekly. How are you keeping ramp quality consistent across hires?",
+      "llm_ms": 3123,
+      "end": false,
+      "audio_s": 11.74
+    },
+    {
+      "text": "That makes sense\u2014Gong is strong after the call; HyperSale adds practice before it. Where are new hires rehearsing before live prospects today?",
+      "llm_ms": 3078,
+      "end": false,
+      "audio_s": 9.26
+    },
+    {
+      "text": "I hear you\u2014this should save manager time, not add work. How many live prospect calls does each hire need before they\u2019re consistently ready?",
+      "llm_ms": 3676,
+      "end": false,
+      "audio_s": 9.09
+    },
+    {
+      "text": "We compare pilot reps\u2019 time to consistency and first-call quality against your dozen-call baseline; every score cites the quote. How many hires this quarter?",
+      "llm_ms": 4087,
+      "end": false,
+      "audio_s": 10.29
+    },
+    {
+      "text": "Annual pricing is $90 per rep monthly; pilot cost depends on team size. How many of the 15 would you want included?",
+      "llm_ms": 5082,
+      "end": false,
+      "audio_s": 8.89
+    },
+    {
+      "text": "Thirteen reps cost $14,040 annually; all 15 cost $16,200. Could we scope a 30-day pilot Tuesday at 2 with you and enablement?",
+      "llm_ms": 7656,
+      "end": false,
+      "audio_s": 12.19
+    },
+    {
+      "text": "Perfect\u2014I\u2019ll send Tuesday at 2 with you and enablement to scope the 13-rep pilot. Thanks, Dana.",
+      "llm_ms": 4460,
+      "end": true,
+      "audio_s": 7.24
+    }
+  ],
+  "rep_cost_usd": 0.054,
+  "rep_tokens": {
+    "in": 3828,
+    "out": 1932
+  },
+  "recording_store": "supabase",
+  "click_to_live_ms": 3412,
+  "end_click_to_metrics_ms": 3178,
+  "end_click_to_report_ms": 21999,
+  "report_id": "d1a4be7f-1466-48f7-8254-076a47e288b8",
+  "session_id": "3aca18c4-61bc-4bf5-aa9f-dc74eb3d0ccd",
+  "status": "ready",
+  "overall": 4.6,
+  "provenance": {
+    "rubric_version": "rubric-v1",
+    "prompt_version": "score-v1-2026-10-29",
+    "model_id": "gpt-5.6-sol",
+    "metrics_version": "metrics-v1",
+    "persona_prompt_version": "3900e0e90e6f"
+  },
+  "timings": {
+    "scoring_ms": 15663,
+    "model_calls": 1,
+    "quotes_checked": 13,
+    "end_to_report_ms": 18670,
+    "end_to_metrics_ms": 1052,
+    "metrics_compute_ms": 37,
+    "quotes_rejected_final": 0
+  },
+  "metrics": {
+    "turns": 18,
+    "questions": 7,
+    "rep_turns": 10,
+    "rep_words": 187,
+    "buyer_turns": 8,
+    "buyer_words": 84,
+    "duration_ms": 146752,
+    "filler_words": 0,
+    "open_questions": 0,
+    "talk_ratio_rep": 0.69,
+    "metrics_version": "metrics-v1",
+    "next_step_quote": null,
+    "next_step_with_date": false,
+    "fillers_per_100_words": 0.0,
+    "longest_monologue_words": 26
+  },
+  "recording_available": true,
+  "criteria": [
+    {
+      "criterion_id": "listening",
+      "outcome": "scored",
+      "score": 5,
+      "rationale": "You consistently picked up the buyer\u2019s exact concerns\u2014Gong, manager workload, and the dozen-call baseline\u2014and used them to shape your next question. Keep this structure, but slow down enough to make each reflection sound conversational rather than compressed.",
+      "evidence": [
+        {
+          "turn_index": 5,
+          "quote": "Gong is strong after the call, Hypersale adds practice before it, where are new hires rehearsing before live prospects today?",
+          "speaker": "rep",
+          "start_ms": 48815,
+          "end_ms": 58178
+        },
+        {
+          "turn_index": 7,
+          "quote": "I hear you this should save manager time, not ad work, how many live prospect calls does each hire need before they're consistently ready?",
+          "speaker": "rep",
+          "start_ms": 63051,
+          "end_ms": 72178
+        },
+        {
+          "turn_index": 9,
+          "quote": "We compare pilot reps' time to consistency and first call quality against your dozen-call baseline.",
+          "speaker": "rep",
+          "start_ms": 82850,
+          "end_ms": 93225
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "value",
+      "outcome": "scored",
+      "score": 5,
+      "rationale": "You explained concrete capabilities and tied measurement directly to the buyer\u2019s dozen-call baseline. To make the business value even sharper, quantify the likely reduction in live-prospect calls or manager review time once validated.",
+      "evidence": [
+        {
+          "turn_index": 3,
+          "quote": "Hypersale lets new reps practice realistic buyer calls before prospects, while managers see quote-backed progress weekly",
+          "speaker": "rep",
+          "start_ms": 30313,
+          "end_ms": 42225
+        },
+        {
+          "turn_index": 9,
+          "quote": "We compare pilot reps' time to consistency and first call quality against your dozen-call baseline.",
+          "speaker": "rep",
+          "start_ms": 82850,
+          "end_ms": 93225
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "objection_handling",
+      "outcome": "scored",
+      "score": 4,
+      "rationale": "You acknowledged and reframed the Gong objection, then answered the measurement concern with a specific pilot comparison. Strengthen the manager-time response by explaining exactly how much work managers do and how the workflow avoids adding administrative burden.",
+      "evidence": [
+        {
+          "turn_index": 5,
+          "quote": "Gong is strong after the call, Hypersale adds practice before it, where are new hires rehearsing before live prospects today?",
+          "speaker": "rep",
+          "start_ms": 48815,
+          "end_ms": 58178
+        },
+        {
+          "turn_index": 7,
+          "quote": "I hear you this should save manager time, not ad work, how many live prospect calls does each hire need before they're consistently ready?",
+          "speaker": "rep",
+          "start_ms": 63051,
+          "end_ms": 72178
+        },
+        {
+          "turn_index": 9,
+          "quote": "We compare pilot reps' time to consistency and first call quality against your dozen-call baseline.",
+          "speaker": "rep",
+          "start_ms": 82850,
+          "end_ms": 93225
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "next_step",
+      "outcome": "scored",
+      "score": 4,
+      "rationale": "You secured a specific time, participants, agenda, pilot length, and cohort size. Add an explicit payoff for the meeting, such as leaving with agreed success metrics and a launch plan, to show why it merits the buyer\u2019s time.",
+      "evidence": [
+        {
+          "turn_index": 13,
+          "quote": "could we scope a 30 day pilot Tuesday at 2 with UN enablement?",
+          "speaker": "rep",
+          "start_ms": 126469,
+          "end_ms": 138803
+        },
+        {
+          "turn_index": 15,
+          "quote": "Perfect I'll send Tuesday at 2 with you and enablement to scope the 13 rep pilot.",
+          "speaker": "rep",
+          "start_ms": 150850,
+          "end_ms": 156208
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "positioning",
+      "outcome": "scored",
+      "score": 5,
+      "rationale": "You differentiated pre-call practice from Gong\u2019s post-call role, positioned the pilot against the live-prospect baseline, and offered a precise configuration within the budget. Keep making the complementary Gong positioning explicit so the buyer sees this as filling a gap rather than duplicating an incumbent.",
+      "evidence": [
+        {
+          "turn_index": 5,
+          "quote": "Gong is strong after the call, Hypersale adds practice before it",
+          "speaker": "rep",
+          "start_ms": 48815,
+          "end_ms": 58178
+        },
+        {
+          "turn_index": 9,
+          "quote": "We compare pilot reps' time to consistency and first call quality against your dozen-call baseline.",
+          "speaker": "rep",
+          "start_ms": 82850,
+          "end_ms": 93225
+        },
+        {
+          "turn_index": 13,
+          "quote": "13 reps cost $14,040 annually, all 15 cost $16,200",
+          "speaker": "rep",
+          "start_ms": 126469,
+          "end_ms": 138803
+        }
+      ],
+      "verified": true
+    }
+  ],
+  "transcript": [
+    {
+      "idx": 0,
+      "speaker": "rep",
+      "start_ms": 11835,
+      "text": "Hydena"
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "start_ms": 12745,
+      "text": "Dev from HyperSale, I noticed BrightPath's recent sales hiring push can I take 30 seconds to explain why ramp consistency prompted my call?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "start_ms": 22127,
+      "text": "Sure, Dev, 30 seconds. Go ahead."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "start_ms": 30313,
+      "text": "Hypersale lets new reps practice realistic buyer calls before prospects, while managers see quote-backed progress weekly, how are you keeping ramp quality consistent across hires?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "start_ms": 42246,
+      "text": "We already have Gong for this."
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "start_ms": 48815,
+      "text": "\ufffdThat makes sense\ufffd Gong is strong after the call, Hypersale adds practice before it, where are new hires rehearsing before live prospects today?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "start_ms": 58199,
+      "text": "New hires practice on live prospects. Managers don't have time for another tool."
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "start_ms": 63051,
+      "text": "I hear you this should save manager time, not ad work, how many live prospect calls does each hire need before they're consistently ready?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "start_ms": 72191,
+      "text": "About a dozen calls, give or take. How would I even measure whether practice works?"
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "start_ms": 82850,
+      "text": "We compare pilot reps' time to consistency and first call quality against your dozen-call baseline. Every score cites the quote, How many hires this quarter?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "start_ms": 93008,
+      "text": "We\u2019ve got about 15 ramping this quarter. What's your pilot cost?"
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "start_ms": 103748,
+      "text": "Annual pricing is $90 per rep monthly, pilot cost depends on team size, how many of the 15 would you want included?"
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "start_ms": 113103,
+      "text": "I can sponsor under $15k. How many reps fit that?"
+    },
+    {
+      "idx": 13,
+      "speaker": "rep",
+      "start_ms": 126469,
+      "text": "13 reps cost $14,040 annually, all 15 cost $16,200, could we scope a 30 day pilot Tuesday at 2 with UN enablement?"
+    },
+    {
+      "idx": 14,
+      "speaker": "buyer",
+      "start_ms": 138512,
+      "text": "All right, let's do 13 reps. Tuesday at 2 works. I've got a meeting, I need to go."
+    },
+    {
+      "idx": 15,
+      "speaker": "rep",
+      "start_ms": 150850,
+      "text": "Perfect I'll send Tuesday at 2 with you and enablement to scope the 13 rep pilot."
+    },
+    {
+      "idx": 16,
+      "speaker": "rep",
+      "start_ms": 155752,
+      "text": "Thanks, Dana."
+    },
+    {
+      "idx": 17,
+      "speaker": "buyer",
+      "start_ms": 158036,
+      "text": "You're welcome. Talk then."
+    }
+  ]
+}

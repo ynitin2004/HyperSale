@@ -36,10 +36,10 @@ log = logging.getLogger("hypersale.scoring")
 
 JOB_SCORE_REPORT = "scoring.score_report"
 MAX_VERIFY_RETRIES = 2
-# ARCHITECTURE §5: split before downgrading the model. Output tokens dominate latency.
-# Measured 2026-10-29 on a 40-turn live transcript with gpt-5.6-sol: 2 calls 40.7 s,
-# 3 calls 17.1 s, 6 calls hung on the gateway. So: two criteria per call.
-PARALLEL_SPLIT_MIN_CRITERIA = 4
+# D35: one call per report. On the D28 gateway parallel calls queue (live, 5 criteria: one
+# call 10.6/28.2 s vs three parallel 23.2/38.2 s) and each split call re-sends the
+# transcript. Splitting stays available for rubrics larger than v1's 7 criteria.
+PARALLEL_SPLIT_MIN_CRITERIA = 8
 CRITERIA_PER_CALL = 2
 DRILLS_PER_REPORT = 3
 FINAL_REPORT_STATUSES = ("ready", "degraded", "failed")
@@ -333,6 +333,16 @@ async def reports_for_sessions(session: AsyncSession, session_ids: list[UUID]) -
         return {}
     rows = await session.execute(select(Report).where(Report.session_id.in_(session_ids)))
     return {r.session_id: r for r in rows.scalars().all()}
+
+
+async def scores_for_reports(session: AsyncSession, report_ids: list[UUID]) -> dict[UUID, list[CriterionScore]]:
+    if not report_ids:
+        return {}
+    rows = await session.execute(select(CriterionScore).where(CriterionScore.report_id.in_(report_ids)))
+    out: dict[UUID, list[CriterionScore]] = {}
+    for row in rows.scalars().all():
+        out.setdefault(row.report_id, []).append(row)
+    return out
 
 
 async def list_timings(session: AsyncSession, workspace_id: UUID, limit: int = 200) -> list[dict]:

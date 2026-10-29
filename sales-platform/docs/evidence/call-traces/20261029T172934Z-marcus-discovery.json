@@ -1,0 +1,344 @@
+{
+  "run": "20261029T172934Z",
+  "browser": "msedge",
+  "scenario": "marcus-discovery",
+  "rep": {
+    "seed": 921302,
+    "skill": "strong",
+    "angle": "lead with a peer company's result",
+    "name": "Leo"
+  },
+  "rep_lines": [
+    {
+      "text": "Marcus, Leo from HyperSale. A fintech peer cut AE ramp by two months; can I take 30 seconds to explain how?",
+      "llm_ms": 3173,
+      "end": false,
+      "audio_s": 8.89
+    },
+    {
+      "text": "They used AI buyer roleplays and quote-backed scoring to expose coaching gaps weekly, not at quota time. What makes ramp take seven months today?",
+      "llm_ms": 3289,
+      "end": false,
+      "audio_s": 9.72
+    },
+    {
+      "text": "When reps stumble on integration questions, what happens to those opportunities, and how much of the seven-month ramp do you attribute to that?",
+      "llm_ms": 2541,
+      "end": false,
+      "audio_s": 8.92
+    },
+    {
+      "text": "If integration gaps add two months, how many new AEs face this annually, and what does each delayed month cost in pipeline or revenue?",
+      "llm_ms": 4302,
+      "end": false,
+      "audio_s": 9.34
+    },
+    {
+      "text": "That\u2019s potentially hundreds of thousands in delayed pipeline annually. How do you currently prepare reps for integration questions, and where does that process break down?",
+      "llm_ms": 3320,
+      "end": false,
+      "audio_s": 10.58
+    },
+    {
+      "text": "We turn your integration scenarios into adaptive buyer roleplays, then score every response with the exact quote behind it. Which scenarios derail reps most?",
+      "llm_ms": 7089,
+      "end": false,
+      "audio_s": 10.6
+    },
+    {
+      "text": "When API and migration questions arise, what must reps diagnose versus escalate, and how much engineering or manager time does that consume weekly?",
+      "llm_ms": 4316,
+      "end": false,
+      "audio_s": 10.25
+    }
+  ],
+  "rep_cost_usd": 0.0371,
+  "rep_tokens": {
+    "in": 3387,
+    "out": 1180
+  },
+  "recording_store": "supabase",
+  "click_to_live_ms": 3912,
+  "end_click_to_metrics_ms": 2864,
+  "end_click_to_report_ms": 32354,
+  "report_id": "9607f28b-c623-461b-ba1c-10eb73cfaa90",
+  "session_id": "ed698fc5-6fbe-4762-841c-a2d692665018",
+  "status": "ready",
+  "overall": 4.33,
+  "provenance": {
+    "rubric_version": "rubric-v1",
+    "prompt_version": "score-v1-2026-10-29",
+    "model_id": "gpt-5.6-sol",
+    "metrics_version": "metrics-v1",
+    "persona_prompt_version": "ffb52be27cb7"
+  },
+  "timings": {
+    "scoring_ms": 27179,
+    "model_calls": 1,
+    "quotes_checked": 14,
+    "end_to_report_ms": 29410,
+    "end_to_metrics_ms": 795,
+    "metrics_compute_ms": 29,
+    "quotes_rejected_final": 0
+  },
+  "metrics": {
+    "turns": 13,
+    "questions": 4,
+    "rep_turns": 7,
+    "rep_words": 167,
+    "buyer_turns": 6,
+    "buyer_words": 133,
+    "duration_ms": 151740,
+    "filler_words": 0,
+    "open_questions": 2,
+    "talk_ratio_rep": 0.557,
+    "metrics_version": "metrics-v1",
+    "next_step_quote": null,
+    "next_step_with_date": false,
+    "fillers_per_100_words": 0.0,
+    "longest_monologue_words": 26
+  },
+  "recording_available": true,
+  "criteria": [
+    {
+      "criterion_id": "opening",
+      "outcome": "scored",
+      "score": 4,
+      "rationale": "You identified yourself, your company, and a relevant fintech ramp result immediately. To make this exemplary, deliver the concise relevance statement directly instead of asking permission for 30 seconds.",
+      "evidence": [
+        {
+          "turn_index": 0,
+          "quote": "Marcus, Leo from Hypersale, a fintech peer cut a ramp by 2 months",
+          "speaker": "rep",
+          "start_ms": 10968,
+          "end_ms": 20645
+        },
+        {
+          "turn_index": 2,
+          "quote": "AI buyer role-plays and quote-back scoring to expose coaching gaps weekly",
+          "speaker": "rep",
+          "start_ms": 31029,
+          "end_ms": 40740
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "discovery",
+      "outcome": "scored",
+      "score": 5,
+      "rationale": "You moved from the operational problem to impact, scale, cost, and current process while following each answer. Keep this depth, though splitting some double-barreled questions could produce even fuller answers.",
+      "evidence": [
+        {
+          "turn_index": 4,
+          "quote": "what happens to those opportunities, and how much of the seven-month ramp do you attribute to that?",
+          "speaker": "rep",
+          "start_ms": 51152,
+          "end_ms": 59895
+        },
+        {
+          "turn_index": 6,
+          "quote": "how many new AES face this annually, and what does each delayed month cost in pipeline or revenue?",
+          "speaker": "rep",
+          "start_ms": 73652,
+          "end_ms": 83083
+        },
+        {
+          "turn_index": 8,
+          "quote": "How do you currently prepare reps for integration questions, and where does that process break",
+          "speaker": "rep",
+          "start_ms": 96951,
+          "end_ms": 107490
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "listening",
+      "outcome": "scored",
+      "score": 5,
+      "rationale": "You repeatedly reflected Marcus's language and numbers, then used them to shape the next question. Continue doing this while leaving space after each question rather than stacking multiple asks.",
+      "evidence": [
+        {
+          "turn_index": 4,
+          "quote": "When reps stumble on integration questions",
+          "speaker": "rep",
+          "start_ms": 51152,
+          "end_ms": 59895
+        },
+        {
+          "turn_index": 6,
+          "quote": "If integration gaps add two months",
+          "speaker": "rep",
+          "start_ms": 73652,
+          "end_ms": 83083
+        },
+        {
+          "turn_index": 8,
+          "quote": "That's potentially hundreds of thousands in delayed pipeline annually",
+          "speaker": "rep",
+          "start_ms": 96951,
+          "end_ms": 107490
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "value",
+      "outcome": "scored",
+      "score": 4,
+      "rationale": "You explained the product concretely and connected it to integration readiness and a two-month ramp problem. Strengthen the value case by explicitly linking those capabilities to recovering the quantified delayed pipeline Marcus described.",
+      "evidence": [
+        {
+          "turn_index": 0,
+          "quote": "a fintech peer cut a ramp by 2 months",
+          "speaker": "rep",
+          "start_ms": 10968,
+          "end_ms": 20645
+        },
+        {
+          "turn_index": 10,
+          "quote": "We turn your integration scenarios into adaptive buyer role plays, then score every response with the exact quote behind it",
+          "speaker": "rep",
+          "start_ms": 127888,
+          "end_ms": 138442
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "objection_handling",
+      "outcome": "scored",
+      "score": 4,
+      "rationale": "You treated technical complexity as a legitimate concern, explored its impact, and answered with a specific approach. Improve by explicitly acknowledging the concern and then clarifying how the system handles API and migration complexity with proof or an example.",
+      "evidence": [
+        {
+          "turn_index": 4,
+          "quote": "When reps stumble on integration questions, what happens to those opportunities",
+          "speaker": "rep",
+          "start_ms": 51152,
+          "end_ms": 59895
+        },
+        {
+          "turn_index": 10,
+          "quote": "We turn your integration scenarios into adaptive buyer role plays",
+          "speaker": "rep",
+          "start_ms": 127888,
+          "end_ms": 138442
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "next_step",
+      "outcome": "insufficient_evidence",
+      "score": null,
+      "rationale": "The excerpt ended during discovery, so your close was not observable. Before ending the call, propose a dated follow-up with the right participants, a clear agenda, and a reason Marcus should attend.",
+      "evidence": [],
+      "verified": true
+    },
+    {
+      "criterion_id": "positioning",
+      "outcome": "scored",
+      "score": 4,
+      "rationale": "You differentiated the approach through adaptive practice, weekly gap detection, and quote-backed scoring without attacking alternatives. Make the contrast with manager-led roleplays and documentation explicit, then support it with an economic case that can withstand price pressure.",
+      "evidence": [
+        {
+          "turn_index": 2,
+          "quote": "expose coaching gaps weekly, not at quota time",
+          "speaker": "rep",
+          "start_ms": 31029,
+          "end_ms": 40740
+        },
+        {
+          "turn_index": 10,
+          "quote": "adaptive buyer role plays, then score every response with the exact quote behind it",
+          "speaker": "rep",
+          "start_ms": 127888,
+          "end_ms": 138442
+        }
+      ],
+      "verified": true
+    }
+  ],
+  "transcript": [
+    {
+      "idx": 0,
+      "speaker": "rep",
+      "start_ms": 10968,
+      "text": "Marcus, Leo from Hypersale, a fintech peer cut a ramp by 2 months, can I take 30 seconds to explain how?"
+    },
+    {
+      "idx": 1,
+      "speaker": "buyer",
+      "start_ms": 20103,
+      "text": "Hey, Marcus here. You've got about twenty minutes. Go ahead, let\u2019s hear your 30 seconds."
+    },
+    {
+      "idx": 2,
+      "speaker": "rep",
+      "start_ms": 31029,
+      "text": "They used AI buyer role-plays and quote-back scoring to expose coaching gaps weekly, not at quota time, what makes RAMP take seven months today."
+    },
+    {
+      "idx": 3,
+      "speaker": "buyer",
+      "start_ms": 40590,
+      "text": "It\u2019s a technical product. Reps stumble on integration questions during live calls. That slows them down."
+    },
+    {
+      "idx": 4,
+      "speaker": "rep",
+      "start_ms": 51152,
+      "text": "When reps stumble on integration questions, what happens to those opportunities, and how much of the seven-month ramp do you attribute to that?"
+    },
+    {
+      "idx": 5,
+      "speaker": "buyer",
+      "start_ms": 59967,
+      "text": "Good question. Those opportunities slow down or stall out. I'd say that issue probably adds at least a couple of months to the ramp time."
+    },
+    {
+      "idx": 6,
+      "speaker": "rep",
+      "start_ms": 73652,
+      "text": "If integration gaps add two months, how many new AES face this annually, and what does each delayed month cost in pipeline or revenue?"
+    },
+    {
+      "idx": 7,
+      "speaker": "buyer",
+      "start_ms": 83272,
+      "text": "We bring on about five new AEs a year. Each delayed month could mean roughly tens of thousands in pipeline slipping, and that adds up fast."
+    },
+    {
+      "idx": 8,
+      "speaker": "rep",
+      "start_ms": 96951,
+      "text": "That's potentially hundreds of thousands in delayed pipeline annually. How do you currently prepare reps for integration questions, and where does that process break"
+    },
+    {
+      "idx": 9,
+      "speaker": "buyer",
+      "start_ms": 107675,
+      "text": "We rely on manager-led roleplays and some documentation. The breakdown happens when real customer scenarios get more complex than the practice. How does your approach actually handle that?"
+    },
+    {
+      "idx": 10,
+      "speaker": "rep",
+      "start_ms": 127888,
+      "text": "We turn your integration scenarios into adaptive buyer role plays, then score every response with the exact quote behind it, which scenarios derail reps most."
+    },
+    {
+      "idx": 11,
+      "speaker": "buyer",
+      "start_ms": 138287,
+      "text": "The most common ones are around complex API integrations and custom data migrations. Those often trip reps up the most."
+    },
+    {
+      "idx": 12,
+      "speaker": "rep",
+      "start_ms": 152529,
+      "text": "When API and migration questions arise, what must reps diagnose versus escalate, and how much engineering or manager time does that consume weekly?"
+    }
+  ]
+}

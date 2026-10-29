@@ -80,7 +80,8 @@ def test_fallback_scorer_rules() -> None:
 
 
 class DownScorer:
-    """Answers the first call, fails the second: a mid-report outage."""
+    """Answers the first call with a fabricated quote, then fails the verification retry:
+    an outage in the middle of a report."""
 
     model_id = "primary-down"
 
@@ -92,14 +93,15 @@ class DownScorer:
         if self.calls > 1:
             raise ScorerUnavailable(self.model_id, "InternalServerError: no channel")
         ids = tool["input_schema"]["properties"]["criteria"]["items"]["properties"]["id"]["enum"]
-        return ScorerResult([{"id": i, "outcome": "5", "rationale": "r", "evidence": []} for i in ids],
+        return ScorerResult([{"id": i, "outcome": "5", "rationale": "r",
+                              "evidence": [{"turn_index": 1, "quote": "words nobody said"}]} for i in ids],
                             self.model_id, 10, 10, 0, 1)
 
 
 async def test_fallback_rescores_the_whole_report_on_one_model() -> None:
     primary, fallback = DownScorer(), StubScorer()
     raw, failed, calls, fallback_from = await score_with_fallback(
-        primary, fallback, criteria=CRITERIA * 2, turns=TURNS, buyer_name="Priya", scenario_title="t")
+        primary, fallback, criteria=CRITERIA, turns=TURNS, buyer_name="Priya", scenario_title="t")
     assert fallback_from == {"model_id": "primary-down", "reason": "InternalServerError: no channel"}
     # Nothing from the primary survives: every call, hence the provenance, is the fallback's.
     assert calls and {c.model_id for c in calls} == {"stub-scorer"}

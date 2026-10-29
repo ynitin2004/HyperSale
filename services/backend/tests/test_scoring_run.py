@@ -86,8 +86,9 @@ def test_drills_target_the_weakest_scored_criteria() -> None:
         "discovery", "next_step", "opening"]
 
 
-async def test_six_criteria_are_scored_two_per_parallel_call() -> None:
-    ids = ["opening", "discovery", "listening", "value", "objection_handling", "next_step"]
+async def test_a_v1_sized_rubric_is_scored_in_one_call() -> None:
+    """D35: every rubric-v1 scenario (5-7 criteria) is one model call."""
+    ids = ["opening", "discovery", "listening", "value", "objection_handling", "next_step", "positioning"]
     criteria = [Criterion(i, i, "d") for i in ids]
 
     class Echo:
@@ -103,5 +104,5 @@ async def test_six_criteria_are_scored_two_per_parallel_call() -> None:
     scorer = Echo()
     raw, failed, calls = await run_scoring(scorer, criteria=criteria, turns=TURNS,
                                            buyer_name="P", scenario_title="t")
-    assert scorer.groups == [ids[0:2], ids[2:4], ids[4:6]] and len(calls) == 3
+    assert scorer.groups == [ids] and len(calls) == 1
     assert {c["id"] for c in raw} == set(ids) and failed == []

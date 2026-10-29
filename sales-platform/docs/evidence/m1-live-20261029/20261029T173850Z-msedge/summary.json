@@ -1,0 +1,16 @@
+{
+  "run": "20261029T173850Z",
+  "browser": "msedge",
+  "scenario": "elena-inbound-follow-up",
+  "screens": [
+    "01-login.png"
+  ],
+  "rep": {
+    "seed": 937018,
+    "skill": "average",
+    "angle": "lead with a recent hiring push you noticed",
+    "name": "Maya"
+  },
+  "recording_store": "supabase",
+  "browser_version": "157.0.4341.24"
+}

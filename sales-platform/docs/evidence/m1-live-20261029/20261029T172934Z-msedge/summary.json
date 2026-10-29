@@ -1,0 +1,300 @@
+{
+  "run": "20261029T172934Z",
+  "browser": "msedge",
+  "scenario": "marcus-discovery",
+  "screens": [
+    "01-login.png",
+    "02-catalog.png",
+    "03-preflight.png",
+    "05-live-call-end.png",
+    "06-report-metrics.png",
+    "07-report.png",
+    "08-evidence-seek.png",
+    "09-latency.png"
+  ],
+  "rep": {
+    "seed": 921302,
+    "skill": "strong",
+    "angle": "lead with a peer company's result",
+    "name": "Leo"
+  },
+  "recording_store": "supabase",
+  "browser_version": "157.0.4341.24",
+  "click_to_live_ms": 3912,
+  "rep_lines": [
+    {
+      "text": "Marcus, Leo from HyperSale. A fintech peer cut AE ramp by two months; can I take 30 seconds to explain how?",
+      "llm_ms": 3173,
+      "end": false,
+      "audio_s": 8.89
+    },
+    {
+      "text": "They used AI buyer roleplays and quote-backed scoring to expose coaching gaps weekly, not at quota time. What makes ramp take seven months today?",
+      "llm_ms": 3289,
+      "end": false,
+      "audio_s": 9.72
+    },
+    {
+      "text": "When reps stumble on integration questions, what happens to those opportunities, and how much of the seven-month ramp do you attribute to that?",
+      "llm_ms": 2541,
+      "end": false,
+      "audio_s": 8.92
+    },
+    {
+      "text": "If integration gaps add two months, how many new AEs face this annually, and what does each delayed month cost in pipeline or revenue?",
+      "llm_ms": 4302,
+      "end": false,
+      "audio_s": 9.34
+    },
+    {
+      "text": "That\u2019s potentially hundreds of thousands in delayed pipeline annually. How do you currently prepare reps for integration questions, and where does that process break down?",
+      "llm_ms": 3320,
+      "end": false,
+      "audio_s": 10.58
+    },
+    {
+      "text": "We turn your integration scenarios into adaptive buyer roleplays, then score every response with the exact quote behind it. Which scenarios derail reps most?",
+      "llm_ms": 7089,
+      "end": false,
+      "audio_s": 10.6
+    },
+    {
+      "text": "When API and migration questions arise, what must reps diagnose versus escalate, and how much engineering or manager time does that consume weekly?",
+      "llm_ms": 4316,
+      "end": false,
+      "audio_s": 10.25
+    }
+  ],
+  "rep_cost_usd": 0.0371,
+  "rep_tokens": {
+    "in": 3387,
+    "out": 1180
+  },
+  "live_turns_seen": 12,
+  "end_click_to_metrics_ms": 2864,
+  "end_click_to_report_ms": 32354,
+  "report_id": "9607f28b-c623-461b-ba1c-10eb73cfaa90",
+  "evidence_quotes": 14,
+  "evidence_all_rep": true,
+  "seek": {
+    "currentTime": 30.450455,
+    "duration": 161.346,
+    "paused": false,
+    "highlighted": "rep hit",
+    "ts": "0:31"
+  },
+  "integrity_text": "140 persisted quotes across 10 reports re-verified against their transcripts: 0 failing.",
+  "console_errors": [],
+  "report": {
+    "status": "ready",
+    "overall": 4.33,
+    "provenance": {
+      "rubric_version": "rubric-v1",
+      "prompt_version": "score-v1-2026-10-29",
+      "model_id": "gpt-5.6-sol",
+      "metrics_version": "metrics-v1",
+      "persona_prompt_version": "ffb52be27cb7"
+    },
+    "timings": {
+      "scoring_ms": 27179,
+      "model_calls": 1,
+      "quotes_checked": 14,
+      "end_to_report_ms": 29410,
+      "end_to_metrics_ms": 795,
+      "metrics_compute_ms": 29,
+      "quotes_rejected_final": 0
+    },
+    "metrics": {
+      "turns": 13,
+      "questions": 4,
+      "rep_turns": 7,
+      "rep_words": 167,
+      "buyer_turns": 6,
+      "buyer_words": 133,
+      "duration_ms": 151740,
+      "filler_words": 0,
+      "open_questions": 2,
+      "talk_ratio_rep": 0.557,
+      "metrics_version": "metrics-v1",
+      "next_step_quote": null,
+      "next_step_with_date": false,
+      "fillers_per_100_words": 0.0,
+      "longest_monologue_words": 26
+    },
+    "criteria": [
+      {
+        "id": "opening",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 2
+      },
+      {
+        "id": "discovery",
+        "outcome": "scored",
+        "score": 5,
+        "verified": true,
+        "quotes": 3
+      },
+      {
+        "id": "listening",
+        "outcome": "scored",
+        "score": 5,
+        "verified": true,
+        "quotes": 3
+      },
+      {
+        "id": "value",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 2
+      },
+      {
+        "id": "objection_handling",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 2
+      },
+      {
+        "id": "next_step",
+        "outcome": "insufficient_evidence",
+        "score": null,
+        "verified": true,
+        "quotes": 0
+      },
+      {
+        "id": "positioning",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 2
+      }
+    ],
+    "drills": [
+      "opening-30s",
+      "value-no-adjectives",
+      "objection-arc"
+    ]
+  },
+  "integrity": {
+    "reports": 10,
+    "quotes_checked": 140,
+    "quotes_failing": 0
+  },
+  "latency": [
+    {
+      "key": "connect_ms",
+      "label": "Click to connected",
+      "budget_ms": 5000,
+      "samples": 10,
+      "p50_ms": 1342,
+      "p95_ms": 1877,
+      "max_ms": 1877,
+      "within_budget": true,
+      "recent": [
+        1222,
+        1431,
+        1524,
+        1342,
+        1360,
+        1877,
+        1122,
+        1742,
+        1208,
+        1328
+      ]
+    },
+    {
+      "key": "end_to_metrics_ms",
+      "label": "Call end to metrics",
+      "budget_ms": 1000,
+      "samples": 10,
+      "p50_ms": 758,
+      "p95_ms": 1867,
+      "max_ms": 1867,
+      "within_budget": false,
+      "recent": [
+        795,
+        744,
+        758,
+        1728,
+        1684,
+        1764,
+        1867,
+        470,
+        557,
+        632
+      ]
+    },
+    {
+      "key": "scoring_ms",
+      "label": "Model scoring time",
+      "budget_ms": 30000,
+      "samples": 10,
+      "p50_ms": 27179,
+      "p95_ms": 80058,
+      "max_ms": 80058,
+      "within_budget": false,
+      "recent": [
+        27179,
+        31486,
+        28935,
+        80058,
+        25895,
+        21490,
+        30458,
+        13728,
+        25825,
+        30933
+      ]
+    },
+    {
+      "key": "end_to_report_ms",
+      "label": "Call end to full report",
+      "budget_ms": 30000,
+      "samples": 10,
+      "p50_ms": 29660,
+      "p95_ms": 254049,
+      "max_ms": 254049,
+      "within_budget": false,
+      "recent": [
+        29410,
+        33727,
+        31324,
+        83644,
+        29660,
+        25691,
+        34299,
+        15721,
+        27390,
+        254049
+      ]
+    }
+  ],
+  "usage": {
+    "workspace_id": "b71986ce-055e-4648-8da5-95a3bf3ccd86",
+    "since": "2026-10-28T17:33:13.081069+00:00",
+    "total_cost_microusd": 1527632,
+    "rate_missing": false,
+    "by_event_type": [
+      {
+        "event_type": "realtime_audio",
+        "events": 7,
+        "input_units": 103088,
+        "output_units": 8813,
+        "cost_microusd": 828800,
+        "rate_missing": false
+      },
+      {
+        "event_type": "scoring",
+        "events": 19,
+        "input_units": 23003,
+        "output_units": 30341,
+        "cost_microusd": 698832,
+        "rate_missing": false
+      }
+    ]
+  }
+}
