@@ -1,0 +1,308 @@
+{
+  "run": "20261029T170051Z",
+  "browser": "chromium",
+  "scenario": "elena-inbound-follow-up",
+  "rep": {
+    "seed": 231906,
+    "skill": "average",
+    "angle": "lead with manager coaching time",
+    "name": "Sara"
+  },
+  "rep_lines": [
+    {
+      "text": "Hi Elena, this is Sara from HyperSale. You requested a demo yesterday\u2014did I catch you with a minute to discuss reducing manager coaching time?",
+      "llm_ms": 5031,
+      "end": false,
+      "audio_s": 9.17
+    },
+    {
+      "text": "Absolutely. Before I dive in, how are your SDRs practicing calls today, and how much manager time does that take each week?",
+      "llm_ms": 3159,
+      "end": false,
+      "audio_s": 8.89
+    },
+    {
+      "text": "That makes sense. How many SDRs are you supporting, and where do you see the biggest gaps when managers can\u2019t review every practice call?",
+      "llm_ms": 5368,
+      "end": false,
+      "audio_s": 8.81
+    },
+    {
+      "text": "Definitely. How are those gaps affecting ramp time or conversion today? HyperSale lets SDRs practice realistic buyers, while managers track improvement from quote-backed scores.",
+      "llm_ms": 5281,
+      "end": false,
+      "audio_s": 12.08
+    },
+    {
+      "text": "Setup for a pilot is typically light; we tailor scenarios and scoring with your team. Would a 30-minute demo be a good next step?",
+      "llm_ms": 6178,
+      "end": false,
+      "audio_s": 8.67
+    },
+    {
+      "text": "Absolutely\u2014we\u2019ll show week-by-week improvement and the exact quotes behind every score. Would Thursday at 2 p.m. work for the demo?",
+      "llm_ms": 6542,
+      "end": false,
+      "audio_s": 8.91
+    }
+  ],
+  "rep_cost_usd": 0.039,
+  "rep_tokens": {
+    "in": 3057,
+    "out": 1339
+  },
+  "recording_store": "supabase",
+  "click_to_live_ms": 3418,
+  "end_click_to_metrics_ms": 2780,
+  "end_click_to_report_ms": 35981,
+  "report_id": "0b3d894c-f1d2-4df7-b745-03782b59bca7",
+  "session_id": "b3623b72-9097-4821-bc2c-1c7130606b0d",
+  "status": "ready",
+  "overall": 4.2,
+  "provenance": {
+    "rubric_version": "rubric-v1",
+    "prompt_version": "score-v1-2026-10-29",
+    "model_id": "gpt-5.6-sol",
+    "metrics_version": "metrics-v1",
+    "persona_prompt_version": "b5f20e7a5e48"
+  },
+  "timings": {
+    "scoring_ms": 31486,
+    "model_calls": 3,
+    "quotes_checked": 13,
+    "end_to_report_ms": 33727,
+    "end_to_metrics_ms": 744,
+    "metrics_compute_ms": 28,
+    "quotes_rejected_final": 0
+  },
+  "metrics": {
+    "turns": 12,
+    "questions": 5,
+    "rep_turns": 6,
+    "rep_words": 145,
+    "buyer_turns": 6,
+    "buyer_words": 247,
+    "duration_ms": 163260,
+    "filler_words": 0,
+    "open_questions": 0,
+    "talk_ratio_rep": 0.37,
+    "metrics_version": "metrics-v1",
+    "next_step_quote": "Absolutely will show week-by-week improvement and the exact quotes behind every score. Would Thursday at 2 p.m. work for the demo?",
+    "next_step_with_date": true,
+    "fillers_per_100_words": 0.0,
+    "longest_monologue_words": 25
+  },
+  "recording_available": true,
+  "criteria": [
+    {
+      "criterion_id": "opening",
+      "outcome": "scored",
+      "score": 4,
+      "rationale": "You clearly identified yourself, your company, the inbound trigger, and a buyer-relevant reason. To make this exemplary, lead directly with the useful agenda instead of asking whether you caught her with a minute.",
+      "evidence": [
+        {
+          "turn_index": 0,
+          "quote": "Hi Elena, this is Sarah from Hypersale. You requested a demo yesterday.",
+          "speaker": "rep",
+          "start_ms": 12828,
+          "end_ms": 22333
+        },
+        {
+          "turn_index": 0,
+          "quote": "Did I catch you with a minute to discuss reducing manager coaching time?",
+          "speaker": "rep",
+          "start_ms": 12828,
+          "end_ms": 22333
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "discovery",
+      "outcome": "scored",
+      "score": 4,
+      "rationale": "You asked specific, open questions about the current process, workload, gaps, and business impact, and your follow-ups built on Elena's answers. To improve, let her answer the impact question before introducing the product rather than pitching in the same turn.",
+      "evidence": [
+        {
+          "turn_index": 2,
+          "quote": "how are your SDRs practicing calls today, and how much manager time does that take each week?",
+          "speaker": "rep",
+          "start_ms": 38140,
+          "end_ms": 47303
+        },
+        {
+          "turn_index": 4,
+          "quote": "how many SDRs are you supporting, and where do you see the biggest gaps when managers can't review every practice call?",
+          "speaker": "rep",
+          "start_ms": 70845,
+          "end_ms": 79725
+        },
+        {
+          "turn_index": 6,
+          "quote": "how are those gaps affecting ramp time or conversion today",
+          "speaker": "rep",
+          "start_ms": 101665,
+          "end_ms": 113850
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "listening",
+      "outcome": "scored",
+      "score": 4,
+      "rationale": "You built your questions on Elena\u2019s comments about incomplete reviews and performance gaps, and you directly answered her setup question. To improve, pause after asking about impact instead of immediately adding a product pitch, so she can fully answer first.",
+      "evidence": [
+        {
+          "turn_index": 4,
+          "quote": "where do you see the biggest gaps when managers can't review every practice call?",
+          "speaker": "rep",
+          "start_ms": 70845,
+          "end_ms": 79725
+        },
+        {
+          "turn_index": 6,
+          "quote": "how are those gaps affecting ramp time or conversion today",
+          "speaker": "rep",
+          "start_ms": 101665,
+          "end_ms": 113850
+        },
+        {
+          "turn_index": 8,
+          "quote": "Setup for a pilot is typically light, we tailor scenarios and scoring with your team",
+          "speaker": "rep",
+          "start_ms": 138406,
+          "end_ms": 147022
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "value",
+      "outcome": "scored",
+      "score": 4,
+      "rationale": "You concretely explained realistic practice, progress tracking, tailored scoring, and quote-level evidence, tying these capabilities to Elena\u2019s visibility concerns. Make the business value stronger by explicitly connecting them to her 8\u201310 weekly coaching hours and the extra weeks of ramp time.",
+      "evidence": [
+        {
+          "turn_index": 6,
+          "quote": "Hypersale lets SDRs practice realistic buyers, while managers track improvement from quote-backs' scores.",
+          "speaker": "rep",
+          "start_ms": 101665,
+          "end_ms": 113850
+        },
+        {
+          "turn_index": 8,
+          "quote": "we tailor scenarios and scoring with your team",
+          "speaker": "rep",
+          "start_ms": 138406,
+          "end_ms": 147022
+        },
+        {
+          "turn_index": 10,
+          "quote": "will show week-by-week improvement and the exact quotes behind every score.",
+          "speaker": "rep",
+          "start_ms": 166205,
+          "end_ms": 175100
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "next_step",
+      "outcome": "scored",
+      "score": 5,
+      "rationale": "You secured a specific 30-minute demo for Thursday at 2 p.m. and tied the agenda to improvement data and quote-level evidence. Make it even more complete by confirming any additional participants and the calendar invite.",
+      "evidence": [
+        {
+          "turn_index": 8,
+          "quote": "would a 30 minute demo be a good next step?",
+          "speaker": "rep",
+          "start_ms": 138406,
+          "end_ms": 147022
+        },
+        {
+          "turn_index": 10,
+          "quote": "Absolutely will show week-by-week improvement and the exact quotes behind every score. Would Thursday at 2 p.m. work for the demo?",
+          "speaker": "rep",
+          "start_ms": 166205,
+          "end_ms": 175100
+        }
+      ],
+      "verified": true
+    }
+  ],
+  "transcript": [
+    {
+      "idx": 0,
+      "speaker": "rep",
+      "start_ms": 12828,
+      "text": "Hi Elena, this is Sarah from Hypersale. You requested a demo yesterday. Did I catch you with a minute to discuss reducing manager coaching time?"
+    },
+    {
+      "idx": 1,
+      "speaker": "buyer",
+      "start_ms": 21797,
+      "text": "Hi Sarah, this is Elena! Thanks for calling back so fast. Yeah, I\u2019ve got a few minutes now. Reducing manager coaching time is definitely something I\u2019m interested in\u2014tell me more."
+    },
+    {
+      "idx": 2,
+      "speaker": "rep",
+      "start_ms": 38140,
+      "text": "Absolutely, before I dive in, how are your SDRs practicing calls today, and how much manager time does that take each week?"
+    },
+    {
+      "idx": 3,
+      "speaker": "buyer",
+      "start_ms": 46873,
+      "text": "Sure, so right now, my SDRs practice by recording mock calls and I review a handful myself. It takes a good chunk of time\u2014probably around 8 to 10 hours a week just listening and giving feedback. And honestly, I can\u2019t catch everything, so there\u2019s definitely room for improvement. That make sense?"
+    },
+    {
+      "idx": 4,
+      "speaker": "rep",
+      "start_ms": 70845,
+      "text": "That makes sense, how many SDRs are you supporting, and where do you see the biggest gaps when managers can't review every practice call?"
+    },
+    {
+      "idx": 5,
+      "speaker": "buyer",
+      "start_ms": 79386,
+      "text": "I\u2019m supporting about 4 to 6 new SDRs each quarter. The biggest gaps show up in their cold call nerves and objection handling. When I can\u2019t review every call, I miss those subtle patterns\u2014like who\u2019s improving and who\u2019s stuck. Oh, interesting, right?"
+    },
+    {
+      "idx": 6,
+      "speaker": "rep",
+      "start_ms": 101665,
+      "text": "Definitely, how are those gaps affecting ramp time or conversion today, Hypersale lets SDRs practice realistic buyers, while managers track improvement from quote-backs' scores."
+    },
+    {
+      "idx": 7,
+      "speaker": "buyer",
+      "start_ms": 113460,
+      "text": "Right now, those gaps are adding a few extra weeks to ramp time. Some SDRs take longer to find their footing on live calls, and it\u2019s tough to quantify who\u2019s really ready. So having a way to track improvement with solid data\u2014oh, that\u2019s really appealing. How long does setup take on your side?"
+    },
+    {
+      "idx": 8,
+      "speaker": "rep",
+      "start_ms": 138406,
+      "text": "Setup for a pilot is typically light, we tailor scenarios and scoring with your team, would a 30 minute demo be a good next step?"
+    },
+    {
+      "idx": 9,
+      "speaker": "buyer",
+      "start_ms": 146710,
+      "text": "Yes, that sounds great. Can we set up a 30-minute demo later this week? Maybe Thursday afternoon? And one more thing\u2014can I see how my reps are improving over time during that demo?"
+    },
+    {
+      "idx": 10,
+      "speaker": "rep",
+      "start_ms": 166205,
+      "text": "Absolutely will show week-by-week improvement and the exact quotes behind every score. Would Thursday at 2 p.m. work for the demo?"
+    },
+    {
+      "idx": 11,
+      "speaker": "buyer",
+      "start_ms": 174810,
+      "text": "Yes, Thursday at 2 p.m. works perfectly. I\u2019m really looking forward to seeing that improvement data. Great, talk soon!"
+    }
+  ]
+}

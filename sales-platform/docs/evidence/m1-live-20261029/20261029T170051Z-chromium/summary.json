@@ -1,0 +1,276 @@
+{
+  "run": "20261029T170051Z",
+  "browser": "chromium",
+  "scenario": "elena-inbound-follow-up",
+  "screens": [
+    "01-login.png",
+    "02-catalog.png",
+    "03-preflight.png",
+    "05-live-call-end.png",
+    "06-report-metrics.png",
+    "07-report.png",
+    "08-evidence-seek.png",
+    "09-latency.png"
+  ],
+  "rep": {
+    "seed": 231906,
+    "skill": "average",
+    "angle": "lead with manager coaching time",
+    "name": "Sara"
+  },
+  "recording_store": "supabase",
+  "browser_version": "156.0.8078.4",
+  "click_to_live_ms": 3418,
+  "rep_lines": [
+    {
+      "text": "Hi Elena, this is Sara from HyperSale. You requested a demo yesterday\u2014did I catch you with a minute to discuss reducing manager coaching time?",
+      "llm_ms": 5031,
+      "end": false,
+      "audio_s": 9.17
+    },
+    {
+      "text": "Absolutely. Before I dive in, how are your SDRs practicing calls today, and how much manager time does that take each week?",
+      "llm_ms": 3159,
+      "end": false,
+      "audio_s": 8.89
+    },
+    {
+      "text": "That makes sense. How many SDRs are you supporting, and where do you see the biggest gaps when managers can\u2019t review every practice call?",
+      "llm_ms": 5368,
+      "end": false,
+      "audio_s": 8.81
+    },
+    {
+      "text": "Definitely. How are those gaps affecting ramp time or conversion today? HyperSale lets SDRs practice realistic buyers, while managers track improvement from quote-backed scores.",
+      "llm_ms": 5281,
+      "end": false,
+      "audio_s": 12.08
+    },
+    {
+      "text": "Setup for a pilot is typically light; we tailor scenarios and scoring with your team. Would a 30-minute demo be a good next step?",
+      "llm_ms": 6178,
+      "end": false,
+      "audio_s": 8.67
+    },
+    {
+      "text": "Absolutely\u2014we\u2019ll show week-by-week improvement and the exact quotes behind every score. Would Thursday at 2 p.m. work for the demo?",
+      "llm_ms": 6542,
+      "end": false,
+      "audio_s": 8.91
+    }
+  ],
+  "rep_cost_usd": 0.039,
+  "rep_tokens": {
+    "in": 3057,
+    "out": 1339
+  },
+  "live_turns_seen": 12,
+  "end_click_to_metrics_ms": 2780,
+  "end_click_to_report_ms": 35981,
+  "report_id": "0b3d894c-f1d2-4df7-b745-03782b59bca7",
+  "evidence_quotes": 13,
+  "evidence_all_rep": true,
+  "seek": {
+    "currentTime": 12.046916,
+    "duration": 175.621,
+    "paused": false,
+    "highlighted": "rep hit",
+    "ts": "0:12"
+  },
+  "integrity_text": "126 persisted quotes across 9 reports re-verified against their transcripts: 0 failing.",
+  "console_errors": [],
+  "report": {
+    "status": "ready",
+    "overall": 4.2,
+    "provenance": {
+      "rubric_version": "rubric-v1",
+      "prompt_version": "score-v1-2026-10-29",
+      "model_id": "gpt-5.6-sol",
+      "metrics_version": "metrics-v1",
+      "persona_prompt_version": "b5f20e7a5e48"
+    },
+    "timings": {
+      "scoring_ms": 31486,
+      "model_calls": 3,
+      "quotes_checked": 13,
+      "end_to_report_ms": 33727,
+      "end_to_metrics_ms": 744,
+      "metrics_compute_ms": 28,
+      "quotes_rejected_final": 0
+    },
+    "metrics": {
+      "turns": 12,
+      "questions": 5,
+      "rep_turns": 6,
+      "rep_words": 145,
+      "buyer_turns": 6,
+      "buyer_words": 247,
+      "duration_ms": 163260,
+      "filler_words": 0,
+      "open_questions": 0,
+      "talk_ratio_rep": 0.37,
+      "metrics_version": "metrics-v1",
+      "next_step_quote": "Absolutely will show week-by-week improvement and the exact quotes behind every score. Would Thursday at 2 p.m. work for the demo?",
+      "next_step_with_date": true,
+      "fillers_per_100_words": 0.0,
+      "longest_monologue_words": 25
+    },
+    "criteria": [
+      {
+        "id": "opening",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 2
+      },
+      {
+        "id": "discovery",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 3
+      },
+      {
+        "id": "listening",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 3
+      },
+      {
+        "id": "value",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 3
+      },
+      {
+        "id": "next_step",
+        "outcome": "scored",
+        "score": 5,
+        "verified": true,
+        "quotes": 2
+      }
+    ],
+    "drills": [
+      "opening-30s",
+      "discovery-five-whys",
+      "listening-reflect"
+    ]
+  },
+  "integrity": {
+    "reports": 9,
+    "quotes_checked": 126,
+    "quotes_failing": 0
+  },
+  "latency": [
+    {
+      "key": "connect_ms",
+      "label": "Click to connected",
+      "budget_ms": 5000,
+      "samples": 9,
+      "p50_ms": 1360,
+      "p95_ms": 1877,
+      "max_ms": 1877,
+      "within_budget": true,
+      "recent": [
+        1431,
+        1524,
+        1342,
+        1360,
+        1877,
+        1122,
+        1742,
+        1208,
+        1328
+      ]
+    },
+    {
+      "key": "end_to_metrics_ms",
+      "label": "Call end to metrics",
+      "budget_ms": 1000,
+      "samples": 9,
+      "p50_ms": 758,
+      "p95_ms": 1867,
+      "max_ms": 1867,
+      "within_budget": false,
+      "recent": [
+        744,
+        758,
+        1728,
+        1684,
+        1764,
+        1867,
+        470,
+        557,
+        632
+      ]
+    },
+    {
+      "key": "scoring_ms",
+      "label": "Model scoring time",
+      "budget_ms": 30000,
+      "samples": 9,
+      "p50_ms": 28935,
+      "p95_ms": 80058,
+      "max_ms": 80058,
+      "within_budget": false,
+      "recent": [
+        31486,
+        28935,
+        80058,
+        25895,
+        21490,
+        30458,
+        13728,
+        25825,
+        30933
+      ]
+    },
+    {
+      "key": "end_to_report_ms",
+      "label": "Call end to full report",
+      "budget_ms": 30000,
+      "samples": 9,
+      "p50_ms": 31324,
+      "p95_ms": 254049,
+      "max_ms": 254049,
+      "within_budget": false,
+      "recent": [
+        33727,
+        31324,
+        83644,
+        29660,
+        25691,
+        34299,
+        15721,
+        27390,
+        254049
+      ]
+    }
+  ],
+  "usage": {
+    "workspace_id": "b71986ce-055e-4648-8da5-95a3bf3ccd86",
+    "since": "2026-10-28T17:04:45.496118+00:00",
+    "total_cost_microusd": 1396170,
+    "rate_missing": false,
+    "by_event_type": [
+      {
+        "event_type": "realtime_audio",
+        "events": 6,
+        "input_units": 97959,
+        "output_units": 7703,
+        "cost_microusd": 740478,
+        "rate_missing": false
+      },
+      {
+        "event_type": "scoring",
+        "events": 18,
+        "input_units": 21888,
+        "output_units": 28407,
+        "cost_microusd": 655692,
+        "rate_missing": false
+      }
+    ]
+  }
+}

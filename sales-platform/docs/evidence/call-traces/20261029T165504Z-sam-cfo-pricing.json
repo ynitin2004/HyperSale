@@ -1,0 +1,374 @@
+{
+  "run": "20261029T165504Z",
+  "browser": "msedge",
+  "scenario": "sam-cfo-pricing",
+  "rep": {
+    "seed": 598199,
+    "skill": "weak",
+    "angle": "lead with rep attrition",
+    "name": "Maya"
+  },
+  "rep_lines": [
+    {
+      "text": "Hi Sam, it\u2019s Maya from HyperSale. Rep attrition gets expensive fast, and our AI voice roleplays with quote-backed scoring help managers spot improvement before quota time\u2014is now still okay?",
+      "llm_ms": 7304,
+      "end": false,
+      "audio_s": 13.29
+    },
+    {
+      "text": "The value is catching weak messaging before it costs pipeline or drives reps out. Reps get realistic AI buyer practice, and managers get weekly progress scoring tied to exact quotes.",
+      "llm_ms": 5129,
+      "end": false,
+      "audio_s": 12.59
+    },
+    {
+      "text": "I don\u2019t want to invent a universal number; it varies by team. Could we run a 30-day pilot with one team, measure ramp indicators, and then review the business case?",
+      "llm_ms": 5103,
+      "end": false,
+      "audio_s": 11.61
+    },
+    {
+      "text": "Thanks for your time.",
+      "llm_ms": 8126,
+      "end": false,
+      "audio_s": 1.94
+    },
+    {
+      "text": "I can bring the annual price to $43,200, contingent on all 40 reps and an annual commitment after the pilot. Can we schedule the 30-day pilot and business-case review?",
+      "llm_ms": 7288,
+      "end": false,
+      "audio_s": 12.67
+    },
+    {
+      "text": "Thanks for your time.",
+      "llm_ms": 11174,
+      "end": false,
+      "audio_s": 1.94
+    },
+    {
+      "text": "I\u2019ll send the business case today, including the 30-day pilot and the $43,200 annual option for all 40 reps. I\u2019ll schedule our review for Thursday at 2 p.m. your time.",
+      "llm_ms": 8780,
+      "end": true,
+      "audio_s": 11.89
+    }
+  ],
+  "rep_cost_usd": 0.0567,
+  "rep_tokens": {
+    "in": 3572,
+    "out": 2121
+  },
+  "recording_store": "supabase",
+  "click_to_live_ms": 3839,
+  "end_click_to_metrics_ms": 2773,
+  "end_click_to_report_ms": 34255,
+  "report_id": "97663331-58e7-4faf-939e-475aae3d8849",
+  "session_id": "9ebda41e-7e87-415a-a11a-40bd9d767591",
+  "status": "ready",
+  "overall": 2.2,
+  "provenance": {
+    "rubric_version": "rubric-v1",
+    "prompt_version": "score-v1-2026-10-29",
+    "model_id": "gpt-5.6-sol",
+    "metrics_version": "metrics-v1",
+    "persona_prompt_version": "ec576914bb1f"
+  },
+  "timings": {
+    "scoring_ms": 28935,
+    "model_calls": 3,
+    "quotes_checked": 13,
+    "end_to_report_ms": 31324,
+    "end_to_metrics_ms": 758,
+    "metrics_compute_ms": 28,
+    "quotes_rejected_final": 0
+  },
+  "metrics": {
+    "turns": 22,
+    "questions": 3,
+    "rep_turns": 11,
+    "rep_words": 162,
+    "buyer_turns": 11,
+    "buyer_words": 146,
+    "duration_ms": 145253,
+    "filler_words": 0,
+    "open_questions": 0,
+    "talk_ratio_rep": 0.526,
+    "metrics_version": "metrics-v1",
+    "next_step_quote": null,
+    "next_step_with_date": false,
+    "fillers_per_100_words": 0.0,
+    "longest_monologue_words": 33
+  },
+  "recording_available": true,
+  "criteria": [
+    {
+      "criterion_id": "discovery",
+      "outcome": "scored",
+      "score": 1,
+      "rationale": "You did not ask an open, specific question about Sam\u2019s current ramp, attrition, costs, or approval process. Start by exploring those areas and follow up on his answers before presenting the solution.",
+      "evidence": [
+        {
+          "turn_index": 2,
+          "quote": "is now still okay?",
+          "speaker": "rep",
+          "start_ms": 18664,
+          "end_ms": 28522
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "value",
+      "outcome": "scored",
+      "score": 2,
+      "rationale": "You described concrete capabilities and broad outcomes, but you did not connect them to a buyer-provided baseline or quantified impact. Elicit Sam\u2019s ramp time, attrition, and pipeline costs, then translate improvement against those numbers into a credible business case.",
+      "evidence": [
+        {
+          "turn_index": 4,
+          "quote": "catching weak messaging before it costs pipeline or drives reps out",
+          "speaker": "rep",
+          "start_ms": 37896,
+          "end_ms": 43302
+        },
+        {
+          "turn_index": 6,
+          "quote": "managers get weekly progress scoring tied to exact quotes",
+          "speaker": "rep",
+          "start_ms": 43349,
+          "end_ms": 50583
+        },
+        {
+          "turn_index": 8,
+          "quote": "I don't want to invent a universal number",
+          "speaker": "rep",
+          "start_ms": 62006,
+          "end_ms": 66443
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "objection_handling",
+      "outcome": "scored",
+      "score": 2,
+      "rationale": "You appropriately avoided inventing a benchmark and offered a measurable pilot and conditional concession, but you repeatedly failed to acknowledge or clarify Sam\u2019s objections and even ignored the first discount request. Acknowledge the $35,000 target, ask what drives it, then answer specifically and trade concessions for scope, term, or timing.",
+      "evidence": [
+        {
+          "turn_index": 8,
+          "quote": "I don't want to invent a universal number. It varies by team.",
+          "speaker": "rep",
+          "start_ms": 62006,
+          "end_ms": 66443
+        },
+        {
+          "turn_index": 10,
+          "quote": "Could we run a 30-day pilot with one team, measure ramp indicators, and then review the business case?",
+          "speaker": "rep",
+          "start_ms": 66475,
+          "end_ms": 73693
+        },
+        {
+          "turn_index": 14,
+          "quote": "I can bring the annual price to $43,200, contingent on all 40 reps and an annual commitment after",
+          "speaker": "rep",
+          "start_ms": 102268,
+          "end_ms": 111068
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "next_step",
+      "outcome": "scored",
+      "score": 3,
+      "rationale": "You secured a concrete pilot/business-case review and ultimately named Thursday at 2 p.m., but Sam had to prompt you for a firm date. Confirm that the time works, identify attendees, and state the review agenda and decision criteria so the meeting\u2019s value is explicit.",
+      "evidence": [
+        {
+          "turn_index": 10,
+          "quote": "Could we run a 30-day pilot with one team, measure ramp indicators, and then review the business case?",
+          "speaker": "rep",
+          "start_ms": 66475,
+          "end_ms": 73693
+        },
+        {
+          "turn_index": 16,
+          "quote": "Can we schedule the 30-day pilot and business case review?",
+          "speaker": "rep",
+          "start_ms": 110868,
+          "end_ms": 114911
+        },
+        {
+          "turn_index": 20,
+          "quote": "I'll send the business case today, including the 30-day pilot and the $43,200 annual option for all 40 reps I'll schedule our review for Thursday at 2 p.m. Your time.",
+          "speaker": "rep",
+          "start_ms": 147492,
+          "end_ms": 159600
+        }
+      ],
+      "verified": true
+    },
+    {
+      "criterion_id": "positioning",
+      "outcome": "scored",
+      "score": 3,
+      "rationale": "You explained the alternative to unstructured practice and attached the discount to broader adoption and an annual commitment, but you did not clearly compare that approach with the buyer\u2019s current process or defend the price with quantified value. Before discounting, ask what they use today and what poor ramp or attrition costs, then position the pilot and pricing against those costs.",
+      "evidence": [
+        {
+          "turn_index": 6,
+          "quote": "Reps get realistic AI buyer practice, and managers get weekly progress scoring tied to exact quotes.",
+          "speaker": "rep",
+          "start_ms": 43349,
+          "end_ms": 50583
+        },
+        {
+          "turn_index": 4,
+          "quote": "The value is catching weak messaging before it costs pipeline or drives reps out.",
+          "speaker": "rep",
+          "start_ms": 37896,
+          "end_ms": 43302
+        },
+        {
+          "turn_index": 14,
+          "quote": "I can bring the annual price to $43,200, contingent on all 40 reps and an annual commitment after",
+          "speaker": "rep",
+          "start_ms": 102268,
+          "end_ms": 111068
+        }
+      ],
+      "verified": true
+    }
+  ],
+  "transcript": [
+    {
+      "idx": 0,
+      "speaker": "rep",
+      "start_ms": 15069,
+      "text": "Hi Sam, it's Maya from Hypersale."
+    },
+    {
+      "idx": 1,
+      "speaker": "buyer",
+      "start_ms": 18448,
+      "text": "Sam Whitfield. I have fifteen minutes, go ahead."
+    },
+    {
+      "idx": 2,
+      "speaker": "rep",
+      "start_ms": 18664,
+      "text": "Repetition gets expensive fast, and our AI voice role plays with quote backscoring help managers spot improvement before quota time is now still okay?"
+    },
+    {
+      "idx": 3,
+      "speaker": "buyer",
+      "start_ms": 28181,
+      "text": "Why is this worth forty-eight thousand dollars?"
+    },
+    {
+      "idx": 4,
+      "speaker": "rep",
+      "start_ms": 37896,
+      "text": "The value is catching weak messaging before it costs pipeline or drives reps out."
+    },
+    {
+      "idx": 5,
+      "speaker": "buyer",
+      "start_ms": 43068,
+      "text": "I need a number. How much faster do reps ramp, or how many fewer churn?"
+    },
+    {
+      "idx": 6,
+      "speaker": "rep",
+      "start_ms": 43349,
+      "text": "Reps get realistic AI buyer practice, and managers get weekly progress scoring tied to exact quotes."
+    },
+    {
+      "idx": 7,
+      "speaker": "buyer",
+      "start_ms": 50258,
+      "text": "What\u2019s the quantified impact on ramp time or attrition? Give me a number."
+    },
+    {
+      "idx": 8,
+      "speaker": "rep",
+      "start_ms": 62006,
+      "text": "I don't want to invent a universal number. It varies by team."
+    },
+    {
+      "idx": 9,
+      "speaker": "buyer",
+      "start_ms": 66211,
+      "text": "Then give me a range\u2014what\u2019s the typical improvement in months or percentage?"
+    },
+    {
+      "idx": 10,
+      "speaker": "rep",
+      "start_ms": 66475,
+      "text": "Could we run a 30-day pilot with one team, measure ramp indicators, and then review the business case?"
+    },
+    {
+      "idx": 11,
+      "speaker": "buyer",
+      "start_ms": 73284,
+      "text": "I\u2019ll consider a pilot, but we need a discount first. What can you offer?"
+    },
+    {
+      "idx": 12,
+      "speaker": "rep",
+      "start_ms": 87888,
+      "text": "Thanks for your time."
+    },
+    {
+      "idx": 13,
+      "speaker": "buyer",
+      "start_ms": 89619,
+      "text": "I\u2019m still waiting on that discount. What\u2019s the new number?"
+    },
+    {
+      "idx": 14,
+      "speaker": "rep",
+      "start_ms": 102268,
+      "text": "I can bring the annual price to $43,200, contingent on all 40 reps and an annual commitment after"
+    },
+    {
+      "idx": 15,
+      "speaker": "buyer",
+      "start_ms": 110703,
+      "text": "Still high. We need to get closer to thirty-five thousand. What's your next best?"
+    },
+    {
+      "idx": 16,
+      "speaker": "rep",
+      "start_ms": 110868,
+      "text": "Can we schedule the 30-day pilot and business case review?"
+    },
+    {
+      "idx": 17,
+      "speaker": "buyer",
+      "start_ms": 114698,
+      "text": "Give me a firm date for that business-case review, and we\u2019ll talk next steps."
+    },
+    {
+      "idx": 18,
+      "speaker": "rep",
+      "start_ms": 132149,
+      "text": "Thanks for your time."
+    },
+    {
+      "idx": 19,
+      "speaker": "buyer",
+      "start_ms": 133828,
+      "text": "Send me the business case and we\u2019ll take it from there."
+    },
+    {
+      "idx": 20,
+      "speaker": "rep",
+      "start_ms": 147492,
+      "text": "I'll send the business case today, including the 30-day pilot and the $43,200 annual option for all 40 reps I'll schedule our review for Thursday at 2 p.m. Your time."
+    },
+    {
+      "idx": 21,
+      "speaker": "buyer",
+      "start_ms": 159215,
+      "text": "Understood. I\u2019ll look out for it. Let\u2019s see how the numbers line up on Thursday."
+    }
+  ]
+}

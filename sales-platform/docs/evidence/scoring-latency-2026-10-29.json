@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-29",
+  "purpose": "Why end->report misses 30 s on the live AI-rep calls; diagnostic only, no code change",
+  "model": "gpt-5.6-sol via Agent Router (D28), official SDK sync client",
+  "transcript": "evidence/call-traces/20261029T170051Z-elena-inbound-follow-up.json (12 turns, 5 criteria)",
+  "live_reports": [
+    {"run": "20261029T165504Z", "criteria": 5, "model_calls": 3, "scoring_ms": 28935, "end_to_report_ms": 31324},
+    {"run": "20261029T170051Z", "criteria": 5, "model_calls": 3, "scoring_ms": 31486, "end_to_report_ms": 33727}
+  ],
+  "single_2_criteria_call_s": [10.7, 9.8, 8.8, 8.0, 12.2],
+  "effort_low_2_criteria_call_s": [6.6, 11.4],
+  "effort_note": "output_config.effort=low gave no consistent speed-up on this gateway",
+  "one_call_all_5_criteria_s": [10.6, 28.2],
+  "three_parallel_calls_2_2_1_s": [23.2, 38.2],
+  "finding": "On this gateway three parallel calls are slower than one call for all criteria (parallel requests appear to be queued), and each split call repeats the transcript tokens. A group asked for one criterion returned all five; run_scoring discards the extras, but they cost output tokens.",
+  "gateway_errors_seen": [
+    "400 'Function tools with reasoning_effort are not supported for gpt-5.6-sol in /v1/chat/completions' - intermittent, next 3 identical calls succeeded",
+    "403 'token quota is not enough, token remain quota: $0.017020, need quota: $0.021340' - the key's balance is exhausted for scoring-size requests"
+  ],
+  "proposed_repair": "Score all of a scenario's criteria (5-7) in one call (PARALLEL_SPLIT_MIN_CRITERIA above the rubric size); re-measure live. Awaiting user approval (AGENTS.md)."
+}
