@@ -7,7 +7,10 @@ never coached, deployed the ride-alongs objection unprompted, ~2 s turn latency.
 Seeded into `catalog`, not stored in the provider's agent config — D16 needs
 `prompt_version` in the provenance tuple, so the text below is versioned here (D21).
 
-- **voice:** female. A male voice against this name breaks the illusion in one second.
+- **name:** Priya Raghavan
+- **title:** VP of Sales Operations
+- **company:** Meridian Logistics, a 400-person freight brokerage
+- **voice:** en-IN-NeerjaNeural (female — a male voice against this name breaks the illusion in one second)
 - **language:** pin to `en-US`. Auto-detect costs latency on every turn.
 - **tools/function calling:** off. No tool calls in the hot path (ARCHITECTURE §5).
 - **temperature:** 0.8, for variance across repeat attempts.

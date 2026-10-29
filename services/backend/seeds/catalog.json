@@ -1,0 +1,115 @@
+{
+  "rubric": {
+    "version": "rubric-v1",
+    "criteria": [
+      {
+        "id": "opening",
+        "name": "Opening",
+        "description": "Within the first two rep turns: says who they are, which company, and a specific reason for the call that is relevant to this buyer. Earns the next minute rather than asking for it."
+      },
+      {
+        "id": "discovery",
+        "name": "Discovery questions",
+        "description": "Asks open, specific questions about the buyer's situation, pain, and process before pitching. Follows up on answers instead of moving to the next scripted question."
+      },
+      {
+        "id": "listening",
+        "name": "Active listening",
+        "description": "Reflects the buyer's own words back, builds the next question on what the buyer said, and lets the buyer finish. Does not steamroll or monologue."
+      },
+      {
+        "id": "value",
+        "name": "Value articulation",
+        "description": "States concretely what the product does and ties it to a pain or number the buyer has expressed. Generic claims ('increase sales', 'best-in-class') earn a 1 or 2."
+      },
+      {
+        "id": "objection_handling",
+        "name": "Objection handling",
+        "description": "When the buyer raises an objection: acknowledges it, asks a clarifying question or reframes, and answers with something specific. Ignoring, arguing, or caving immediately scores low."
+      },
+      {
+        "id": "next_step",
+        "name": "Next step",
+        "description": "Explicitly asks for a concrete next step with a time, participants, or agenda, and gives a reason it is worth the buyer's time."
+      },
+      {
+        "id": "positioning",
+        "name": "Positioning",
+        "description": "Differentiates against the buyer's status quo or incumbent (an existing tool, ride-alongs, doing nothing) and against price pressure, without disparaging competitors."
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "slug": "elena-inbound-follow-up",
+      "persona": "elena-ruiz",
+      "title": "Warm inbound: follow up on a demo request",
+      "brief": "Elena Ruiz, Director of Sales Enablement at Cartwheel, asked for a demo yesterday. Call her back, learn how she trains SDRs today, and book the demo.",
+      "call_type": "inbound_follow_up",
+      "difficulty": "easy",
+      "applicable_criteria": ["opening", "discovery", "listening", "value", "next_step"],
+      "featured": true,
+      "sort_order": 1
+    },
+    {
+      "slug": "priya-cold-call",
+      "persona": "priya-raghavan",
+      "title": "Cold call: VP Sales Ops at a freight brokerage",
+      "brief": "Priya Raghavan runs a 60-rep sales team at Meridian Logistics and did not ask for this call. Earn four minutes, find a real pain, and ask for a next step.",
+      "call_type": "cold_call",
+      "difficulty": "hard",
+      "applicable_criteria": ["opening", "discovery", "listening", "value", "objection_handling", "next_step"],
+      "featured": false,
+      "sort_order": 2
+    },
+    {
+      "slug": "marcus-discovery",
+      "persona": "marcus-bell",
+      "title": "Discovery: skeptical VP Engineering at a fintech",
+      "brief": "Marcus Bell, VP Engineering at Ledgerline (200-person fintech), booked 20 minutes on behalf of the VP of Sales. Run discovery on why new AEs take 7 months to ramp.",
+      "call_type": "discovery",
+      "difficulty": "medium",
+      "applicable_criteria": ["opening", "discovery", "listening", "value", "objection_handling", "next_step", "positioning"],
+      "featured": false,
+      "sort_order": 3
+    },
+    {
+      "slug": "dana-incumbent-objections",
+      "persona": "dana-okafor",
+      "title": "Objections: RevOps leader who already has Gong",
+      "brief": "Dana Okafor runs RevOps for 80 sellers at Brightpath HR and renewed Gong five months ago. Handle her objections and position practice against post-call recording.",
+      "call_type": "objection_handling",
+      "difficulty": "hard",
+      "applicable_criteria": ["listening", "value", "objection_handling", "next_step", "positioning"],
+      "featured": false,
+      "sort_order": 4
+    },
+    {
+      "slug": "sam-cfo-pricing",
+      "persona": "sam-whitfield",
+      "title": "Negotiation: CFO pushing back on a $48k quote",
+      "brief": "Sam Whitfield, CFO of Northwind Analytics, must approve a $48,000 annual deal for 40 reps and has a $35k ceiling. Defend the value, trade rather than cave, and set up a business-case review.",
+      "call_type": "negotiation",
+      "difficulty": "hard",
+      "applicable_criteria": ["discovery", "value", "objection_handling", "next_step", "positioning"],
+      "featured": false,
+      "sort_order": 5
+    }
+  ],
+  "drills": [
+    {"id": "opening-30s", "criterion_id": "opening", "title": "The 30-second opener", "instructions": "Write and say out loud an opener with your name, company, and one buyer-specific reason for calling in under 30 seconds. Re-run the cold call scenario using only that opener."},
+    {"id": "opening-permission", "criterion_id": "opening", "title": "Earn the next minute", "instructions": "Practice ending your opener with a question about the buyer's world, not 'do you have a minute?'. Try three variants in a row."},
+    {"id": "discovery-five-whys", "criterion_id": "discovery", "title": "Five open questions", "instructions": "Before your next roleplay, write five open questions about the buyer's process. Ask at least three before saying anything about your product."},
+    {"id": "discovery-follow-up", "criterion_id": "discovery", "title": "Follow the answer", "instructions": "For every answer the buyer gives, ask one follow-up that uses a word they just said before changing topic."},
+    {"id": "listening-reflect", "criterion_id": "listening", "title": "Reflect, then ask", "instructions": "Start each of your turns by restating the buyer's last point in one sentence. Aim for three reflections in one call."},
+    {"id": "listening-short-turns", "criterion_id": "listening", "title": "Keep turns under 20 seconds", "instructions": "Re-run a scenario with a hard rule: no turn longer than two sentences. Watch your longest-monologue metric drop."},
+    {"id": "value-pain-tie", "criterion_id": "value", "title": "Tie value to their number", "instructions": "Pick one number the buyer said (reps, ramp months, churn) and build one sentence that connects your product to it."},
+    {"id": "value-no-adjectives", "criterion_id": "value", "title": "No adjectives", "instructions": "Describe what the product does without using 'best', 'powerful', 'seamless' or 'increase sales'. Say what it does and for whom."},
+    {"id": "objection-arc", "criterion_id": "objection_handling", "title": "Acknowledge, ask, answer", "instructions": "For each objection: acknowledge in one sentence, ask one clarifying question, then answer specifically. Practice on the Dana scenario."},
+    {"id": "objection-no-cave", "criterion_id": "objection_handling", "title": "Trade, don't cave", "instructions": "When price comes up, ask what would have to be true for the price to work before offering anything. Run the Sam scenario."},
+    {"id": "next-step-calendar", "criterion_id": "next_step", "title": "Name the day", "instructions": "End every call by proposing a specific day, time, and agenda for the next step. Do not accept 'send me an email' without one more ask."},
+    {"id": "next-step-reason", "criterion_id": "next_step", "title": "Give a reason to meet", "instructions": "Pair your next-step ask with one sentence on what the buyer will get out of that meeting."},
+    {"id": "positioning-status-quo", "criterion_id": "positioning", "title": "Beat 'do nothing'", "instructions": "Write two sentences on what the buyer loses by keeping their current approach. Use them when the buyer says they already have something."},
+    {"id": "positioning-incumbent", "criterion_id": "positioning", "title": "Position against the incumbent", "instructions": "Name one thing the buyer's current tool does well, then the one thing it cannot do that you can. Practice on the Dana scenario."}
+  ]
+}
