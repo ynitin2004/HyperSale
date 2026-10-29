@@ -62,6 +62,8 @@ backend:
     # A drifted model is a silent production bug; autogenerate must find nothing to do.
     - alembic check
     - pytest -q
+    # Eval gate on the committed run (D38, free replay - no model calls).
+    - python -m evals.harness --suite roleplay --replay
     # API contract matches the committed spec (RULES §5 codegen drift).
     - python -m app.openapi > ../../apps/web/src/api/openapi.json
     - git diff --exit-code -- ../../apps/web/src/api/openapi.json
@@ -141,3 +143,29 @@ e2e:
     expire_in: 7 days
     paths:
       - apps/web/playwright-report
+
+# D38: paid re-score of the gold set when the scoring path changes, or on a manual/web run.
+# Needs ANTHROPIC_AUTH_TOKEN + ANTHROPIC_BASE_URL as masked CI/CD variables; skipped without them.
+evals:
+  stage: test
+  image: python:3.12
+  rules:
+    - if: '$ANTHROPIC_AUTH_TOKEN == null || $ANTHROPIC_AUTH_TOKEN == ""'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - changes:
+        - services/backend/app/modules/scoring/**/*
+        - services/backend/app/adapters/llm/**/*
+        - services/backend/evals/**/*
+        - services/backend/seeds/catalog.json
+  variables:
+    SCORING_FALLBACK_MODEL: ""
+  before_script:
+    - cd services/backend
+    - pip install -e '.[dev]'
+  script:
+    - python -m evals.harness --suite roleplay
+  artifacts:
+    when: always
+    paths:
+      - services/backend/evals/runs/

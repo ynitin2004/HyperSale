@@ -6,10 +6,30 @@ const DIFFICULTY: Record<string, string> = { easy: 'Easy', medium: 'Medium', har
 export function HomePage() {
   const scenarios = useQuery({ queryKey: ['scenarios'], queryFn: Api.scenarios })
   const sessions = useQuery({ queryKey: ['sessions'], queryFn: Api.sessions })
+  const assignments = useQuery({ queryKey: ['assignments'], queryFn: Api.assignments })
+  const me = useQuery({ queryKey: ['me'], queryFn: Api.me, retry: false })
   const byId = new Map((scenarios.data ?? []).map((s) => [s.id, s]))
+  const mine = (assignments.data ?? []).filter((a) => a.assignee_user_id === me.data?.user_id)
 
   return (
     <>
+      {mine.length > 0 && (
+        <section data-testid="my-assignments">
+          <h2>Assigned to you</h2>
+          <ul className="assignments">
+            {mine.map((a) => (
+              <li key={a.id}>
+                <a href={`#/practice/${a.scenario_id}`}>{byId.get(a.scenario_id)?.title ?? 'Scenario'}</a>
+                {a.due_at && <span className="muted small"> · due {new Date(a.due_at).toLocaleDateString()}</span>}
+                {a.note && <span className="muted small"> · {a.note}</span>}
+                {a.completed_report_id
+                  ? <a className="pill ready" href={`#/report/${a.completed_report_id}`}>done {a.overall?.toFixed(1)}</a>
+                  : <span className="pill pending">to do</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       <section>
         <h2>Pick a buyer</h2>
         <p className="muted">Five hand-built personas. Each scenario is scored only on the criteria it can actually show.</p>

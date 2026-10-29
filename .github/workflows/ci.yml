@@ -47,6 +47,8 @@ jobs:
         # A drifted model is a silent production bug; autogenerate must find nothing to do.
         run: alembic check
       - run: pytest -q
+      - name: Eval gate on the committed run (D38, free replay - no model calls)
+        run: python -m evals.harness --suite roleplay --replay
       - name: API contract matches the committed spec (RULES §5 codegen drift)
         run: |
           python -m app.openapi > ../../apps/web/src/api/openapi.json

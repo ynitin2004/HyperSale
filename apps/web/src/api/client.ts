@@ -14,6 +14,11 @@ export type Criterion = S['ScoredCriterionOut']
 export type Evidence = S['EvidenceOut']
 export type Stage = S['StageOut']
 export type Integrity = S['IntegrityOut']
+export type Assignment = S['AssignmentOut']
+export type MemberSummary = S['MemberSummaryOut']
+export type EvalItemSummary = S['EvalItemSummary']
+export type EvalItem = S['EvalItemOut']
+export type EvalOutcome = EvalItem['my_labels'][string]
 
 export const API_BASE = (import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000').replace(/\/$/, '')
 
@@ -63,4 +68,12 @@ export const Api = {
   report: (id: string) => request<Report>(`/api/v1/reports/${id}`),
   latency: () => request<Stage[]>('/api/v1/metrics/latency'),
   integrity: () => request<Integrity>('/api/v1/evidence/integrity'),
+  memberSessions: (userId: string) => request<PracticeSession[]>(`/api/v1/practice/sessions?user_id=${userId}`),
+  assignments: () => request<Assignment[]>('/api/v1/assignments'),
+  assign: (body: S['AssignmentIn']) => post<Assignment>('/api/v1/assignments', body),
+  team: () => request<MemberSummary[]>('/api/v1/team/summary'),
+  evalItems: () => request<EvalItemSummary[]>('/api/v1/evals/items'),
+  evalItem: (id: string) => request<EvalItem>(`/api/v1/evals/items/${id}`),
+  saveLabels: (id: string, body: S['LabelsIn']) =>
+    request<EvalItem>(`/api/v1/evals/items/${id}/labels`, { method: 'PUT', body: JSON.stringify(body) }),
 }

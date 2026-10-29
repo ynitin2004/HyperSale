@@ -83,3 +83,29 @@ test('latency dashboard and evidence integrity reflect the calls made', async ({
   await expect(page.getByTestId('stage-end_to_metrics_ms')).toContainText('within')
   await expect(page.getByTestId('integrity')).toContainText('0 failing')
 })
+
+test('a manager compares the team, reviews attempts and assigns a scenario (D39)', async ({ page }) => {
+  await signedIn(page)
+  await page.goto('/')
+  await page.getByRole('link', { name: 'Team' }).click()
+  const row = page.getByTestId('team-table').locator('tr', { hasText: 'e2e@hypersale.dev' })
+  await expect(row).toBeVisible()
+  await row.getByRole('button').click()
+  await expect(page.getByTestId('member-attempts').getByRole('link', { name: 'Review →' }).first()).toBeVisible()
+
+  const form = page.getByTestId('assign-form')
+  await form.getByLabel('Member').selectOption({ label: 'e2e@hypersale.dev' })
+  await form.getByLabel('Scenario').selectOption({ label: 'Warm inbound: follow up on a demo request' })
+  await form.getByRole('button', { name: 'Assign' }).click()
+  await expect(page.getByTestId('assignment-table')).toContainText('Warm inbound')
+  await expect(page.getByTestId('assignment-table')).toContainText('open')
+
+  await page.getByRole('link', { name: 'Practice' }).click()
+  await expect(page.getByTestId('my-assignments')).toContainText('Warm inbound')
+})
+
+test('the rater page is empty outside the Evals workspace (D37)', async ({ page }) => {
+  await signedIn(page)
+  await page.goto('/#/rate')
+  await expect(page.getByText('No items in this workspace')).toBeVisible()
+})

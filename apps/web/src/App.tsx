@@ -5,19 +5,25 @@ import { signIn, signOut, useSession } from './auth'
 import { HomePage } from './pages/Home'
 import { LatencyPage } from './pages/Latency'
 import { PracticePage } from './pages/Practice'
+import { RateItemPage, RateListPage } from './pages/Rate'
 import { ReportPage } from './pages/Report'
+import { TeamPage } from './pages/Team'
 import { navigate, useRoute } from './router'
 
 export function App() {
   const session = useSession()
   const route = useRoute()
+  const me = useQuery({ queryKey: ['me'], queryFn: Api.me, retry: false, enabled: !!session })
   if (!session) return <LoginPage />
+  const manager = me.data?.role === 'manager' || me.data?.role === 'owner'
   return (
     <div className="shell">
       <header className="topbar">
         <a className="brand" href="#/">HYPERSALE</a>
         <nav>
           <a href="#/" className={route.name === 'home' ? 'active' : ''}>Practice</a>
+          {manager && <a href="#/team" className={route.name === 'team' ? 'active' : ''}>Team</a>}
+          <a href="#/rate" className={route.name.startsWith('rate') ? 'active' : ''}>Label</a>
           <a href="#/latency" className={route.name === 'latency' ? 'active' : ''}>Latency</a>
           <WhoAmI />
           <button className="link" onClick={() => (signOut(), navigate('/'))}>Sign out</button>
@@ -28,6 +34,9 @@ export function App() {
         {route.name === 'practice' && <PracticePage scenarioId={route.scenarioId} />}
         {route.name === 'report' && <ReportPage reportId={route.reportId} />}
         {route.name === 'latency' && <LatencyPage />}
+        {route.name === 'team' && <TeamPage />}
+        {route.name === 'rate' && <RateListPage />}
+        {route.name === 'rateItem' && <RateItemPage itemId={route.itemId} />}
       </main>
     </div>
   )

@@ -4,6 +4,27 @@
  */
 
 export interface paths {
+    "/api/v1/assignments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Assignments
+         * @description Managers see every assignment in the workspace; reps see their own.
+         */
+        get: operations["list_assignments_api_v1_assignments_get"];
+        put?: never;
+        /** Create Assignment */
+        post: operations["create_assignment_api_v1_assignments_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/catalog/rubrics/{version}": {
         parameters: {
             query?: never;
@@ -68,6 +89,57 @@ export interface paths {
          */
         get: operations["public_config_api_v1_config_get"];
         put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/evals/items": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Items */
+        get: operations["list_items_api_v1_evals_items_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/evals/items/{item_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Item */
+        get: operations["get_item_api_v1_evals_items__item_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/evals/items/{item_id}/labels": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Save Labels */
+        put: operations["save_labels_api_v1_evals_items__item_id__labels_put"];
         post?: never;
         delete?: never;
         options?: never;
@@ -178,7 +250,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** List Sessions */
+        /**
+         * List Sessions
+         * @description Reps see their own; managers see everyone's, or one member's with `user_id` (D39).
+         */
         get: operations["list_sessions_api_v1_practice_sessions_get"];
         put?: never;
         /** Create Session */
@@ -328,6 +403,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/team/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Team Summary */
+        get: operations["team_summary_api_v1_team_summary_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/usage/summary": {
         parameters: {
             query?: never;
@@ -389,6 +481,58 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AssignmentIn */
+        AssignmentIn: {
+            /**
+             * Assignee User Id
+             * Format: uuid
+             */
+            assignee_user_id: string;
+            /** Due At */
+            due_at?: string | null;
+            /** Note */
+            note?: string | null;
+            /**
+             * Scenario Id
+             * Format: uuid
+             */
+            scenario_id: string;
+        };
+        /** AssignmentOut */
+        AssignmentOut: {
+            /**
+             * Assigned By
+             * Format: uuid
+             */
+            assigned_by: string;
+            /**
+             * Assignee User Id
+             * Format: uuid
+             */
+            assignee_user_id: string;
+            /** Completed Report Id */
+            completed_report_id: string | null;
+            /** Completed Session Id */
+            completed_session_id: string | null;
+            /** Created At */
+            created_at: string;
+            /** Due At */
+            due_at: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Note */
+            note: string | null;
+            /** Overall */
+            overall: number | null;
+            /**
+             * Scenario Id
+             * Format: uuid
+             */
+            scenario_id: string;
+        };
         /** ConnectIn */
         ConnectIn: {
             /** Sdp Offer */
@@ -452,6 +596,67 @@ export interface components {
             /** Status */
             status: string;
         };
+        /** EvalCriterion */
+        EvalCriterion: {
+            /** Description */
+            description: string;
+            /** Id */
+            id: string;
+            /** Name */
+            name: string;
+        };
+        /** EvalItemOut */
+        EvalItemOut: {
+            /** Criteria */
+            criteria: components["schemas"]["EvalCriterion"][];
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Item Key */
+            item_key: string;
+            /** My Labels */
+            my_labels: {
+                [key: string]: "1" | "2" | "3" | "4" | "5" | "insufficient_evidence";
+            };
+            /** Note */
+            note: string | null;
+            /** Scenario Slug */
+            scenario_slug: string;
+            /** Scenario Title */
+            scenario_title: string | null;
+            /** Turns */
+            turns: components["schemas"]["EvalTurn"][];
+        };
+        /** EvalItemSummary */
+        EvalItemSummary: {
+            /** Criteria */
+            criteria: number;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Item Key */
+            item_key: string;
+            /** Labelled */
+            labelled: number;
+            /** Scenario Slug */
+            scenario_slug: string;
+        };
+        /** EvalTurn */
+        EvalTurn: {
+            /** Idx */
+            idx: number;
+            /**
+             * Speaker
+             * @enum {string}
+             */
+            speaker: "rep" | "buyer";
+            /** Text */
+            text: string;
+        };
         /** EvidenceOut */
         EvidenceOut: {
             /** End Ms */
@@ -482,6 +687,15 @@ export interface components {
             /** Reports */
             reports: number;
         };
+        /** LabelsIn */
+        LabelsIn: {
+            /** Labels */
+            labels: {
+                [key: string]: "1" | "2" | "3" | "4" | "5" | "insufficient_evidence";
+            };
+            /** Note */
+            note?: string | null;
+        };
         /** MeResponse */
         MeResponse: {
             /** Email */
@@ -498,6 +712,32 @@ export interface components {
              * Format: uuid
              */
             workspace_id: string;
+        };
+        /** MemberSummaryOut */
+        MemberSummaryOut: {
+            /** Attempts */
+            attempts: number;
+            /** Criteria */
+            criteria: {
+                [key: string]: number;
+            };
+            /** Email */
+            email: string | null;
+            /** Last Attempt At */
+            last_attempt_at: string | null;
+            /** Mean Overall */
+            mean_overall: number | null;
+            /** Open Assignments */
+            open_assignments: number;
+            /** Role */
+            role: string;
+            /** Scored */
+            scored: number;
+            /**
+             * User Id
+             * Format: uuid
+             */
+            user_id: string;
         };
         /** ProvenanceOut */
         ProvenanceOut: {
@@ -725,6 +965,8 @@ export interface components {
             scenario_id: string;
             /** Status */
             status: string;
+            /** User Id */
+            user_id?: string | null;
         };
         /** StageOut */
         StageOut: {
@@ -795,6 +1037,72 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    list_assignments_api_v1_assignments_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-workspace-id"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AssignmentOut"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_assignment_api_v1_assignments_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-workspace-id"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AssignmentIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AssignmentOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_rubric_api_v1_catalog_rubrics__version__get: {
         parameters: {
             query?: never;
@@ -910,6 +1218,107 @@ export interface operations {
                     "application/json": {
                         [key: string]: unknown;
                     };
+                };
+            };
+        };
+    };
+    list_items_api_v1_evals_items_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-workspace-id"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EvalItemSummary"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_item_api_v1_evals_items__item_id__get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-workspace-id"?: string | null;
+            };
+            path: {
+                item_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EvalItemOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    save_labels_api_v1_evals_items__item_id__labels_put: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-workspace-id"?: string | null;
+            };
+            path: {
+                item_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LabelsIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EvalItemOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
@@ -1064,7 +1473,9 @@ export interface operations {
     };
     list_sessions_api_v1_practice_sessions_get: {
         parameters: {
-            query?: never;
+            query?: {
+                user_id?: string | null;
+            };
             header?: {
                 "x-workspace-id"?: string | null;
             };
@@ -1373,6 +1784,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ReportOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    team_summary_api_v1_team_summary_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-workspace-id"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MemberSummaryOut"][];
                 };
             };
             /** @description Validation Error */
