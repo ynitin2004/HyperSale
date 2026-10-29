@@ -40,7 +40,8 @@ pushes to both remotes. GitLab MCP is not available in this environment.
 
 ### Open
 1. Hosted migration 0004 not applied: rule is local round trip first; Docker is down until a
-   real Restart. CI runs upgrade/downgrade/upgrade on Postgres. Ask the user.
+   real Restart, and running downloaded Postgres binaries was blocked by the permission
+   classifier. CI 40935415366 (bd7efcf) green incl. up/down/up + M2 integration + E2E. Ask the user.
 2. Human raters (D14): run `scripts/eval_labels.py import-items` + `add-rater` after 0004 is
    hosted; M2 acceptance needs their labels. Add ANTHROPIC_AUTH_TOKEN/BASE_URL as GitHub
    secrets for the paid eval job.
