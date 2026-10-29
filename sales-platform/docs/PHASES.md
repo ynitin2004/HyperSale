@@ -12,16 +12,16 @@ M0's last open technical gate closed the same day: **Spike 3 passed** on `gpt-5.
 | 5 personas + scenarios seeded, criteria per scenario | **Done** | `seeds/` + `catalog.json`; hosted seeded (5/5/14/rubric-v1); prompt versions content-hashed (D30) |
 | Voice session: preflight → brokered WebRTC → live transcript → chunked recording upload | **Done** | D29/D32; 5 full live calls on Edge 157 + Chromium, 32–42 server-captured turns each, 19 × 10 s chunks |
 | Start < 5 s | **Met** | Click → talking 3.4–3.9 s in the UI; server connect p95 1.9 s |
-| Metrics < 1 s after end | **Fixed, re-verify** | Server 0.56 s before D32; D32's per-turn updates pushed p95 to 1.87 s; replaced by one set-based UPDATE (integration green). Re-measure live |
-| Full report p95 < 30 s | **Fixed, re-verify** | Live: 25.7 / 29.7 / 83.6 s (2-way split; slow gateway + retries). Offline on a 40-turn live transcript: 3 parallel calls = **17.1 s**, 0 failed quotes → now 2 criteria per call, 60 s timeout, 1 SDK retry. Re-measure live |
+| Metrics < 1 s after end | **Met (2026-10-29 live)** | Set-based turn-start UPDATE: server end->metrics **758 ms** and **744 ms** on the two AI-rep calls (Edge, Chromium) |
+| Full report p95 < 30 s | **Not met - repair proposed** | Live with 2 per call (3 parallel calls): **31.3 s / 33.7 s** (scoring 28.9 / 31.5 s of it). Diagnostic on a live transcript: one call for all 5 criteria 10.6 / 28.2 s vs 3 parallel 23.2 / 38.2 s - this gateway queues parallel calls; effort=low no gain (`evidence/scoring-latency-2026-10-29.json`). Proposed: one call per report. Awaiting approval; blocked anyway by the key's quota |
 | Every evidence quote seeks correctly | **Met** | Click → recording at 9.0–9.7 s for turns at 0:10–0:11 (300 ms lead + recorder offset), highlighted rep turn |
 | Zero DB rows fail existence or attribution | **Met** | `/evidence/integrity`: 100/100 persisted hosted quotes re-verified, 0 failing; every report `ready`, never `degraded` |
 | Latency dashboard live | **Met** | `#/latency` + `/api/v1/metrics/latency` (p50/p95 vs budget per stage) |
 | Rubric v1, scenario-scoped, `insufficient_evidence`, provenance | **Met** | 7 criteria; out-of-scope criteria never scored; reports carry rubric/prompt/model/metrics + persona prompt version |
 | 3 drills | **Met (rule-based)** | Weakest scored criteria → seeded drills; Haiku tier (AI-2) deferred, no reachable volume model |
 | Safari | **Open (D24)** | No Apple device; M1 exit gate |
-| Recording storage on Supabase | **Open (needs OK)** | Adapter built; live runs used local storage because creating a hosted bucket was not authorized |
-| Sentry / OTel exporters | **Open (needs accounts)** | Code paths exist; no DSN/endpoint configured |
+| Recording storage on Supabase | **Met (2026-10-29 live)** | User approved; private `recordings` bucket (2 MB object limit). Probe: secret-key PUT 200 + read-back, public URL 400, publishable key 400. Live: call `9ebda41e` stored 17 chunks / 354 KB in the bucket; report playback and evidence seek (0:37) served from it |
+| Sentry / OTel exporters | **Open (account ready)** | Sentry org `hypersaleai` created by user 2026-10-29; Sentry MCP added at local scope, needs `/mcp` sign-in. Still no DSN in `.env`; OTel endpoint unset |
 
 Cost truth, live (hosted ledger, `/usage/summary`): voice 4 calls $0.532 (≈ $0.045/min),
 scoring 12 model calls $0.492 at $4/$20 per 1M (the 2-way split wrote long outputs; the
@@ -31,8 +31,25 @@ Tests: 73 unit (incl. 8 executable decision tests), 15 integration (full loop ov
 Postgres, RLS per new table), 4 Playwright E2E (stub providers), 5 live UI runs. CI: GitHub
 and GitLab now also run the OpenAPI/TS drift checks and the E2E job.
 
-Remaining before M1 exit: one live re-measure of metrics + report latency with the fixes,
-Safari, Supabase Storage bucket (authorization), Sentry/OTel accounts. M2 cannot start
+### Late 2026-10-29: D33 dual-model scoring, D34 AI rep, live loop
+
+- D33 built: `SCORING_MODEL` / `SCORING_FALLBACK_MODEL` / `CLAUDE_API_KEY`; Claude Opus 5.5
+  request shape (no forced tool_choice, effort medium); whole-report fallback. 7 unit tests
+  (`test_scoring_fallback.py`), 80 unit total green, ruff clean. Live: Claude via the gateway
+  -> 503 "no channel" -> `ScorerUnavailable` in 1.4 s (fallback path classifies correctly).
+- D34 built: AI rep in `scripts/live_smoke.py` (`scripts/ai_rep.py`). Two live calls, both
+  `ready`, all quotes verified, recording in the bucket:
+  weak rep vs Sam (CFO negotiation) **2.2**; average rep vs Elena (inbound) **4.2** -
+  scores separate good from bad calls. Traces: `CALL-TRACES.md`. Harness bugs fixed after
+  call 1 (empty model reply padded with a goodbye; sentence pauses let the buyer's VAD cut
+  the rep off).
+- Per-call cost (ledger): voice $0.076 + scoring $0.080 (3 calls) + AI rep $0.04-0.06.
+- **Blocker:** the gpt-5.6-sol key has $0.017 left; scoring needs $0.021 per call (403). The
+  gateway also returned one intermittent 400 ("function tools ... not supported in
+  /v1/chat/completions"). Loop stopped after 2 calls.
+
+Remaining before M1 exit: report latency (one call per report, needs approval + a funded key),
+Safari, Sentry DSN + exporter check, OTel, demo workspace seeding. M2 cannot start
 engineering acceptance until **external raters** exist (D14).
 
 ## M0 closure checkpoint — 2026-10-24

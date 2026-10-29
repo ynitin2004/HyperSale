@@ -23,17 +23,27 @@ pushes to both remotes. GitLab MCP is not available in this environment.
 - Tests: 73 unit (8 decision tests), 15 integration, 4 Playwright E2E. GitHub CI #9 at
   f4a4a00 green on backend, web, e2e, image. DECISION-TRACES.md maps decisions to guards.
 
+### Late 2026-10-29 (second quiz: AI rep, switch + fallback, gateway-then-direct Claude, ~$2)
+- D33 dual-model scoring (gpt-5.6-sol primary, claude-opus-5-5 whole-report fallback,
+  optional CLAUDE_API_KEY) and D34 AI rep in the live smoke, both built; 80 unit green.
+- Live: end->metrics 758 / 744 ms (met). Bucket recording met (17 chunks in `recordings`).
+  Weak rep 2.2 vs average rep 4.2: scoring discriminates. Traces in CALL-TRACES.md.
+
 ### Open
-1. Re-measure live: end->metrics (<1 s) after the set-based timing update, and end->report
-   (p95 <30 s) with two criteria per parallel call (offline 17.1 s). Earlier live p95 failed.
-2. Safari (D24); Supabase Storage bucket creation (needs user OK); Sentry/OTel accounts.
-3. External raters (D14) - blocks M2 acceptance. GitLab pipeline console still unreadable.
-4. Agent Router free tier throttles: one parallel call hung for hours on 2026-10-29.
-   Scorer now times out at 60 s with 1 SDK retry; a paid/stable scoring key is advised.
+1. End->report 31.3 / 33.7 s (target p95 <30). Diagnostic: this gateway queues parallel
+   calls; one call for all criteria was faster. Proposed: one call per report - NEEDS USER
+   APPROVAL, then a live re-measure.
+2. The gpt-5.6-sol key has $0.017 left; scoring needs $0.021/call (403). Needs a top-up or a
+   new key before any live run. Gateway also gave one intermittent 400 on tool calls.
+3. Safari (D24); Sentry MCP needs `/mcp` sign-in, then a DSN; OTel; demo workspace seed.
+4. External raters (D14) - blocks M2 acceptance. GitLab parked by the user.
 
 ### Environment facts that bit
 - After a WSL/Docker restart, Windows WMI hung: Python's `platform` module (imported by
-  SQLAlchemy) blocks, so pytest/alembic/uvicorn hang locally. Reboot clears it.
+  SQLAlchemy) blocks, so pytest/alembic/uvicorn hang locally. A real Restart clears it;
+  Shut down (Fast Startup) does not - check with `net statistics workstation`. Workaround
+  without a restart: a sitecustomize.py (outside the repo) that makes
+  `platform._wmi_query` raise OSError, put on PYTHONPATH; live_smoke passes PYTHONPATH on.
 - Supabase direct host is IPv6-only; use the session pooler (5432) for admin/Alembic.
 - pydantic-settings reads .env from cwd; Playwright on Windows needs an absolute quoted
   E2E_PYTHON; ruff run from repo root uses a stricter user-level config than CI.
@@ -168,6 +178,7 @@ Keep GitHub and GitLab CI aligned. Do not touch unrelated sibling projects.
 - 2026-08-24: plan/docs scaffold and D13-D20, evidence/eval rules, session quiz.
 - 2026-09-23: Claude voice harness committed at a6edbbc; live voice gates left open.
 - 2026-10-29: Spike 3 passed (gpt-5.6-sol); M1 built, hosted-migrated, live-verified via UI; CI #9 green incl. E2E.
+- 2026-10-29 late: D33 dual-model scoring + D34 AI-rep live loop; bucket + metrics gates met; key quota exhausted.
 - 2026-10-24: morning read-only audit, then full M0 closure: automated voice spikes, cost
   truth ledgered on hosted DB, restricted roles, auth login, compose stack, D23-D27, push.
 - 2026-10-16: history/source audit, unit/build/synthetic recording checks, read-only MCP
