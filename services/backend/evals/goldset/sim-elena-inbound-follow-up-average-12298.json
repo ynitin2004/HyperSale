@@ -1,0 +1,87 @@
+{
+  "id": "sim-elena-inbound-follow-up-average-12298",
+  "source": "sim",
+  "scenario": "elena-inbound-follow-up",
+  "applicable_criteria": [
+    "opening",
+    "discovery",
+    "listening",
+    "value",
+    "next_step"
+  ],
+  "rep": {
+    "seed": 12298,
+    "skill": "average",
+    "angle": "lead with new-hire ramp time",
+    "name": "Sara"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Hi, this is Elena! Thanks for calling back so fast."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Of course, Elena—thanks for requesting a demo. How are you training new SDRs today, and how long until they’re call-ready?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Right now, I run the training myself for four to six new SDRs each quarter, using live role-plays and recorded examples. It usually takes about three to four weeks before they feel call-ready, but I can’t listen to every practice call, and many are still pretty nervous when they start cold calling."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "That makes sense. Where’s the biggest gap on those first live calls—discovery, objection handling, or confidence?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "Mostly confidence, especially when they get an unexpected objection. They usually know the talk track, but they can freeze or rush on live calls, and I don’t have enough time to review every practice session and spot those patterns early."
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "Got it. How are you measuring improvement during those three to four weeks, beyond your own review?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "It’s pretty informal right now—completion of role-plays, my notes, and manager feedback once they start calling. I don’t have a consistent way to track progress or show leadership that the training is actually working, so can I see how my reps are improving over time?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "Yes—managers see week-by-week progress by rep, and every score links to the exact quote behind it. We can walk through that in the demo."
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Oh, interesting—that kind of visibility would be really helpful, especially for sharing results with leadership. How long does setup typically take?"
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "Setup depends on how many scenarios you want, but the pilot is designed to get one team started quickly. Shall we schedule the demo?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "Absolutely, I’d love to see it. I’m hoping to evaluate something before the end of the month—do you have Tuesday at 2 p.m. available?"
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "text": "Tuesday at 2 p.m. works. Which time zone should I use for the calendar invite?"
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "text": "Pacific time, please. Tuesday at 2 p.m. works perfectly. Great, talk soon!"
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0696
+}

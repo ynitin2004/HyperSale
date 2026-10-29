@@ -1,0 +1,112 @@
+{
+  "id": "live-20261029T173419Z",
+  "source": "live",
+  "scenario": "dana-incumbent-objections",
+  "applicable_criteria": [
+    "listening",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 132598,
+    "skill": "strong",
+    "angle": "lead with a recent hiring push you noticed",
+    "name": "Dev"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "rep",
+      "text": "Hydena"
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Dev from HyperSale, I noticed BrightPath's recent sales hiring push can I take 30 seconds to explain why ramp consistency prompted my call?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Sure, Dev, 30 seconds. Go ahead."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Hypersale lets new reps practice realistic buyer calls before prospects, while managers see quote-backed progress weekly, how are you keeping ramp quality consistent across hires?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "We already have Gong for this."
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "�That makes sense� Gong is strong after the call, Hypersale adds practice before it, where are new hires rehearsing before live prospects today?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "New hires practice on live prospects. Managers don't have time for another tool."
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "I hear you this should save manager time, not ad work, how many live prospect calls does each hire need before they're consistently ready?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "About a dozen calls, give or take. How would I even measure whether practice works?"
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "We compare pilot reps' time to consistency and first call quality against your dozen-call baseline. Every score cites the quote, How many hires this quarter?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "We’ve got about 15 ramping this quarter. What's your pilot cost?"
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "text": "Annual pricing is $90 per rep monthly, pilot cost depends on team size, how many of the 15 would you want included?"
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "text": "I can sponsor under $15k. How many reps fit that?"
+    },
+    {
+      "idx": 13,
+      "speaker": "rep",
+      "text": "13 reps cost $14,040 annually, all 15 cost $16,200, could we scope a 30 day pilot Tuesday at 2 with UN enablement?"
+    },
+    {
+      "idx": 14,
+      "speaker": "buyer",
+      "text": "All right, let's do 13 reps. Tuesday at 2 works. I've got a meeting, I need to go."
+    },
+    {
+      "idx": 15,
+      "speaker": "rep",
+      "text": "Perfect I'll send Tuesday at 2 with you and enablement to scope the 13 rep pilot."
+    },
+    {
+      "idx": 16,
+      "speaker": "rep",
+      "text": "Thanks, Dana."
+    },
+    {
+      "idx": 17,
+      "speaker": "buyer",
+      "text": "You're welcome. Talk then."
+    }
+  ],
+  "created": "20261029",
+  "session_id": "3aca18c4-61bc-4bf5-aa9f-dc74eb3d0ccd"
+}

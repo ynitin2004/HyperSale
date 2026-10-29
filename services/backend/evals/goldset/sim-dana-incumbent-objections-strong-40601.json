@@ -1,0 +1,87 @@
+{
+  "id": "sim-dana-incumbent-objections-strong-40601",
+  "source": "sim",
+  "scenario": "dana-incumbent-objections",
+  "applicable_criteria": [
+    "listening",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 40601,
+    "skill": "strong",
+    "angle": "lead with rep attrition",
+    "name": "Dev"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "This is Dana."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Dana, Dev at HyperSale—can I take 30 seconds? We help RevOps teams reduce attrition through AI buyer practice before live calls."
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "You’ve got 30 seconds, but we already have Gong for this."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Totally—Gong shows what happened after calls; HyperSale lets reps practise before buyers hear mistakes. Where does Gong leave coaching gaps today?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "Fair. My managers rarely listen to the Gong recordings, so coaching usually happens after we lose the deal—but they don’t have time for another tool."
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "That makes sense—another dashboard won’t help. How many deals or reps are affected monthly because managers only spot issues after losses?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "I can’t cleanly attribute lost deals to that across 80 sellers. The issue is manager time—how does this avoid adding to their workload?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "It replaces full-call review with exception-based coaching: managers see weekly trends and exact cited quotes. How much time do managers spend reviewing Gong today?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Very little, which is the problem—new hires end up practicing on live prospects. But how would I measure whether this actually improves ramp or attach rate?"
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "We’d baseline ramp time and attach rate, run a 30-day team pilot, then compare quote-backed scores to outcomes. Which metric matters more?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "Ramp time—specifically time to first qualified opportunity—is the cleaner metric for us. But we just renewed Gong for two years, and there’s no budget this year."
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "text": "Understood—the Gong renewal doesn’t overlap; it’s $90 per rep monthly, annually. Could we scope a 30-day pilot Tuesday at 2 with Enablement?"
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "text": "If the 30-day pilot is under $15k with no annual commitment, Tuesday at 2 works—send the invite and include Enablement. I’ve got a meeting, I need to go."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0821
+}

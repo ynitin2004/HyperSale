@@ -1,0 +1,98 @@
+{
+  "id": "sim-priya-cold-call-weak-33046",
+  "source": "sim",
+  "scenario": "priya-cold-call",
+  "applicable_criteria": [
+    "opening",
+    "discovery",
+    "listening",
+    "value",
+    "objection_handling",
+    "next_step"
+  ],
+  "rep": {
+    "seed": 33046,
+    "skill": "weak",
+    "angle": "lead with a peer company's result",
+    "name": "Arjun"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Priya speaking."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Hi Priya, Arjun at HyperSale—we helped a freight brokerage’s reps improve call scores week over week. Can I take four minutes?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "I’ve got two minutes. What do you mean by “call scores,” and which freight brokerage?"
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "They’re AI roleplay scores for discovery, objection handling, and close, each tied to the exact quote. I can’t name the brokerage due to confidentiality."
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "Mm-hm. We already do ride-alongs—what would roleplay scores tell me that my managers can’t see there?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "They give every rep consistent practice and quote-backed scoring, so managers see weekly improvement before quota time. Is consistency across 60 reps a priority?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "In theory. We bought Gong and nobody used it, so why would my reps consistently use this?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "Um, HyperSale gives reps realistic buyer practice and managers quote-backed scores showing weekly improvement. Would it make sense to explore this further?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "You didn’t answer me. Gong gave us visibility too, and nobody used it—what specifically makes adoption different here?"
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "Uh, unlike Gong, this is short, active practice before calls, with immediate quote-backed feedback and weekly manager visibility. Could we set up a follow-up?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "Maybe, but “short” isn’t an adoption plan. Is it built into Salesforce or manager-assigned, and what completion rates do customers actually see?"
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "text": "Uh, I need to confirm the Salesforce workflow and completion-rate data rather than guess. Could we set up a follow-up to explore?"
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "text": "Before I put time on the calendar, what does it cost for 60 reps?"
+    },
+    {
+      "idx": 13,
+      "speaker": "rep",
+      "text": "Uh, pricing varies by rollout and plan, so I’d rather confirm after understanding your setup. Could we reconnect sometime next week?"
+    },
+    {
+      "idx": 14,
+      "speaker": "buyer",
+      "text": "No—if you can’t give me even a price range or answer the adoption questions, I don’t have a reason to put time on the calendar. Alright, I’ve got to run."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0988
+}

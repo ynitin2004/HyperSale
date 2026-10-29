@@ -1,0 +1,77 @@
+{
+  "id": "sim-sam-cfo-pricing-strong-9379",
+  "source": "sim",
+  "scenario": "sam-cfo-pricing",
+  "applicable_criteria": [
+    "discovery",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 9379,
+    "skill": "strong",
+    "angle": "lead with a recent hiring push you noticed",
+    "name": "Sara"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Sam Whitfield. I have fifteen minutes, go ahead."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Sam, Sara at HyperSale. I noticed Northwind’s sales hiring push; may I ask how you’re ensuring new reps are buyer-ready before live calls?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Our VP of Sales owns that process. Why is this worth forty-eight thousand dollars?"
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Fair question: $48,000 equips 40 reps with realistic practice and quote-backed scoring, exposing coaching gaps before quota time. What does delayed ramp cost annually?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "A new rep costs us about $7,500 a month fully loaded. How many ramp months do you remove, across how many hires, and can you get below $35,000?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "I can’t credibly promise months before a baseline; a 30-day pilot will measure it. Below $35,000 requires narrower scope—how many hires this year?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "The hiring plan isn’t final. Price the 30-day pilot separately and give me a 40-rep annual option at or below $35,000; what ramp-time reduction would the pilot need to demonstrate?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "$5,000 pilot, credited; $35,000 annually for 40 requires two years. If it shows 4.7 rep-months annualized, review Thursday at two with you and VP Sales?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Four-point-seven rep-months only gets me to break-even; I’d need at least seven, or $52,500 in annualized savings. I won’t commit for two years—make it $35,000 for one year, lower the credited pilot to $3,000, and give me the calendar date for the review with our VP of Sales."
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "$3,000 credited pilot; $35,000 prepaid annual term for 40 if it validates seven rep-months. Can you and your VP review Thursday, November 5, at two?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "Thursday, November 5 at two works; include the baseline, measurement method for seven rep-months, and the $3,000 credit. Send me the business case and we'll take it from there."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.1284
+}

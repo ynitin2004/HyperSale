@@ -1,0 +1,77 @@
+{
+  "id": "sim-dana-incumbent-objections-average-20410",
+  "source": "sim",
+  "scenario": "dana-incumbent-objections",
+  "applicable_criteria": [
+    "listening",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 20410,
+    "skill": "average",
+    "angle": "lead with new-hire ramp time",
+    "name": "Leo"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "This is Dana."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Hi Dana, Leo from HyperSale. Quick question: how long does it take your new reps to sound confident on live buyer calls?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "We already have Gong for this. What exactly are you calling about?"
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Totally—Gong shows what happened after the call; HyperSale lets reps practise realistic buyer conversations beforehand. Are managers coaching from recordings today?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "Not consistently—managers usually listen only after a deal is lost, so new hires end up practicing on live prospects. But my managers don’t have time for another tool."
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "That’s where we fit: reps practise independently, and managers review scored moments with exact quotes instead of full calls. Would a 30-day pilot help?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Maybe, but how would I even measure whether the practice works—ramp time, attach rate, pipeline coverage, or something else?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "I’d start with ramp time and one Gong behavior, like objection handling, then compare pilot reps with the prior cohort. Which matters most?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Ramp time is the priority; new hires are learning objection handling on live prospects. But we just renewed Gong, so there’s no budget this year."
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "Understood—we wouldn’t replace Gong. Could we scope a 30-day new-hire pilot and use ramp-time improvement to build next year’s business case?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "If you can keep the pilot under $15k, I can sponsor a 20-minute scoping call with our enablement lead next week—send an invite and proposed ramp-time success criteria. I’ve got a meeting, I need to go."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0594
+}

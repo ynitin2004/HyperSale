@@ -1,0 +1,99 @@
+{
+  "id": "sim-marcus-discovery-average-36739",
+  "source": "sim",
+  "scenario": "marcus-discovery",
+  "applicable_criteria": [
+    "opening",
+    "discovery",
+    "listening",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 36739,
+    "skill": "average",
+    "angle": "lead with a peer company's result",
+    "name": "Arjun"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Hey, Marcus here. You've got about twenty minutes."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Thanks, Marcus. A similar fintech spotted discovery gaps by week two instead of month six. What’s driving Ledgerline’s seven-month AE ramp today?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Mostly the product is technical. New AEs tend to fumble ERP integration and implementation questions, which costs them credibility on calls."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Got it. How are new AEs practicing those conversations today, and when do managers typically catch the gaps?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "Mostly shadowing and roleplaying with a manager, when schedules allow. In practice, gaps get caught after a live call goes sideways—how is what you do actually different from manager roleplay?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "It complements manager roleplay with on-demand buyer practice and scores citing exact quotes. How often do those live-call misses happen?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "I don’t have a clean number; Rachel would. Anecdotally, it comes up most weeks, usually with newer reps on ERP integrations."
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "When a newer rep loses credibility on ERP integrations, does that usually mean extra technical support, delayed deals, or both?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Both. We pull in technical people to recover, and sometimes the deal stalls."
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "That sounds costly. Roughly how much technical time goes into those recoveries, and what would reps need to handle independently to shorten ramp?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "A few hours per deal between prep, follow-up calls, and cleanup, though I haven’t quantified it. Reps need to handle common ERP, API, and implementation questions accurately, then know when to bring in solutions engineering."
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "text": "That’s the use case: practice ERP, API, and implementation scenarios, with quote-backed scoring on accuracy and escalation. Would a 30-day pilot with Rachel make sense?"
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "text": "Rachel owns this, not me. A pilot might make sense, but how does that actually work—what data do you need, who builds the scenarios, and what would Rachel see at the end?"
+    },
+    {
+      "idx": 13,
+      "speaker": "rep",
+      "text": "We use your materials and call examples to build scenarios together. Rachel sees weekly improvement, recurring gaps, and quote-backed scores; could you connect us?"
+    },
+    {
+      "idx": 14,
+      "speaker": "buyer",
+      "text": "Potentially, but customer-call transcripts are sensitive. Do you need recordings to run the pilot, and how are the data stored, retained, and used for model training?"
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.095
+}

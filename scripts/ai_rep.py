@@ -11,7 +11,6 @@ from __future__ import annotations
 import base64
 import importlib
 import json
-import random
 import re
 import subprocess
 import time
@@ -25,7 +24,9 @@ from playwright.sync_api import Page
 # the two Ruff configs (root and services/backend) agree on import order.
 llm_client = importlib.import_module("app.adapters.llm.client")
 llm_models = importlib.import_module("app.adapters.llm.models")
+sim = importlib.import_module("evals.sim")  # the rep prompt is shared with the gold set (D36)
 REP_SIM_MODEL = llm_models.REP_SIM_MODEL
+SKILLS, RepProfile = sim.SKILLS, sim.RepProfile
 
 # Replaces getUserMedia with a Web Audio destination and taps the buyer's remote audio.
 INIT_JS = """
@@ -73,30 +74,6 @@ INIT_JS = """
 READ_TRANSCRIPT_JS = """() => Array.from(document.querySelectorAll('[data-testid=live-transcript] li.rep, [data-testid=live-transcript] li.buyer'))
   .map((li) => { const s = li.querySelector('span:last-child'); return { speaker: li.className, text: s.textContent, final: !s.classList.contains('muted') }; })"""
 
-PRODUCT = (
-    "HyperSale: AI voice roleplay so reps practise against realistic buyers before real calls, "
-    "plus scoring where every score cites the exact quote behind it. Typical pricing: $90 per "
-    "rep per month on an annual plan; a 30-day pilot for one team is available. Managers see "
-    "who is improving week by week instead of finding out at quota time."
-)
-
-SKILLS = {
-    "weak": ("You are a new, nervous rep. Pitch features early and talk more than you listen. "
-             "Ask few questions, mostly closed ones. Dodge the first price question. Do not build "
-             "on what the buyer just said. Your next step is vague."),
-    "average": ("You are a competent rep with gaps. Reasonable opener, two or three discovery "
-                "questions with shallow follow-up, partial objection handling, and a next step "
-                "without a firm date unless the buyer pushes."),
-    "strong": ("You are a top rep. Ask permission and give a specific reason in the opener. Ask "
-               "open questions that build on the buyer's own words, quantify the pain, answer "
-               "price directly, acknowledge and reframe objections, and close on a specific next "
-               "step with day, time and attendees."),
-}
-ANGLES = [
-    "lead with rep attrition", "lead with new-hire ramp time", "lead with manager coaching time",
-    "lead with a peer company's result", "lead with a recent hiring push you noticed",
-]
-REP_NAMES = ["Arjun", "Maya", "Leo", "Rohan", "Sara", "Dev"]
 VOICES = {"male": "Microsoft David Desktop", "female": "Microsoft Zira Desktop"}
 FEMALE = {"Maya", "Sara"}
 
@@ -104,20 +81,6 @@ MAX_REP_TURNS = 14
 BUYER_SILENCE_S = 0.9   # buyer audio quiet this long = their turn is over
 BUYER_LEVEL = 0.012     # RMS above this = the buyer is talking
 NUDGE_AFTER_S = 7.0     # nobody talking this long: the rep carries on
-
-
-@dataclass
-class RepProfile:
-    seed: int
-    skill: str
-    angle: str
-    name: str
-
-    @classmethod
-    def draw(cls, seed: int | None = None, skill: str | None = None) -> RepProfile:
-        seed = seed if seed is not None else random.SystemRandom().randrange(1_000_000)
-        rng = random.Random(seed)
-        return cls(seed, skill or rng.choice(sorted(SKILLS)), rng.choice(ANGLES), rng.choice(REP_NAMES))
 
 
 @dataclass
@@ -173,16 +136,7 @@ while (($line = [Console]::In.ReadLine()) -ne $null) {{
 class RepBrain:
     def __init__(self, scenario: dict[str, Any], profile: RepProfile) -> None:
         self.client = llm_client.build_client(model_id=REP_SIM_MODEL)
-        self.system = (
-            f"You are {profile.name}, a sales rep at HyperSale, on a live phone call. Your words "
-            f"are spoken aloud by text-to-speech, so write exactly what you say next and nothing "
-            f"else: no stage directions, quotes, lists or emojis, one or two short sentences, at "
-            f"most 25 words.\n\nProduct: {PRODUCT}\n\nCall: {scenario['title']}. Brief: "
-            f"{scenario['brief']}\n\nYour style: {SKILLS[profile.skill]} Opening angle: "
-            f"{profile.angle}.\n\nWhen the call has reached its natural end (a next step is "
-            f"agreed, the buyer firmly ends it, or you have said goodbye), finish your line with "
-            f"[END]."
-        )
+        self.system = sim.rep_system(scenario, profile)
 
     def next_line(self, history: list[dict[str, str]], log: RepLog) -> tuple[str, bool]:
         convo = "\n".join(f"{'YOU' if h['speaker'] == 'rep' else 'BUYER'}: {h['text']}" for h in history)

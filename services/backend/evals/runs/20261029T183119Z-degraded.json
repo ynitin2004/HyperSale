@@ -1,0 +1,207 @@
+{
+  "suite": "roleplay",
+  "variant": "degraded",
+  "created": "2026-10-29T18:31:19+00:00",
+  "prompt_version": "score-v1-2026-10-29",
+  "items": [
+    {
+      "item": "live-20261029T165504Z",
+      "source": "live",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "1",
+        "value": "2",
+        "objection_handling": "2",
+        "next_step": "4",
+        "positioning": "2"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 19818,
+      "cost_usd": 0.03766,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "live-20261029T170051Z",
+      "source": "live",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "4",
+        "listening": "3",
+        "value": "4",
+        "next_step": "5"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 16816,
+      "cost_usd": 0.03198,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "live-20261029T172934Z",
+      "source": "live",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "5",
+        "listening": "5",
+        "value": "5",
+        "objection_handling": "3",
+        "next_step": "insufficient_evidence",
+        "positioning": "4"
+      },
+      "quotes": 15,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 18485,
+      "cost_usd": 0.03555,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "live-20261029T173419Z",
+      "source": "live",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "5",
+        "value": "5",
+        "objection_handling": "5",
+        "next_step": "5",
+        "positioning": "5"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 15077,
+      "cost_usd": 0.02906,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-dana-incumbent-objections-average-17644",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "5",
+        "value": "5",
+        "objection_handling": "5",
+        "next_step": "5",
+        "positioning": "5"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 20618,
+      "cost_usd": 0.02575,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-dana-incumbent-objections-average-20410",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "5",
+        "value": "5",
+        "objection_handling": "5",
+        "next_step": "4",
+        "positioning": "5"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 13095,
+      "cost_usd": 0.03035,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-dana-incumbent-objections-strong-40601",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "5",
+        "value": "5",
+        "objection_handling": "4",
+        "next_step": "4",
+        "positioning": "5"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 11006,
+      "cost_usd": 0.02106,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-dana-incumbent-objections-strong-78703",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "4",
+        "value": "5",
+        "objection_handling": "3",
+        "next_step": "2",
+        "positioning": "4"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 13571,
+      "cost_usd": 0.02952,
+      "model_id": "gpt-5.6-sol"
+    }
+  ],
+  "gate": {
+    "ceiling_kind": "model-provisional",
+    "raters": [
+      "model-enablement-lead",
+      "model-strict-vp"
+    ],
+    "items": 8,
+    "errors": 0,
+    "fabricated": 0,
+    "misattributed": 0,
+    "ceiling": {
+      "qwk": 0.8503626843445261,
+      "mae": 0.3707865168539326,
+      "n": 178,
+      "ie_agreement": 0.9789473684210527,
+      "pairs": 1
+    },
+    "model_vs_consensus": {
+      "qwk": 0.8389531957725214,
+      "mae": 0.35,
+      "n": 40,
+      "ie_agreement": 0.9761904761904762
+    },
+    "ie_rate_model": 0.023809523809523808,
+    "ie_rate_consensus": 0.042105263157894736,
+    "latency_p95_ms": 19818,
+    "cost_usd": 0.2409,
+    "retried_items": 0,
+    "by_source": {
+      "live": {
+        "qwk": 0.9666110183639399,
+        "mae": 0.1,
+        "n": 20,
+        "ie_agreement": 0.9545454545454546
+      },
+      "sim": {
+        "qwk": 0.6500000000000001,
+        "mae": 0.6,
+        "n": 20,
+        "ie_agreement": 1.0
+      }
+    },
+    "passed": true,
+    "failures": []
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "id": "sim-dana-incumbent-objections-weak-98417",
+  "source": "sim",
+  "scenario": "dana-incumbent-objections",
+  "applicable_criteria": [
+    "listening",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 98417,
+    "skill": "weak",
+    "angle": "lead with new-hire ramp time",
+    "name": "Leo"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "This is Dana."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Hi Dana, Leo from HyperSale—uh, we help new hires ramp faster with realistic AI buyer roleplays and quote-backed scoring before they take live calls."
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "We already have Gong for this. What’s meaningfully different?"
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Uh, Gong shows what happened after a real call; HyperSale lets reps rehearse beforehand with realistic buyers, then ties every score to their exact words."
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "I get the distinction. My managers don’t have time for another tool—how much work does this add for them?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "Uh, reps practise independently; managers just see automatic, quote-backed scores and week-over-week improvement instead of reviewing recordings. Could we explore a pilot sometime?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "That helps. My managers rarely listen to Gong recordings, so coaching happens after deals are lost—but how would I measure whether practice actually works?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "Uh, HyperSale tracks week-over-week score improvement and readiness by skill, with every score tied to exact quotes. Would a 30-day pilot be useful?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Scores alone don’t prove practice works; I’d need to see movement in ramp or live-call conversion. How would you establish that in 30 days?"
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "Uh, we’d baseline ramp milestones and live-call conversion, then compare pilot reps with a matched group while tracking quote-backed practice gains. Could we outline that?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "That’s closer; new hires are effectively practicing on live prospects today. But we just renewed Gong, and there’s no budget this year—what would a 30-day pilot cost?"
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "text": "Uh, pilot pricing depends on team size and scope. Could we sketch a small cohort and revisit timing when budget opens?"
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "text": "There’s no point sketching scope without a number. Give me a range for 10 new hires over 30 days—if it’s under $15k, I can sponsor it without involving the CRO."
+    },
+    {
+      "idx": 13,
+      "speaker": "rep",
+      "text": "Uh, standard pricing puts 10 reps at about $900 for a month; I’d need to confirm pilot terms. Is that workable?"
+    },
+    {
+      "idx": 14,
+      "speaker": "buyer",
+      "text": "That range is workable, assuming there aren’t implementation fees. Send me something by email with confirmed terms and how you’d measure ramp and live-call conversion. I've got a meeting, I need to go."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.1054
+}

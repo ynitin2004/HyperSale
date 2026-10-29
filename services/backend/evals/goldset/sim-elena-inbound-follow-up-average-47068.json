@@ -1,0 +1,67 @@
+{
+  "id": "sim-elena-inbound-follow-up-average-47068",
+  "source": "sim",
+  "scenario": "elena-inbound-follow-up",
+  "applicable_criteria": [
+    "opening",
+    "discovery",
+    "listening",
+    "value",
+    "next_step"
+  ],
+  "rep": {
+    "seed": 47068,
+    "skill": "average",
+    "angle": "lead with new-hire ramp time",
+    "name": "Leo"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Hi, this is Elena! Thanks for calling back so fast."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Hi Elena, absolutely. I saw your demo request—before we schedule it, how are you training new SDRs today, and how long until they ramp?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Right now I run onboarding myself for four to six new SDRs each quarter, mostly through live role-plays, call recordings, and shadowing experienced reps. It usually takes about six to eight weeks for them to feel comfortable, but I can’t listen to every practice call or clearly show leadership whether the training is working."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "That sounds tough to scale. Where do new reps struggle most during those six to eight weeks, and how are you measuring improvement today?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "They struggle most with confidence on cold calls, especially handling objections and keeping the conversation natural when prospects push back. Today I’m relying on my own notes, manager feedback, and eventually their conversion numbers, but it’s pretty informal—can I see how reps are improving over time?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "Yes—managers see weekly progress, and every score cites the exact quote behind it. We can show that in the demo; what timing works?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Oh, interesting—that level of detail would be really helpful. I’d like to see it before the end of the month; could you do Friday at 2 p.m., and how long does setup typically take?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "Friday at 2 works; I’ll send the invite. Setup depends on your scenarios and team, and we’ll map that out together."
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "That makes sense. I’ll look out for the invite and look forward to seeing it. Great, talk soon!"
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0469
+}

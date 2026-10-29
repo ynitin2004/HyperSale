@@ -1,0 +1,67 @@
+{
+  "id": "sim-dana-incumbent-objections-weak-28551",
+  "source": "sim",
+  "scenario": "dana-incumbent-objections",
+  "applicable_criteria": [
+    "listening",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 28551,
+    "skill": "weak",
+    "angle": "lead with manager coaching time",
+    "name": "Sara"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "This is Dana."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Hi Dana, Sara from HyperSale. We cut manager coaching time with AI voice roleplays and quote-backed scoring—can I take 30 seconds?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "You have 30 seconds, but we already have Gong for this."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Totally, Gong reviews calls after they happen; HyperSale lets reps practise realistic buyer conversations before live calls, with every score tied to an exact quote."
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "I see the distinction, but my managers don't have time for another tool."
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "Um, HyperSale runs the roleplays and scores every response automatically, so managers just track week-over-week improvement. Could we pencil a quick look next week?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "That’s still another dashboard my managers won’t open. They don’t have time for another tool."
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "Um, every score cites the exact rep quote and tracks weekly improvement automatically. Could we maybe reconnect next week?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "My managers still won’t open another dashboard. Send me something by email; I’ve got a meeting, I need to go."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0555
+}

@@ -1,0 +1,98 @@
+{
+  "id": "sim-priya-cold-call-strong-14820",
+  "source": "sim",
+  "scenario": "priya-cold-call",
+  "applicable_criteria": [
+    "opening",
+    "discovery",
+    "listening",
+    "value",
+    "objection_handling",
+    "next_step"
+  ],
+  "rep": {
+    "seed": 14820,
+    "skill": "strong",
+    "angle": "lead with rep attrition",
+    "name": "Sara"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Priya speaking."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Priya, Sara at HyperSale—could I take 30 seconds? I’m calling because freight teams use us to reduce ramp-time attrition through realistic buyer practice."
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "You’ve got 30 seconds. What do you mean by realistic buyer practice?"
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Reps roleplay with AI buyers modeled on freight objections, then managers see scores tied to exact quotes. Where are new hires struggling most today?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "It’s less freight knowledge than not knowing early who’s coachable before they miss quota. We already do ride-alongs, though."
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "That makes sense—ride-alongs help, but your issue is getting an earlier, consistent signal. How long does it take today to identify an uncoachable hire?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Usually not until they’ve missed quota and a manager’s already sunk a lot of time into them. I’m not convinced an AI roleplay tells me who’s actually coachable, though."
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "Fair concern—it shouldn’t replace judgment. If weekly practice showed who applies feedback, how many hires could you flag before they miss quota?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Maybe two or three a quarter. But we bought Gong and nobody used it, so why would this be any different?"
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "Fair—if Gong became shelfware, another tool is a bad bet. What specifically kept reps and managers from using it?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "Reps saw it as surveillance, and managers never built it into their coaching cadence. After a month, usage fell off."
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "text": "That’s the real risk: without a coaching cadence, any tool becomes shelfware. How are your managers coaching today, and what would reps willingly practice?"
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "text": "Mostly ride-alongs and deal reviews once something’s already going wrong. I don’t have time to build a whole new coaching program around another tool."
+    },
+    {
+      "idx": 13,
+      "speaker": "rep",
+      "text": "You shouldn’t have to build one. If we fit a 30-day pilot into one manager’s existing deal review, what would prove it saves time?"
+    },
+    {
+      "idx": 14,
+      "speaker": "buyer",
+      "text": "If it showed within the first few weeks who was actually applying feedback, without adding more than 15 minutes to the manager’s weekly review, that’d be meaningful. What does a pilot like that cost?"
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.1034
+}

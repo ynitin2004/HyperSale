@@ -1,0 +1,89 @@
+{
+  "id": "sim-marcus-discovery-weak-62379",
+  "source": "sim",
+  "scenario": "marcus-discovery",
+  "applicable_criteria": [
+    "opening",
+    "discovery",
+    "listening",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 62379,
+    "skill": "weak",
+    "angle": "lead with a peer company's result",
+    "name": "Maya"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Hey, Marcus here. You've got about twenty minutes."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Thanks, Marcus. A fintech peer shortened ramp using HyperSale’s realistic AI buyer practice and quote-backed scoring. Is reducing Ledgerline’s seven-month ramp the priority?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Yes—that’s time to first closed deal. How does the buyer practice actually work for technical integration questions?"
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Reps roleplay realistic buyers handling technical questions, then managers get scores with exact supporting quotes and week-over-week progress. Does that sound useful?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "Potentially, but that’s still broad. How does it learn our actual integrations and determine whether a rep’s answer is technically correct, rather than just confident?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "It simulates realistic buyer objections and scores every response with exact quote evidence, so managers can verify performance instead of trusting confidence. Useful?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Not yet. You still haven’t explained how it learns our integrations or who defines the technically correct answer—do we upload documentation, and how are updates and hallucinations handled?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "I don’t want to overstate the setup without our technical team; quote-backed scoring lets managers verify answers. Should we explore a pilot?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "No. Before a pilot, I need your technical team to explain knowledge ingestion, answer validation, updates, hallucination controls, and data handling—our customer-call transcripts are sensitive."
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "Absolutely. I’ll bring in our technical team to cover ingestion, validation, updates, hallucinations, and data handling; would sometime next week work?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "Rachel owns this, not me, so she’ll need to be there. Propose a specific 30-minute slot next week with those technical topics on the agenda, including transcript retention, encryption, access controls, and model-training use."
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "text": "How about Tuesday at 2 p.m. Eastern for 30 minutes with Rachel and our technical lead? I’ll put every requested topic on the agenda."
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "text": "Tuesday at 2 Eastern works. Send Rachel and me the invite with that agenda and your technical lead included. Okay, I need to jump to standup."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0923
+}

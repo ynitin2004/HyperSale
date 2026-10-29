@@ -1,0 +1,9 @@
+{
+  "_doc": "D38 eval gate. qwk/mae margins vs the rater ceiling; baseline_* vs evals/baseline.json on the same items. Measured on 8 items: unchanged prompt drifted 0.053 kappa / +0.10 MAE, lenient prompt 0.099 / +0.20.",
+  "qwk_margin": 0.15,
+  "mae_margin": 0.4,
+  "ie_rate_band": 0.2,
+  "max_errors": 1,
+  "baseline_qwk_drop": 0.08,
+  "baseline_mae_rise": 0.15
+}

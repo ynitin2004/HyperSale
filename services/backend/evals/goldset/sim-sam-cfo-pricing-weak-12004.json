@@ -1,0 +1,57 @@
+{
+  "id": "sim-sam-cfo-pricing-weak-12004",
+  "source": "sim",
+  "scenario": "sam-cfo-pricing",
+  "applicable_criteria": [
+    "discovery",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 12004,
+    "skill": "weak",
+    "angle": "lead with manager coaching time",
+    "name": "Maya"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Sam Whitfield. I have fifteen minutes, go ahead."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Thanks, Sam. HyperSale cuts manager coaching time with AI voice roleplays and quote-backed scoring, revealing weekly rep improvement before quota slips."
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Why is this worth forty-eight thousand dollars? Give me the expected impact on ramp time, win rate, or failed hires."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "The AI gives every rep realistic buyer practice and managers quote-backed scoring, so coaching focuses quickly. Could we review your baseline metrics next week?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "Not without a quantified case: what reduction in ramp time or attrition do you expect? Forty-eight thousand is above my thirty-five-thousand-dollar ceiling—what can you do on price, and what specific date next week do you propose with our VP of Sales?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "At $35,000, we’d reduce scope below 40 reps; I won’t invent impact. Can you and your VP review baselines Tuesday, November 3 at 2 Eastern?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Tuesday, November 3 at 2 Eastern works if it is a business-case review with our VP and includes a 40-rep option at $35,000 or less, plus quantified ramp-time or attrition assumptions. Send me the business case and we'll take it from there."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0571
+}

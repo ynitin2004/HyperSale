@@ -1,0 +1,676 @@
+{
+  "suite": "roleplay",
+  "variant": "product",
+  "created": "2026-10-29T18:29:06+00:00",
+  "prompt_version": "score-v1-2026-10-29",
+  "items": [
+    {
+      "item": "live-20261029T165504Z",
+      "source": "live",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "1",
+        "value": "2",
+        "objection_handling": "2",
+        "next_step": "4",
+        "positioning": "2"
+      },
+      "quotes": 11,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 23094,
+      "cost_usd": 0.03845,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "live-20261029T170051Z",
+      "source": "live",
+      "error": "ScorerUnavailable: gpt-5.6-sol: BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-5.6-sol in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'. (request id: 20261029181917644233237V0"
+    },
+    {
+      "item": "live-20261029T172934Z",
+      "source": "live",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "5",
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "3",
+        "next_step": "insufficient_evidence",
+        "positioning": "4"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 12904,
+      "cost_usd": 0.02704,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "live-20261029T173419Z",
+      "source": "live",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "5",
+        "value": "5",
+        "objection_handling": "4",
+        "next_step": "5",
+        "positioning": "5"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 21665,
+      "cost_usd": 0.04399,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-dana-incumbent-objections-average-17644",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "5",
+        "value": "5",
+        "objection_handling": "5",
+        "next_step": "4",
+        "positioning": "5"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 18232,
+      "cost_usd": 0.03632,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-dana-incumbent-objections-average-20410",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "5",
+        "next_step": "3",
+        "positioning": "4"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 13364,
+      "cost_usd": 0.03072,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-dana-incumbent-objections-strong-40601",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "4",
+        "next_step": "4",
+        "positioning": "3"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 12712,
+      "cost_usd": 0.0253,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-dana-incumbent-objections-strong-78703",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "4",
+        "value": "4",
+        "objection_handling": "3",
+        "next_step": "1",
+        "positioning": "3"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 21745,
+      "cost_usd": 0.03622,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-dana-incumbent-objections-weak-28551",
+      "source": "sim",
+      "error": "ScorerUnavailable: gpt-5.6-sol: BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-5.6-sol in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'. [hub-] [trace_id=7caa85f5450e5d916a3ba"
+    },
+    {
+      "item": "sim-dana-incumbent-objections-weak-98417",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "4",
+        "value": "4",
+        "objection_handling": "3",
+        "next_step": "2",
+        "positioning": "4"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 16838,
+      "cost_usd": 0.02999,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-elena-inbound-follow-up-average-12298",
+      "source": "sim",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "4",
+        "value": "5",
+        "next_step": "4"
+      },
+      "quotes": 11,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 14636,
+      "cost_usd": 0.0345,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-elena-inbound-follow-up-average-47068",
+      "source": "sim",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "4",
+        "value": "4",
+        "next_step": "4"
+      },
+      "quotes": 10,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 11588,
+      "cost_usd": 0.02442,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-elena-inbound-follow-up-strong-32746",
+      "source": "sim",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "5",
+        "listening": "5",
+        "value": "4",
+        "next_step": "4"
+      },
+      "quotes": 11,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 22263,
+      "cost_usd": 0.04004,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-elena-inbound-follow-up-strong-85180",
+      "source": "sim",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "5",
+        "value": "4",
+        "next_step": "3"
+      },
+      "quotes": 8,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 12729,
+      "cost_usd": 0.02341,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-elena-inbound-follow-up-weak-52918",
+      "source": "sim",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "2",
+        "listening": "3",
+        "value": "4",
+        "next_step": "3"
+      },
+      "quotes": 8,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 17025,
+      "cost_usd": 0.03692,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-elena-inbound-follow-up-weak-65600",
+      "source": "sim",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "3",
+        "discovery": "1",
+        "listening": "2",
+        "value": "3",
+        "next_step": "4"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 20015,
+      "cost_usd": 0.03088,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-marcus-discovery-average-100629",
+      "source": "sim",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "4",
+        "next_step": "insufficient_evidence",
+        "positioning": "4"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 16262,
+      "cost_usd": 0.02778,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-marcus-discovery-average-36739",
+      "source": "sim",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "3",
+        "next_step": "4",
+        "positioning": "4"
+      },
+      "quotes": 16,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 23278,
+      "cost_usd": 0.04457,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-marcus-discovery-strong-35917",
+      "source": "sim",
+      "error": "ScorerUnavailable: gpt-5.6-sol: BadRequestError: Error code: 400 - {'error': {'message': \"Function tools with reasoning_effort are not supported for gpt-5.6-sol in /v1/chat/completions. To use function tools, use /v1/responses or set reasoning_effort to 'none'. (request id: 20261029182343134374464ka"
+    },
+    {
+      "item": "sim-marcus-discovery-strong-56795",
+      "source": "sim",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "5",
+        "value": "insufficient_evidence",
+        "objection_handling": "insufficient_evidence",
+        "next_step": "insufficient_evidence",
+        "positioning": "insufficient_evidence"
+      },
+      "quotes": 8,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 18003,
+      "cost_usd": 0.03142,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-marcus-discovery-weak-4637",
+      "source": "sim",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "3",
+        "discovery": "2",
+        "listening": "2",
+        "value": "3",
+        "objection_handling": "3",
+        "next_step": "4",
+        "positioning": "3"
+      },
+      "quotes": 17,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 23220,
+      "cost_usd": 0.05205,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-marcus-discovery-weak-62379",
+      "source": "sim",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "3",
+        "discovery": "1",
+        "listening": "3",
+        "value": "3",
+        "objection_handling": "2",
+        "next_step": "4",
+        "positioning": "3"
+      },
+      "quotes": 17,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 2,
+      "latency_ms": 27769,
+      "cost_usd": 0.04947,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-priya-cold-call-average-62034",
+      "source": "sim",
+      "scenario": "priya-cold-call",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "5",
+        "listening": "5",
+        "value": "5",
+        "objection_handling": "4",
+        "next_step": "4"
+      },
+      "quotes": 15,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 17427,
+      "cost_usd": 0.03066,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-priya-cold-call-average-82052",
+      "source": "sim",
+      "scenario": "priya-cold-call",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "4",
+        "listening": "5",
+        "value": "5",
+        "objection_handling": "4",
+        "next_step": "4"
+      },
+      "quotes": 16,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 27093,
+      "cost_usd": 0.0483,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-priya-cold-call-strong-14820",
+      "source": "sim",
+      "scenario": "priya-cold-call",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "5",
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "5",
+        "next_step": "3"
+      },
+      "quotes": 15,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 22560,
+      "cost_usd": 0.04143,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-priya-cold-call-strong-36690",
+      "source": "sim",
+      "scenario": "priya-cold-call",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "4",
+        "listening": "5",
+        "value": "5",
+        "objection_handling": "5",
+        "next_step": "insufficient_evidence"
+      },
+      "quotes": 12,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 20447,
+      "cost_usd": 0.04214,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-priya-cold-call-weak-33046",
+      "source": "sim",
+      "scenario": "priya-cold-call",
+      "outcomes": {
+        "opening": "3",
+        "discovery": "1",
+        "listening": "2",
+        "value": "3",
+        "objection_handling": "2",
+        "next_step": "2"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 17491,
+      "cost_usd": 0.0401,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-priya-cold-call-weak-62336",
+      "source": "sim",
+      "scenario": "priya-cold-call",
+      "outcomes": {
+        "opening": "3",
+        "discovery": "2",
+        "listening": "2",
+        "value": "3",
+        "objection_handling": "2",
+        "next_step": "2"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 25286,
+      "cost_usd": 0.0443,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-sam-cfo-pricing-average-29870",
+      "source": "sim",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "4",
+        "value": "3",
+        "objection_handling": "3",
+        "next_step": "4",
+        "positioning": "4"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 27767,
+      "cost_usd": 0.04535,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-sam-cfo-pricing-average-56696",
+      "source": "sim",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "3",
+        "value": "3",
+        "objection_handling": "4",
+        "next_step": "4",
+        "positioning": "3"
+      },
+      "quotes": 12,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 14244,
+      "cost_usd": 0.03176,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-sam-cfo-pricing-strong-34901",
+      "source": "sim",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "4",
+        "value": "3",
+        "objection_handling": "4",
+        "next_step": "4",
+        "positioning": "2"
+      },
+      "quotes": 12,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 20319,
+      "cost_usd": 0.03631,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-sam-cfo-pricing-strong-9379",
+      "source": "sim",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "4",
+        "value": "5",
+        "objection_handling": "4",
+        "next_step": "5",
+        "positioning": "4"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 24654,
+      "cost_usd": 0.04365,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-sam-cfo-pricing-weak-12004",
+      "source": "sim",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "1",
+        "value": "2",
+        "objection_handling": "3",
+        "next_step": "4",
+        "positioning": "3"
+      },
+      "quotes": 8,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 20173,
+      "cost_usd": 0.03236,
+      "model_id": "gpt-5.6-sol"
+    },
+    {
+      "item": "sim-sam-cfo-pricing-weak-93746",
+      "source": "sim",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "2",
+        "value": "3",
+        "objection_handling": "3",
+        "next_step": "4",
+        "positioning": "2"
+      },
+      "quotes": 12,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 17177,
+      "cost_usd": 0.02892,
+      "model_id": "gpt-5.6-sol"
+    }
+  ],
+  "gate": {
+    "ceiling_kind": "model-provisional",
+    "raters": [
+      "model-strict-vp"
+    ],
+    "items": 34,
+    "errors": 3,
+    "fabricated": 0,
+    "misattributed": 0,
+    "ceiling": {
+      "qwk": null,
+      "mae": null,
+      "n": 0,
+      "ie_agreement": null,
+      "pairs": 0
+    },
+    "model_vs_consensus": {
+      "qwk": 0.8304068522483941,
+      "mae": 0.3878787878787879,
+      "n": 165,
+      "ie_agreement": 0.9884393063583815
+    },
+    "ie_rate_model": 0.04046242774566474,
+    "ie_rate_consensus": 0.05789473684210526,
+    "latency_p95_ms": 27093,
+    "cost_usd": 1.1288,
+    "by_source": {
+      "live": {
+        "qwk": 0.8627450980392157,
+        "mae": 0.4666666666666667,
+        "n": 15,
+        "ie_agreement": 0.9411764705882353
+      },
+      "sim": {
+        "qwk": 0.8259736550887088,
+        "mae": 0.38,
+        "n": 150,
+        "ie_agreement": 0.9935897435897436
+      }
+    },
+    "passed": false,
+    "failures": [
+      "3 items errored (max 1)",
+      "no ceiling or no comparable labels"
+    ]
+  }
+}

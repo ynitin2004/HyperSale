@@ -1,0 +1,98 @@
+{
+  "id": "sim-priya-cold-call-average-62034",
+  "source": "sim",
+  "scenario": "priya-cold-call",
+  "applicable_criteria": [
+    "opening",
+    "discovery",
+    "listening",
+    "value",
+    "objection_handling",
+    "next_step"
+  ],
+  "rep": {
+    "seed": 62034,
+    "skill": "average",
+    "angle": "lead with a peer company's result",
+    "name": "Dev"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Priya speaking."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Hi Priya, Dev at HyperSale. A freight brokerage we support spots coaching gaps weekly instead of at quota time; could I take four minutes?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "You’ve got four minutes. How are you spotting those coaching gaps?"
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "We run reps through realistic AI buyer roleplays, then score each skill with the exact quote as evidence. How are you measuring coaching progress today?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "Mostly manager ride-alongs and whether the numbers improve afterward. We already do ride-alongs, so what would this tell me that they don’t?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "Ride-alongs give a snapshot; HyperSale gives consistent weekly data across all 60 reps, tied to exact language. Which skills are managers struggling to assess?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Whether feedback actually sticks week to week—who changes behavior after coaching and who doesn’t. But we bought Gong and nobody used it, so why would reps do these roleplays?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "Fair concern. Unlike reviewing Gong calls, reps complete one short scenario weekly and managers see whether coached behaviors change; what blocked Gong adoption?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Managers didn’t build it into the coaching cadence, and reps saw it as surveillance, so usage died after a month. Why wouldn’t this go the same way?"
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "It could, unless managers own the cadence and reps see it as practice, not monitoring. Would a 30-day pilot with one team be worth testing?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "Maybe. What does the 30-day pilot cost?"
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "text": "It depends on pilot team size; standard pricing is $90 per rep monthly on an annual plan. How many reps would you include?"
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "text": "Ten reps. What’s the all-in cost for 30 days?"
+    },
+    {
+      "idx": 13,
+      "speaker": "rep",
+      "text": "For ten reps, I’d scope it at $900 all-in for 30 days. If that’s workable, I can send a one-page pilot outline."
+    },
+    {
+      "idx": 14,
+      "speaker": "buyer",
+      "text": "Nine hundred’s workable. Send the one-pager, and include exactly what managers and reps have to do each week and how you’ll measure whether coaching sticks."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.1001
+}

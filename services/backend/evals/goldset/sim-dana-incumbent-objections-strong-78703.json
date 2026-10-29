@@ -1,0 +1,97 @@
+{
+  "id": "sim-dana-incumbent-objections-strong-78703",
+  "source": "sim",
+  "scenario": "dana-incumbent-objections",
+  "applicable_criteria": [
+    "listening",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 78703,
+    "skill": "strong",
+    "angle": "lead with a recent hiring push you noticed",
+    "name": "Maya"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "This is Dana."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Dana, Maya from HyperSale. I noticed Brightpath’s recent sales hiring push—may I take 30 seconds to explain why I’m calling?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "You’ve got 30 seconds."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Thanks. Gong shows managers what happened after calls; HyperSale lets new reps practice realistic buyers beforehand, with quote-backed scoring. How are you ramping hires today?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "We already have Gong for this. Why would I add another platform to the stack?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "That makes sense—Gong reviews real calls; HyperSale creates safe repetitions before prospects are affected. Where does Gong leave gaps in ramping those new hires?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Fair. New hires are still getting most of their practice on live prospects, which isn’t ideal for ramp. But my managers don’t have time for another tool."
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "Exactly—HyperSale replaces manager-led roleplays with AI practice and quote-backed scoring, so managers review progress, not sessions. How many hours weekly does coaching consume?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Honestly, very few—that’s the problem. Managers rarely listen to Gong recordings, and coaching usually happens after a deal is already lost, so how does this avoid becoming another dashboard they ignore?"
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "That’s the risk. HyperSale surfaces week-over-week practice progress with exact quotes, so what does delayed coaching cost you in lost deals or ramp time?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "That’s hard to isolate—pipeline coverage and attach rate move for a dozen reasons. How would I measure whether the practice itself improves ramp, versus reps simply completing exercises?"
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "text": "In a 30-day pilot, we’d baseline one cohort, correlate quote-backed skill gains with Gong outcomes, and separate improvers from completers. Which milestone matters most?"
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "text": "Time to first qualified opportunity is probably the cleanest ramp milestone, with stage-one-to-two conversion as a guardrail. But we just renewed Gong for two years, and there’s no budget for another platform this year."
+    },
+    {
+      "idx": 13,
+      "speaker": "rep",
+      "text": "Understood—this complements Gong; annual pricing is $90 per rep monthly. What must a one-team, 30-day pilot prove to earn next year’s budget?"
+    },
+    {
+      "idx": 14,
+      "speaker": "buyer",
+      "text": "You didn’t answer the budget point. Unless you’re proposing a one-team pilot under my $15k approval limit, this doesn’t go anywhere this year."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.1043
+}

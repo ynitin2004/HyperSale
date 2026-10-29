@@ -1,0 +1,82 @@
+{
+  "id": "live-20261029T170051Z",
+  "source": "live",
+  "scenario": "elena-inbound-follow-up",
+  "applicable_criteria": [
+    "opening",
+    "discovery",
+    "listening",
+    "value",
+    "next_step"
+  ],
+  "rep": {
+    "seed": 231906,
+    "skill": "average",
+    "angle": "lead with manager coaching time",
+    "name": "Sara"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "rep",
+      "text": "Hi Elena, this is Sarah from Hypersale. You requested a demo yesterday. Did I catch you with a minute to discuss reducing manager coaching time?"
+    },
+    {
+      "idx": 1,
+      "speaker": "buyer",
+      "text": "Hi Sarah, this is Elena! Thanks for calling back so fast. Yeah, I’ve got a few minutes now. Reducing manager coaching time is definitely something I’m interested in—tell me more."
+    },
+    {
+      "idx": 2,
+      "speaker": "rep",
+      "text": "Absolutely, before I dive in, how are your SDRs practicing calls today, and how much manager time does that take each week?"
+    },
+    {
+      "idx": 3,
+      "speaker": "buyer",
+      "text": "Sure, so right now, my SDRs practice by recording mock calls and I review a handful myself. It takes a good chunk of time—probably around 8 to 10 hours a week just listening and giving feedback. And honestly, I can’t catch everything, so there’s definitely room for improvement. That make sense?"
+    },
+    {
+      "idx": 4,
+      "speaker": "rep",
+      "text": "That makes sense, how many SDRs are you supporting, and where do you see the biggest gaps when managers can't review every practice call?"
+    },
+    {
+      "idx": 5,
+      "speaker": "buyer",
+      "text": "I’m supporting about 4 to 6 new SDRs each quarter. The biggest gaps show up in their cold call nerves and objection handling. When I can’t review every call, I miss those subtle patterns—like who’s improving and who’s stuck. Oh, interesting, right?"
+    },
+    {
+      "idx": 6,
+      "speaker": "rep",
+      "text": "Definitely, how are those gaps affecting ramp time or conversion today, Hypersale lets SDRs practice realistic buyers, while managers track improvement from quote-backs' scores."
+    },
+    {
+      "idx": 7,
+      "speaker": "buyer",
+      "text": "Right now, those gaps are adding a few extra weeks to ramp time. Some SDRs take longer to find their footing on live calls, and it’s tough to quantify who’s really ready. So having a way to track improvement with solid data—oh, that’s really appealing. How long does setup take on your side?"
+    },
+    {
+      "idx": 8,
+      "speaker": "rep",
+      "text": "Setup for a pilot is typically light, we tailor scenarios and scoring with your team, would a 30 minute demo be a good next step?"
+    },
+    {
+      "idx": 9,
+      "speaker": "buyer",
+      "text": "Yes, that sounds great. Can we set up a 30-minute demo later this week? Maybe Thursday afternoon? And one more thing—can I see how my reps are improving over time during that demo?"
+    },
+    {
+      "idx": 10,
+      "speaker": "rep",
+      "text": "Absolutely will show week-by-week improvement and the exact quotes behind every score. Would Thursday at 2 p.m. work for the demo?"
+    },
+    {
+      "idx": 11,
+      "speaker": "buyer",
+      "text": "Yes, Thursday at 2 p.m. works perfectly. I’m really looking forward to seeing that improvement data. Great, talk soon!"
+    }
+  ],
+  "created": "20261029",
+  "session_id": "b3623b72-9097-4821-bc2c-1c7130606b0d"
+}

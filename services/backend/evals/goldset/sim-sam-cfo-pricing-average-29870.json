@@ -1,0 +1,87 @@
+{
+  "id": "sim-sam-cfo-pricing-average-29870",
+  "source": "sim",
+  "scenario": "sam-cfo-pricing",
+  "applicable_criteria": [
+    "discovery",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 29870,
+    "skill": "average",
+    "angle": "lead with a recent hiring push you noticed",
+    "name": "Sara"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Sam Whitfield. I have fifteen minutes, go ahead."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Sam, thanks. I noticed Northwind’s recent sales hiring push. How are you ensuring those new reps are ready before they speak with buyers?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "We spent sixty thousand dollars on training last year and saw no change in win rate. Why is this worth forty-eight thousand dollars?"
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Fair concern. Unlike one-off training, HyperSale shows weekly improvement with quote-backed scoring; where did last year’s program fail—practice, manager visibility, or adoption?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "Adoption was inconsistent, managers couldn’t quantify progress, and win rate stayed flat. How many weeks will this cut from ramp time, and what is the dollar value for forty reps?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "I can quantify it, but not honestly without your current ramp time and first-year rep productivity. What are those today?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Six months to full productivity, and first-year reps average 55% of quota. Quantify the annual value, then explain why I should pay forty-eight thousand instead of thirty-five."
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "What’s annual quota per rep? If HyperSale cuts two weeks, that’s 1/26 of quota capacity per rep; $48,000 covers 40, while $35,000 means reduced scope."
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Annual quota is $1.2 million per rep. Use the 55% first-year attainment in your calculation, and tell me what you can do on price—I have a $35,000 ceiling."
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "At 55%, two weeks across 40 reps represent $1.02 million in quota capacity. At $35,000, we’d reduce scope; let’s review business-case and pilot options."
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "Quota capacity isn’t booked revenue. What exact scope can you offer at $35,000, and what date do you propose to review the business case with my VP of Sales?"
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "text": "At $35,000: 32 reps for 12 months, with AI roleplays, quote-backed scoring, and manager dashboards. Can we review with your VP Tuesday, November 3?"
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "text": "Tuesday, November 3 works; include my VP and an option covering all 40 reps at $35,000, with the two-week ramp claim translated into booked revenue. Send me the business case and we'll take it from there."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.1198
+}

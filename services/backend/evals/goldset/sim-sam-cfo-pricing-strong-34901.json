@@ -1,0 +1,102 @@
+{
+  "id": "sim-sam-cfo-pricing-strong-34901",
+  "source": "sim",
+  "scenario": "sam-cfo-pricing",
+  "applicable_criteria": [
+    "discovery",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 34901,
+    "skill": "strong",
+    "angle": "lead with a recent hiring push you noticed",
+    "name": "Dev"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Sam Whitfield. I have fifteen minutes, go ahead."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Sam, I noticed Northwind’s recent sales hiring push. May I ask two questions about ramp time to see whether this merits fifteen minutes?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Ask them. Then tell me why this is worth forty-eight thousand dollars."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Absolutely. With 40 reps, how long until new hires are call-ready, and what does each month below productivity cost Northwind?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "A new rep costs us about $90,000 a year fully loaded, or $7,500 a month; I don’t have a clean call-ready figure. Show me how much ramp time you can credibly cut and how that recovers $48,000."
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "I wouldn’t promise a ramp reduction without your baseline. One month saved across seven hires recovers $52,500; how many hires are planned this year?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Seven hires is roughly our plan. What evidence supports cutting a full month, and can you get the price below $35,000?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "A 30-day pilot would measure readiness against your baseline; I won’t claim a month beforehand. Below $35,000 means 32 reps—which team should start?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Thirty-two reps doesn’t solve a forty-rep requirement. I need all forty at $35,000; what commitment do you need from us to get there, and what pilot metric proves at least $48,000 in annual value?"
+    },
+    {
+      "idx": 9,
+      "speaker": "buyer",
+      "text": "Can you do all forty at $35,000 for annual prepayment, yes or no? For the pilot, define the readiness metric and show how it supports at least 6.4 aggregate rep-months saved."
+    },
+    {
+      "idx": 10,
+      "speaker": "rep",
+      "text": "No—annual prepayment alone won’t get forty to $35,000. Pilot success is 6.4 aggregate rep-months faster to a quote-evidenced readiness threshold versus baseline, worth $48,000."
+    },
+    {
+      "idx": 11,
+      "speaker": "buyer",
+      "text": "That threshold is too vague, and 6.4 months only gets me to breakeven at your quoted price. What commitment besides prepayment gets forty seats to $35,000, and exactly what observable event marks a rep as ready?"
+    },
+    {
+      "idx": 12,
+      "speaker": "rep",
+      "text": "To reach $35,000, I’d need a three-year non-cancellable term and reference rights. Ready means three consecutive benchmark calls scoring 85%+, each score quote-cited."
+    },
+    {
+      "idx": 13,
+      "speaker": "buyer",
+      "text": "Three years non-cancellable is too much risk for an unproven result. I’ll trade annual prepayment and reference rights after verified success for forty seats at $35,000, contingent on the pilot demonstrating 6.4 aggregate rep-months saved against a jointly fixed baseline and scoring rubric; can you do that?"
+    },
+    {
+      "idx": 14,
+      "speaker": "rep",
+      "text": "I understand the risk, but no. I can do $39,000 with prepayment and post-success reference rights; business-case review Thursday at 2—you, your CRO, and me?"
+    },
+    {
+      "idx": 15,
+      "speaker": "buyer",
+      "text": "Thirty-nine thousand is still above my ceiling; make it Thursday, November 5 at 2:00 p.m. with our VP of Sales, and bring the pilot baseline, rubric, quantified upside beyond breakeven, and a path to $35,000. Send me the business case and we'll take it from there."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.3007
+}

@@ -1,0 +1,57 @@
+{
+  "id": "sim-elena-inbound-follow-up-weak-65600",
+  "source": "sim",
+  "scenario": "elena-inbound-follow-up",
+  "applicable_criteria": [
+    "opening",
+    "discovery",
+    "listening",
+    "value",
+    "next_step"
+  ],
+  "rep": {
+    "seed": 65600,
+    "skill": "weak",
+    "angle": "lead with new-hire ramp time",
+    "name": "Sara"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Hi, this is Elena! Thanks for calling back so fast."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Hi Elena, thanks for requesting a demo. HyperSale helps SDRs ramp faster through realistic AI buyer practice and quote-backed scoring—are you onboarding now?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Yes, we onboard four to six new SDRs every quarter, and I run all of the training myself. I can’t listen to every practice call, so I’m looking for a way to help them feel less nervous before they start cold calling."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "HyperSale gives each rep realistic AI roleplays, and every score cites the exact quote, so managers track improvement weekly. Could we demo Thursday?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "That makes sense, especially being able to track improvement weekly. Thursday could work—what time were you thinking, and how long does setup usually take?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "Would Thursday at 2 work? The demo takes 30 minutes, and setup is usually quick; I’ll also show roleplays, scoring, and manager dashboards."
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Thursday at 2 works for me. I’d especially like to see how each rep’s improvement shows over time and what “quick” typically means for setup. Great, talk soon!"
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0422
+}

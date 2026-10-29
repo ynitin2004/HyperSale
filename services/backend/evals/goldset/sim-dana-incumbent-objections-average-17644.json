@@ -1,0 +1,77 @@
+{
+  "id": "sim-dana-incumbent-objections-average-17644",
+  "source": "sim",
+  "scenario": "dana-incumbent-objections",
+  "applicable_criteria": [
+    "listening",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 17644,
+    "skill": "average",
+    "angle": "lead with new-hire ramp time",
+    "name": "Sara"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "This is Dana."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Hi Dana, Sara at HyperSale. We help RevOps teams shorten new-hire ramp through AI buyer practice; how are reps practicing before live calls today?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "We already have Gong for this—call libraries, coaching, all of it. What’s different about what you’re offering?"
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Gong coaches after real calls; HyperSale lets reps rehearse before them, with every score tied to an exact quote. Do new hires rehearse?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "That’s a fair distinction—new hires mostly practice on live prospects today. But my managers don’t have time for another tool."
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "That’s why practice is self-guided; managers review weekly improvement rather than run roleplays. If it took 15 minutes weekly, would that feel manageable?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Maybe, but my managers barely listen to Gong recordings now. How would I measure whether the practice is actually improving ramp or attach rate?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "We’d baseline time-to-first-qualified-meeting and attach rate, then compare pilot reps over 30 days. What ramp metric do you trust most today?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Time to first qualified opportunity is the cleanest ramp metric for us. But we just renewed Gong, and there’s no budget this year."
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "Understood—this wouldn’t replace Gong. Could we scope a 30-day pilot for one new-hire cohort, using time-to-first-qualified-opportunity to build next year’s budget case?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "If the 30-day pilot is under $15,000, I can sponsor it. Send me a one-page scope and two times for a 20-minute working session next week; I've got a meeting, I need to go."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0618
+}

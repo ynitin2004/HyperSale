@@ -1,0 +1,77 @@
+{
+  "id": "sim-sam-cfo-pricing-weak-93746",
+  "source": "sim",
+  "scenario": "sam-cfo-pricing",
+  "applicable_criteria": [
+    "discovery",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 93746,
+    "skill": "weak",
+    "angle": "lead with a recent hiring push you noticed",
+    "name": "Maya"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Sam Whitfield. I have fifteen minutes, go ahead."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Sam, I noticed Northwind’s recent hiring push. HyperSale gives those reps realistic AI buyer practice and quote-backed scoring before they reach prospects."
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Why is this worth forty-eight thousand dollars?"
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "The key is realistic practice, quote-backed scoring, and week-by-week manager visibility, so problems surface before quota time. Is faster ramping a priority?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "Yes, if you can quantify it. How many weeks do you expect to cut from ramp, and what evidence supports that?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "It varies by team, so I can’t responsibly promise weeks without your baseline; our 30-day pilot measures gains through quote-backed scores. Fair?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Fair, but I won’t approve forty-eight thousand on a hypothesis. What does the pilot cost, what ramp-time threshold defines success, and can you bring the annual price below thirty-five thousand?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "I can price a one-team pilot and set the success threshold against baseline; under $35,000 requires reduced scope. Can we schedule a business-case review?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "What date? Come prepared with the pilot cost, a quantified ramp-time threshold, and your best annual price for all forty reps below thirty-five thousand."
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "How about Thursday at 2 p.m.? I’ll bring pilot pricing, a measurable ramp threshold, and an all-40-rep option below $35,000 tied to term."
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "Thursday at 2 p.m. works. Bring your best one-year price for all forty reps below $35,000, not just a multi-year discount, and quantify the ramp savings. Send me the business case and we'll take it from there."
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0713
+}

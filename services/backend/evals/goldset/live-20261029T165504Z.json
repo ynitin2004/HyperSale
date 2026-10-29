@@ -1,0 +1,132 @@
+{
+  "id": "live-20261029T165504Z",
+  "source": "live",
+  "scenario": "sam-cfo-pricing",
+  "applicable_criteria": [
+    "discovery",
+    "value",
+    "objection_handling",
+    "next_step",
+    "positioning"
+  ],
+  "rep": {
+    "seed": 598199,
+    "skill": "weak",
+    "angle": "lead with rep attrition",
+    "name": "Maya"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "rep",
+      "text": "Hi Sam, it's Maya from Hypersale."
+    },
+    {
+      "idx": 1,
+      "speaker": "buyer",
+      "text": "Sam Whitfield. I have fifteen minutes, go ahead."
+    },
+    {
+      "idx": 2,
+      "speaker": "rep",
+      "text": "Repetition gets expensive fast, and our AI voice role plays with quote backscoring help managers spot improvement before quota time is now still okay?"
+    },
+    {
+      "idx": 3,
+      "speaker": "buyer",
+      "text": "Why is this worth forty-eight thousand dollars?"
+    },
+    {
+      "idx": 4,
+      "speaker": "rep",
+      "text": "The value is catching weak messaging before it costs pipeline or drives reps out."
+    },
+    {
+      "idx": 5,
+      "speaker": "buyer",
+      "text": "I need a number. How much faster do reps ramp, or how many fewer churn?"
+    },
+    {
+      "idx": 6,
+      "speaker": "rep",
+      "text": "Reps get realistic AI buyer practice, and managers get weekly progress scoring tied to exact quotes."
+    },
+    {
+      "idx": 7,
+      "speaker": "buyer",
+      "text": "What’s the quantified impact on ramp time or attrition? Give me a number."
+    },
+    {
+      "idx": 8,
+      "speaker": "rep",
+      "text": "I don't want to invent a universal number. It varies by team."
+    },
+    {
+      "idx": 9,
+      "speaker": "buyer",
+      "text": "Then give me a range—what’s the typical improvement in months or percentage?"
+    },
+    {
+      "idx": 10,
+      "speaker": "rep",
+      "text": "Could we run a 30-day pilot with one team, measure ramp indicators, and then review the business case?"
+    },
+    {
+      "idx": 11,
+      "speaker": "buyer",
+      "text": "I’ll consider a pilot, but we need a discount first. What can you offer?"
+    },
+    {
+      "idx": 12,
+      "speaker": "rep",
+      "text": "Thanks for your time."
+    },
+    {
+      "idx": 13,
+      "speaker": "buyer",
+      "text": "I’m still waiting on that discount. What’s the new number?"
+    },
+    {
+      "idx": 14,
+      "speaker": "rep",
+      "text": "I can bring the annual price to $43,200, contingent on all 40 reps and an annual commitment after"
+    },
+    {
+      "idx": 15,
+      "speaker": "buyer",
+      "text": "Still high. We need to get closer to thirty-five thousand. What's your next best?"
+    },
+    {
+      "idx": 16,
+      "speaker": "rep",
+      "text": "Can we schedule the 30-day pilot and business case review?"
+    },
+    {
+      "idx": 17,
+      "speaker": "buyer",
+      "text": "Give me a firm date for that business-case review, and we’ll talk next steps."
+    },
+    {
+      "idx": 18,
+      "speaker": "rep",
+      "text": "Thanks for your time."
+    },
+    {
+      "idx": 19,
+      "speaker": "buyer",
+      "text": "Send me the business case and we’ll take it from there."
+    },
+    {
+      "idx": 20,
+      "speaker": "rep",
+      "text": "I'll send the business case today, including the 30-day pilot and the $43,200 annual option for all 40 reps I'll schedule our review for Thursday at 2 p.m. Your time."
+    },
+    {
+      "idx": 21,
+      "speaker": "buyer",
+      "text": "Understood. I’ll look out for it. Let’s see how the numbers line up on Thursday."
+    }
+  ],
+  "created": "20261029",
+  "session_id": "9ebda41e-7e87-415a-a11a-40bd9d767591"
+}

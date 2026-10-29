@@ -1,0 +1,97 @@
+{
+  "id": "sim-elena-inbound-follow-up-strong-32746",
+  "source": "sim",
+  "scenario": "elena-inbound-follow-up",
+  "applicable_criteria": [
+    "opening",
+    "discovery",
+    "listening",
+    "value",
+    "next_step"
+  ],
+  "rep": {
+    "seed": 32746,
+    "skill": "strong",
+    "angle": "lead with new-hire ramp time",
+    "name": "Arjun"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Hi, this is Elena! Thanks for calling back so fast."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Hi Elena, Arjun from HyperSale. Mind if I ask how you ramp new SDRs, so I can tailor the demo?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Sure! We onboard four to six new SDRs each quarter, and I run the training myself with role-plays and practice calls. I can’t listen to every call, so reps are often still nervous when they start cold calling, and I don’t have a clear way to show leadership whether the training is working."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "That makes sense. How many weeks until a new SDR is call-ready, and how many hours do you spend coaching each cohort?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "Usually it takes about three to four weeks before they’re comfortable calling, and I spend roughly eight to ten hours a week coaching each cohort. Can I see how individual reps are improving over time?"
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "Yes—managers see each rep’s week-by-week score trends, and every score links to the exact quote behind it. Which behaviors does leadership most want tracked?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "Oh, interesting. Leadership mainly wants to track confidence in the opener, objection handling, discovery questions, and whether reps are consistently using our messaging. How long does setup typically take?"
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "Typically, we can set up one team in three to five business days using your messaging and scenarios. What should reps practise first?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "That makes sense. I’d start with cold-call openers and our most common objections, especially around pricing, timing, and prospects already using another logistics provider. Those are the areas where new reps tend to lose confidence fastest."
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "When reps lose confidence on those objections, how does that affect ramp time or meetings booked in their first month?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "It usually adds about a week to ramp because I have to repeat role-plays and give extra one-on-one coaching. In their first month, they hesitate or end calls too quickly, so they book noticeably fewer meetings than reps who handle those objections confidently."
+    },
+    {
+      "idx": 11,
+      "speaker": "rep",
+      "text": "Roughly how many fewer meetings does each new SDR book in month one, and what would getting that week back mean for your team?"
+    },
+    {
+      "idx": 12,
+      "speaker": "buyer",
+      "text": "I’d estimate each new SDR books two to three fewer meetings in that first month. Getting that week back would mean faster pipeline contribution, fewer extra coaching hours for me, and a clearer impact I could show leadership."
+    },
+    {
+      "idx": 13,
+      "speaker": "rep",
+      "text": "That’s 8 to 18 missed meetings per cohort. Would Tuesday at 2 your time work for a demo with you and your SDR manager?"
+    },
+    {
+      "idx": 14,
+      "speaker": "buyer",
+      "text": "Tuesday at 2 my time works, and I’ll invite our SDR manager as well. Great, talk soon!"
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0875
+}

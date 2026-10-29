@@ -1,0 +1,67 @@
+{
+  "id": "sim-elena-inbound-follow-up-weak-52918",
+  "source": "sim",
+  "scenario": "elena-inbound-follow-up",
+  "applicable_criteria": [
+    "opening",
+    "discovery",
+    "listening",
+    "value",
+    "next_step"
+  ],
+  "rep": {
+    "seed": 52918,
+    "skill": "weak",
+    "angle": "lead with new-hire ramp time",
+    "name": "Rohan"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Hi, this is Elena! Thanks for calling back so fast."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Hi Elena, this is Rohan at HyperSale. We help new SDRs ramp faster with realistic AI buyer practice and quote-backed scoring—does that sound relevant?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Yes, definitely relevant. I onboard four to six new SDRs each quarter by myself, and I can’t listen to every practice call, so I’d love to hear how it works."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "Great, HyperSale runs realistic AI buyer roleplays and scores every call with exact quote evidence. Are you using peer roleplays today?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "We do some peer roleplays during onboarding, but they’re hard to schedule and the feedback can be inconsistent. I still end up reviewing what I can myself, and I don’t have a clear way to track whether reps are improving over time."
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "HyperSale lets every SDR practise realistic buyer calls anytime, and every score cites the exact quote behind it. Could we schedule a demo next week?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "That makes sense, and yes, I’d be happy to see a demo next week. Do you have Tuesday at 2 p.m. Pacific available? I’d also love to see how reps improve over time and understand how long setup takes."
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "Tuesday at 2 Pacific works. I’ll send something over and cover improvement tracking and setup then."
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Perfect, thanks, Rohan. I’ll look out for the invite. Great, talk soon!"
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0503
+}

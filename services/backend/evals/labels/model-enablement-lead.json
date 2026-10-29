@@ -1,0 +1,265 @@
+{
+  "rater": "model-enablement-lead",
+  "kind": "model-provisional",
+  "model_id": "gpt-5.6-sol",
+  "labels": {
+    "live-20261029T165504Z": {
+      "discovery": "1",
+      "value": "2",
+      "objection_handling": "2",
+      "next_step": "4",
+      "positioning": "2"
+    },
+    "live-20261029T170051Z": {
+      "opening": "4",
+      "discovery": "4",
+      "listening": "3",
+      "value": "4",
+      "next_step": "5"
+    },
+    "live-20261029T172934Z": {
+      "opening": "4",
+      "discovery": "5",
+      "listening": "5",
+      "value": "4",
+      "objection_handling": "insufficient_evidence",
+      "next_step": "insufficient_evidence",
+      "positioning": "4"
+    },
+    "live-20261029T173419Z": {
+      "listening": "5",
+      "value": "5",
+      "objection_handling": "5",
+      "next_step": "5",
+      "positioning": "5"
+    },
+    "sim-dana-incumbent-objections-average-17644": {
+      "listening": "5",
+      "value": "5",
+      "objection_handling": "5",
+      "next_step": "4",
+      "positioning": "5"
+    },
+    "sim-dana-incumbent-objections-average-20410": {
+      "listening": "5",
+      "value": "4",
+      "objection_handling": "4",
+      "next_step": "3",
+      "positioning": "5"
+    },
+    "sim-dana-incumbent-objections-strong-40601": {
+      "listening": "4",
+      "value": "4",
+      "objection_handling": "3",
+      "next_step": "4",
+      "positioning": "3"
+    },
+    "sim-dana-incumbent-objections-strong-78703": {
+      "listening": "4",
+      "value": "4",
+      "objection_handling": "3",
+      "next_step": "1",
+      "positioning": "3"
+    },
+    "sim-dana-incumbent-objections-weak-28551": {
+      "listening": "2",
+      "value": "4",
+      "objection_handling": "3",
+      "next_step": "2",
+      "positioning": "4"
+    },
+    "sim-dana-incumbent-objections-weak-98417": {
+      "listening": "4",
+      "value": "4",
+      "objection_handling": "4",
+      "next_step": "2",
+      "positioning": "4"
+    },
+    "sim-elena-inbound-follow-up-average-12298": {
+      "opening": "2",
+      "discovery": "5",
+      "listening": "4",
+      "value": "5",
+      "next_step": "4"
+    },
+    "sim-elena-inbound-follow-up-average-47068": {
+      "opening": "2",
+      "discovery": "5",
+      "listening": "4",
+      "value": "4",
+      "next_step": "4"
+    },
+    "sim-elena-inbound-follow-up-strong-32746": {
+      "opening": "4",
+      "discovery": "5",
+      "listening": "5",
+      "value": "4",
+      "next_step": "4"
+    },
+    "sim-elena-inbound-follow-up-strong-85180": {
+      "opening": "2",
+      "discovery": "5",
+      "listening": "5",
+      "value": "4",
+      "next_step": "4"
+    },
+    "sim-elena-inbound-follow-up-weak-52918": {
+      "opening": "5",
+      "discovery": "2",
+      "listening": "2",
+      "value": "4",
+      "next_step": "4"
+    },
+    "sim-elena-inbound-follow-up-weak-65600": {
+      "opening": "3",
+      "discovery": "2",
+      "listening": "2",
+      "value": "3",
+      "next_step": "4"
+    },
+    "sim-marcus-discovery-average-100629": {
+      "opening": "2",
+      "discovery": "5",
+      "listening": "4",
+      "value": "4",
+      "objection_handling": "5",
+      "next_step": "insufficient_evidence",
+      "positioning": "4"
+    },
+    "sim-marcus-discovery-average-36739": {
+      "opening": "2",
+      "discovery": "5",
+      "listening": "5",
+      "value": "4",
+      "objection_handling": "4",
+      "next_step": "3",
+      "positioning": "4"
+    },
+    "sim-marcus-discovery-strong-35917": {
+      "opening": "2",
+      "discovery": "5",
+      "listening": "5",
+      "value": "insufficient_evidence",
+      "objection_handling": "insufficient_evidence",
+      "next_step": "insufficient_evidence",
+      "positioning": "insufficient_evidence"
+    },
+    "sim-marcus-discovery-strong-56795": {
+      "opening": "2",
+      "discovery": "5",
+      "listening": "5",
+      "value": "1",
+      "objection_handling": "insufficient_evidence",
+      "next_step": "1",
+      "positioning": "1"
+    },
+    "sim-marcus-discovery-weak-4637": {
+      "opening": "3",
+      "discovery": "2",
+      "listening": "3",
+      "value": "3",
+      "objection_handling": "3",
+      "next_step": "4",
+      "positioning": "4"
+    },
+    "sim-marcus-discovery-weak-62379": {
+      "opening": "3",
+      "discovery": "2",
+      "listening": "3",
+      "value": "3",
+      "objection_handling": "2",
+      "next_step": "5",
+      "positioning": "3"
+    },
+    "sim-priya-cold-call-average-62034": {
+      "opening": "4",
+      "discovery": "5",
+      "listening": "5",
+      "value": "5",
+      "objection_handling": "4",
+      "next_step": "4"
+    },
+    "sim-priya-cold-call-average-82052": {
+      "opening": "4",
+      "discovery": "5",
+      "listening": "5",
+      "value": "5",
+      "objection_handling": "5",
+      "next_step": "4"
+    },
+    "sim-priya-cold-call-strong-14820": {
+      "opening": "4",
+      "discovery": "5",
+      "listening": "5",
+      "value": "4",
+      "objection_handling": "5",
+      "next_step": "2"
+    },
+    "sim-priya-cold-call-strong-36690": {
+      "opening": "3",
+      "discovery": "5",
+      "listening": "5",
+      "value": "4",
+      "objection_handling": "4",
+      "next_step": "insufficient_evidence"
+    },
+    "sim-priya-cold-call-weak-33046": {
+      "opening": "3",
+      "discovery": "1",
+      "listening": "2",
+      "value": "3",
+      "objection_handling": "2",
+      "next_step": "2"
+    },
+    "sim-priya-cold-call-weak-62336": {
+      "opening": "4",
+      "discovery": "2",
+      "listening": "2",
+      "value": "3",
+      "objection_handling": "2",
+      "next_step": "2"
+    },
+    "sim-sam-cfo-pricing-average-29870": {
+      "discovery": "4",
+      "value": "4",
+      "objection_handling": "4",
+      "next_step": "5",
+      "positioning": "4"
+    },
+    "sim-sam-cfo-pricing-average-56696": {
+      "discovery": "3",
+      "value": "2",
+      "objection_handling": "4",
+      "next_step": "4",
+      "positioning": "3"
+    },
+    "sim-sam-cfo-pricing-strong-34901": {
+      "discovery": "4",
+      "value": "4",
+      "objection_handling": "4",
+      "next_step": "4",
+      "positioning": "3"
+    },
+    "sim-sam-cfo-pricing-strong-9379": {
+      "discovery": "2",
+      "value": "4",
+      "objection_handling": "5",
+      "next_step": "5",
+      "positioning": "3"
+    },
+    "sim-sam-cfo-pricing-weak-12004": {
+      "discovery": "1",
+      "value": "2",
+      "objection_handling": "3",
+      "next_step": "4",
+      "positioning": "3"
+    },
+    "sim-sam-cfo-pricing-weak-93746": {
+      "discovery": "1",
+      "value": "3",
+      "objection_handling": "3",
+      "next_step": "5",
+      "positioning": "2"
+    }
+  }
+}

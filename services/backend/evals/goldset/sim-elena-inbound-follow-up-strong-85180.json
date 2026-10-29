@@ -1,0 +1,77 @@
+{
+  "id": "sim-elena-inbound-follow-up-strong-85180",
+  "source": "sim",
+  "scenario": "elena-inbound-follow-up",
+  "applicable_criteria": [
+    "opening",
+    "discovery",
+    "listening",
+    "value",
+    "next_step"
+  ],
+  "rep": {
+    "seed": 85180,
+    "skill": "strong",
+    "angle": "lead with a recent hiring push you noticed",
+    "name": "Arjun"
+  },
+  "turns": [
+    {
+      "idx": 0,
+      "speaker": "buyer",
+      "text": "Hi, this is Elena! Thanks for calling back so fast."
+    },
+    {
+      "idx": 1,
+      "speaker": "rep",
+      "text": "Hi Elena, absolutely—I noticed Cartwheel’s SDR hiring push. Mind if I ask about training today, so I can tailor the demo?"
+    },
+    {
+      "idx": 2,
+      "speaker": "buyer",
+      "text": "Of course. I onboard four to six new SDRs each quarter and run the training on my own, so the biggest challenge is that I can’t listen to every practice call or give everyone enough feedback before they start cold calling."
+    },
+    {
+      "idx": 3,
+      "speaker": "rep",
+      "text": "How much time do you spend reviewing practice calls each week, and how does that feedback gap affect ramp time or early results?"
+    },
+    {
+      "idx": 4,
+      "speaker": "buyer",
+      "text": "Usually five or six hours a week, and even then I’m only sampling a few calls per rep. The feedback gap means they stay nervous longer, repeat the same mistakes on live cold calls, and I can’t clearly show leadership whether the training is actually improving ramp time or results."
+    },
+    {
+      "idx": 5,
+      "speaker": "rep",
+      "text": "When those mistakes hit live calls, how long does ramp take today, and what improvement would leadership need to see to call training successful?"
+    },
+    {
+      "idx": 6,
+      "speaker": "buyer",
+      "text": "That makes sense. Right now it takes about eight to ten weeks for a new SDR to feel fully productive, and leadership would want to see that shortened by at least two weeks, along with fewer repeated mistakes and clear evidence that reps are improving over time."
+    },
+    {
+      "idx": 7,
+      "speaker": "rep",
+      "text": "So success is a six-to-eight-week ramp, fewer repeated mistakes, and week-by-week proof. How are you measuring those today, if at all?"
+    },
+    {
+      "idx": 8,
+      "speaker": "buyer",
+      "text": "Mostly manually—I track onboarding milestones in a spreadsheet and compare early call results, but it’s inconsistent and hard to tie back to specific practice sessions. Can I see how my reps are improving over time in your platform?"
+    },
+    {
+      "idx": 9,
+      "speaker": "rep",
+      "text": "Yes—managers see week-by-week trends, and every score cites the exact rep quote behind it. Could you and your SDR leader join Tuesday at ten?"
+    },
+    {
+      "idx": 10,
+      "speaker": "buyer",
+      "text": "Oh, interesting—that visibility sounds really useful. Tuesday at ten works for me, and I’ll invite our SDR leader; I’d also love to cover how long setup takes. Great, talk soon!"
+    }
+  ],
+  "created": "2026-10-29",
+  "spend_usd": 0.0655
+}
