@@ -1,9 +1,45 @@
 # MEMORY - Living State
 
-Read this first; update last each session. Current phase: **M0 closed 2026-10-24; M1 cleared.**
+Read this first; update last each session. Current phase: **M1 built and live-verified
+2026-10-29; M1 exit gates open; M2 blocked on external raters.**
 Application code lives at repository root; sales-platform/ owns product docs.
 
-## Latest authoritative checkpoint - 2026-10-24
+## Latest authoritative checkpoint - 2026-10-29
+
+User quiz answers (M1): api brokers the Voice Live socket (D29); scoring on gpt-5.6-sol via
+the Agent Router token (D28); ~$5 live budget; hosted migrations after local round trip;
+pushes to both remotes. GitLab MCP is not available in this environment.
+
+### Done and verified
+- Spike 3 passed on gpt-5.6-sol (3/3, D13 0/0). Scoring uses the SDK's SYNC client on a
+  thread: the gateway rejects AsyncAnthropic as "unauthorized client" (D27/D32).
+- M1 built: catalog (5 personas, rubric-v1, 14 drills), brokered voice calls, server-side
+  transcript, recording upload, metrics, verified scoring with provenance, report page with
+  evidence seek, latency dashboard, stub providers. Hosted migrated to 20261029_0003 and seeded.
+- Live through the UI (Edge 157 + Chromium, hosted Supabase, Azure, gpt-5.6-sol): start
+  3.4-3.9 s, 100/100 hosted quotes verified, seeks land on turn starts, ~$0.17 per call+report.
+- Voice Live's api socket carries only transcription events: usage + VAD timing come from
+  the browser at hang-up, bounded (D32). Per-session `provider_events` counts record it.
+- Tests: 73 unit (8 decision tests), 15 integration, 4 Playwright E2E. GitHub CI #9 at
+  f4a4a00 green on backend, web, e2e, image. DECISION-TRACES.md maps decisions to guards.
+
+### Open
+1. Re-measure live: end->metrics (<1 s) after the set-based timing update, and end->report
+   (p95 <30 s) with two criteria per parallel call (offline 17.1 s). Earlier live p95 failed.
+2. Safari (D24); Supabase Storage bucket creation (needs user OK); Sentry/OTel accounts.
+3. External raters (D14) - blocks M2 acceptance. GitLab pipeline console still unreadable.
+4. Agent Router free tier throttles: one parallel call hung for hours on 2026-10-29.
+   Scorer now times out at 60 s with 1 SDK retry; a paid/stable scoring key is advised.
+
+### Environment facts that bit
+- After a WSL/Docker restart, Windows WMI hung: Python's `platform` module (imported by
+  SQLAlchemy) blocks, so pytest/alembic/uvicorn hang locally. Reboot clears it.
+- Supabase direct host is IPv6-only; use the session pooler (5432) for admin/Alembic.
+- pydantic-settings reads .env from cwd; Playwright on Windows needs an absolute quoted
+  E2E_PYTHON; ruff run from repo root uses a stricter user-level config than CI.
+
+## Previous checkpoint - 2026-10-24
+
 
 User authorized the full build-out ("full control", Docker + Supabase, push to both remotes).
 Quiz answers: scoring via gateway, Safari deferred (D24), ~$5 Azure spend, hosted role
@@ -131,6 +167,7 @@ Keep GitHub and GitLab CI aligned. Do not touch unrelated sibling projects.
 
 - 2026-08-24: plan/docs scaffold and D13-D20, evidence/eval rules, session quiz.
 - 2026-09-23: Claude voice harness committed at a6edbbc; live voice gates left open.
+- 2026-10-29: Spike 3 passed (gpt-5.6-sol); M1 built, hosted-migrated, live-verified via UI; CI #9 green incl. E2E.
 - 2026-10-24: morning read-only audit, then full M0 closure: automated voice spikes, cost
   truth ledgered on hosted DB, restricted roles, auth login, compose stack, D23-D27, push.
 - 2026-10-16: history/source audit, unit/build/synthetic recording checks, read-only MCP
