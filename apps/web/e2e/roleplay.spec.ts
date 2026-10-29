@@ -87,7 +87,7 @@ test('latency dashboard and evidence integrity reflect the calls made', async ({
 test('a manager compares the team, reviews attempts and assigns a scenario (D39)', async ({ page }) => {
   await signedIn(page)
   await page.goto('/')
-  await page.getByRole('link', { name: 'Team' }).click()
+  await page.getByRole('link', { name: 'Team', exact: true }).click()
   const row = page.getByTestId('team-table').locator('tr', { hasText: 'e2e@hypersale.dev' })
   await expect(row).toBeVisible()
   await row.getByRole('button').click()
@@ -100,7 +100,7 @@ test('a manager compares the team, reviews attempts and assigns a scenario (D39)
   await expect(page.getByTestId('assignment-table')).toContainText('Warm inbound')
   await expect(page.getByTestId('assignment-table')).toContainText('open')
 
-  await page.getByRole('link', { name: 'Practice' }).click()
+  await page.getByRole('link', { name: 'Practice', exact: true }).click()
   await expect(page.getByTestId('my-assignments')).toContainText('Warm inbound')
 })
 
