@@ -223,6 +223,7 @@ across runs - exactly what M2's eval harness exists to measure. Prompt caching
 (`cache_read_input_tokens`) is not reported by this gateway path; RULES §3's cache check is
 waived until the provider changes. **Revisit:** a Claude channel appears (re-run the spike and
 compare), M2 kappa against the rater ceiling is unacceptable, or promotional pricing ends.
+*Amended by D33 (2026-10-29): Claude is now a configured whole-report fallback, and either model can be primary.*
 
 ## D29 - The api brokers the Voice Live signalling socket (amends D1 and D8).
 User decision 2026-10-29, from the quiz. Voice Live has no ephemeral-token API, the resource
@@ -276,3 +277,37 @@ starting at 0:10. Separately, the D28 gateway admits the SDK's sync client but r
 async client ("unauthorized client"), so scoring runs the official sync client on a worker
 thread - the SDK as shipped, no spoofed identity (D27). **Revisit:** Azure starts sending
 usage on the signalling socket (the per-session `provider_events` counts will show it).
+
+## D33 - Scoring runs on either gpt-5.6-sol or Claude, with a whole-report fallback (amends D28).
+User decision 2026-10-29, from the quiz ("switch + auto-fallback"; "gateway now, direct key
+later"). `SCORING_MODEL` picks the primary (default `gpt-5.6-sol`) and `SCORING_FALLBACK_MODEL`
+the secondary (default `claude-opus-5-5`, the current Opus; empty disables). Both are reached
+through the official Anthropic SDK: through the D28 gateway by default, or, for Claude models
+only, directly at api.anthropic.com when `CLAUDE_API_KEY` is set. The two models need
+different request shapes and the adapter owns that difference: gpt-5.6-sol keeps the forced
+`submit_scores` tool call; Claude Opus 5.5 rejects forced `tool_choice` with a 400, so it gets
+`tool_choice: auto` plus an instruction to call the tool, `effort: medium` set explicitly
+(its default; thinking cannot be disabled), and no sampling parameters. A missing tool call is
+not special-cased: the criteria come back missing and the existing D13 retry re-asks for them.
+On the direct path, the API's server-side refusal fallback (`fallbacks: "default"`) is on and
+the served model is what provenance records. **Fallback is per report, never per criterion**:
+if the primary raises any API error or a refusal, the whole report is re-scored on the
+fallback and its partial results are discarded, so one report always has exactly one
+`model_id` (D16). The usage ledger records the model and route (`agentrouter`/`anthropic`)
+actually used, and `timings.fallback_from` says why a report changed model. **Revisit:** a
+Claude channel or key exists (run the Spike 3 fixture on Claude and compare against
+gpt-5.6-sol before making it primary), or M2 kappa differs materially between the two.
+
+## D34 - The live smoke uses an AI rep that differs every call; every call writes a trace.
+User decision 2026-10-29, from the quiz ("live AI rep"). The scripted rep (11 fixed lines on a
+timer) could not hear the buyer, so every run was the same call with the same ~1.8 score -
+useless for checking that scoring discriminates. `scripts/live_smoke.py` now drives the rep
+with gpt-5.6-sol through the same adapter client (RULES: no SDK outside `adapters/`): after
+each buyer turn it reads the transcript from the page, writes the next rep line, and Windows
+TTS speaks it into a virtual microphone (a Web Audio stream injected through Playwright, not a
+fixed WAV file). Each run draws a random scenario, rep skill (weak / average / strong) and
+seed, so calls and scores vary. The rep model is test-harness only and never touches product
+data except by speaking. Every run appends a trace (scenario, skill, seed, full transcript,
+scores, latency, cost) to `docs/evidence/call-traces/`, indexed in `CALL-TRACES.md`.
+`--scripted` keeps the old fixed rep for regression comparison. **Revisit:** M2 needs a fixed,
+reproducible call set (that is the gold set, not this harness).

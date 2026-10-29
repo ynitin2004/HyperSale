@@ -159,11 +159,20 @@ cd apps/web && E2E_PYTHON=<absolute path to the backend venv python> pnpm exec p
 Playwright starts the API, the worker (health port 8766) and a built SPA itself. On Windows,
 pass `E2E_PYTHON` as an absolute, quoted path.
 
-## 10. The real thing, through the UI (paid, ~$0.15 per run)
+## 10. The real thing, through the UI (paid, ~$0.25-0.30 per AI-rep run)
 
 ```
-python scripts/live_smoke.py --browser msedge      # or chromium; --lines 3 for a 1-minute call
+python scripts/live_smoke.py --browser msedge                  # AI rep, random scenario + skill (D34)
+python scripts/live_smoke.py --skill strong --scenario sam-cfo-pricing --seed 42   # reproduce a draw
+python scripts/live_smoke.py --scripted --lines 3             # old fixed rep, 1-minute call
 ```
+
+The AI rep (gpt-5.6-sol via the adapter client) waits for the buyer's audio to go quiet,
+writes its next line, and speaks it through a Web Audio microphone, so each call differs.
+Expect 3-6 s pauses while it thinks. Every run appends a row to `docs/CALL-TRACES.md` and
+writes the full transcript, scores and rationale to `docs/evidence/call-traces/<run>.md`.
+With `RECORDING_STORE=supabase` in `.env`, the recording goes to the private `recordings`
+bucket and the trace says so.
 
 What it does, step by step, with the screenshot it saves to
 `docs/evidence/m1-live-<date>/<run>/`:
@@ -173,7 +182,7 @@ What it does, step by step, with the screenshot it saves to
 | Sign in with the dev user (real Supabase Auth) | `01-login.png` | Form, no app content before sign-in |
 | Scenario catalog | `02-catalog.png` | Five scenarios, Elena highlighted "Try this first", recent calls with scores |
 | Preflight | `03-preflight.png` | Brief, scored criteria, Enable microphone, level meter |
-| Live call | `04-live-call.png` | `Live`, elapsed / 5:00 cap, mic meter, live transcript from the data channel |
+| Live call (scripted mode only) | `04-live-call.png` | `Live`, elapsed / 5:00 cap, mic meter, live transcript from the data channel |
 | End of call | `05-live-call-end.png` | Full transcript, End call |
 | Report, first second | `06-report-metrics.png` | Metrics strip before any model output; scoring progress banner |
 | Scored report | `07-report.png` | Overall, per-criterion scores, rationale, rep-labelled quotes, 3 drills, provenance footer |

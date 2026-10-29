@@ -37,6 +37,9 @@ applies before any major change.
   once referenced.
 - Scoring model amended by D28: `gpt-5.6-sol` through the D27 gateway, still via the official
   `anthropic` SDK (sync client, D32); the Claude IDs below remain the documented fallback.
+- D33: either model may be primary (`SCORING_MODEL`); the other is the whole-report fallback.
+  Claude Opus 5.5 (`claude-opus-5-5`) rejects forced `tool_choice` and sampling parameters -
+  the adapter requests the tool instead. A report never mixes models.
 - Anthropic calls: official `anthropic` Python SDK, `claude-opus-5` for scoring/reports with
   structured outputs and adaptive thinking; `claude-haiku-4-5` for high-volume tasks. Prompt
   caching on the static rubric+scenario prefix (stable content first; verify with

@@ -27,6 +27,7 @@ last action of every working session, not optional.
 | `docs/MEMORY.md` | Living memory: baseline, risks, next actions, log | End of every session |
 | `docs/V2-ROADMAP.md` | Hyperbound-parity gap list, triggers to build each | A design partner asks for something on it |
 | `docs/DECISION-TRACES.md` | Why each decision was made and the test that guards it | Every new decision, and whenever a guard changes |
+| `docs/CALL-TRACES.md` | One row per live smoke call (AI rep, D34): scenario, rep skill/seed, scores, latency, link to full transcript | Written by `scripts/live_smoke.py`; never hand-edited |
 | `docs/WALKTHROUGH.md` | How to run, test and re-verify every M0 gate, with expected output | A gate's command or expected result changes |
 | `docs/evidence/` | Archived spike reports (JSON) that PHASES.md cites | Every evidence-producing run |
 

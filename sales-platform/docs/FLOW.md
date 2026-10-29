@@ -63,16 +63,23 @@ enqueue `scoring.score_report` in the same transaction. Restart safety: lifespan
 
 **C. Scoring, as built.** Worker claims `scoring.score_report` -> `score_report` (idempotent,
 row-locked) -> transcript via `practice.get_transcript`, criteria via `catalog` -> criteria
-split in two halves scored in parallel (ARCHITECTURE §5) -> `LLMScorer` (official SDK, sync
-client on a thread, tool-forced schema) -> `verify` (existence + attribution) -> failed or
-missing criteria retried with feedback, max 2 -> `persist_scores` drops any unverified quote,
-flags the criterion, marks the report `degraded` if needed -> provenance + overall + 3 drills
--> usage rows per model call. Final failure after 3 attempts -> report `failed` (visible).
+split two per call, scored in parallel (ARCHITECTURE §5) -> `score_with_fallback` (D33) ->
+`LLMScorer` for `SCORING_MODEL` (official SDK, sync client on a thread; tool forced for
+gpt-5.6-sol, requested for Claude Opus 5.5; gateway, or api.anthropic.com for Claude when
+`CLAUDE_API_KEY` is set) -> `verify` (existence + attribution) -> failed or
+missing criteria retried with feedback, max 2. Any API error or refusal raises
+`ScorerUnavailable` -> the **whole report** re-runs on `SCORING_FALLBACK_MODEL`, partial
+primary results discarded, `timings.fallback_from` set -> `persist_scores` drops any unverified quote,
+flags the criterion, marks the report `degraded` if needed -> provenance (the model that
+actually scored) + overall + 3 drills -> usage rows per model call, provider = route used.
+Final failure after 3 attempts -> report `failed` (visible).
 Reads: `GET /reports/{id}`, `GET /evidence/integrity`, `GET /metrics/latency` (insights).
 
 **Guards.** `tests/integration/test_m1_loop.py` runs B+C end to end on Postgres with stub
 providers; `apps/web/e2e/roleplay.spec.ts` runs them in a browser; `scripts/live_smoke.py`
-runs them on real providers through the UI.
+runs them on real providers through the UI, with an AI rep (`scripts/ai_rep.py`, D34) that
+hears the buyer through a tapped remote track and speaks through an injected Web Audio mic;
+each run writes `docs/evidence/call-traces/<run>.{json,md}` and a row in `CALL-TRACES.md`.
 
 ## 0. Onboarding pass (adapted from the "staff engineer" prompt)
 
