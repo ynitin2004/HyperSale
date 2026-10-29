@@ -2,7 +2,12 @@ from functools import lru_cache
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from app.adapters.llm.models import OPENAI_REALTIME_MODEL, VOICE_LIVE_MODEL
+from app.adapters.llm.models import (
+    OPENAI_REALTIME_MODEL,
+    SCORING_MODEL,
+    SCORING_MODEL_CLAUDE,
+    VOICE_LIVE_MODEL,
+)
 
 
 class Settings(BaseSettings):
@@ -40,6 +45,11 @@ class Settings(BaseSettings):
     anthropic_base_url: str | None = None
     # A hung gateway call must not stall a report: fail fast, let the queue retry (D28).
     anthropic_timeout_seconds: float = 60.0
+    # D33: primary and whole-report fallback scoring models (empty fallback disables it).
+    scoring_model: str = SCORING_MODEL
+    scoring_fallback_model: str = SCORING_MODEL_CLAUDE
+    # D33: when set, Claude models go direct to api.anthropic.com instead of the gateway.
+    claude_api_key: str | None = None
 
     # Provider selection (D31). `stub` runs the whole loop with no spend, for CI and E2E.
     voice_provider: str = "azure"

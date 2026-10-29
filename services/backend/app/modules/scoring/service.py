@@ -21,7 +21,7 @@ from uuid import UUID
 from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.adapters.llm.scorer import Scorer, ScorerResult
+from app.adapters.llm.scorer import Scorer, ScorerResult, ScorerUnavailable
 from app.errors import AppError
 from app.modules.catalog import service as catalog
 from app.modules.platform.queue import enqueue
@@ -213,11 +213,35 @@ async def persist_scores(
     return report
 
 
+async def score_with_fallback(
+    scorer: Scorer, fallback: Scorer | None, *, criteria: list[catalog.Criterion],
+    turns: list[practice.TurnView], buyer_name: str, scenario_title: str,
+) -> tuple[list[dict[str, Any]], list[EvidenceCheck], list[ScorerResult], dict[str, str] | None]:
+    """D33: run the whole report on `scorer`; if it is unavailable, discard its partial
+    results and run the whole report again on `fallback`. Pure of DB."""
+    try:
+        raw, failed, calls = await run_scoring(scorer, criteria=criteria, turns=turns,
+                                               buyer_name=buyer_name, scenario_title=scenario_title)
+        return raw, failed, calls, None
+    except ScorerUnavailable as exc:
+        if fallback is None:
+            raise
+        log.warning("scoring model unavailable, re-scoring on fallback",
+                    extra={"model_id": exc.model_id, "fallback": fallback.model_id,
+                           "reason": exc.reason[:200]})
+        raw, failed, calls = await run_scoring(fallback, criteria=criteria, turns=turns,
+                                               buyer_name=buyer_name, scenario_title=scenario_title)
+        return raw, failed, calls, {"model_id": exc.model_id, "reason": exc.reason[:200]}
+
+
 async def score_report(
     session: AsyncSession, scorer: Scorer, *, workspace_id: UUID, report_id: UUID,
-    ended_at: datetime | None,
+    ended_at: datetime | None, fallback: Scorer | None = None,
 ) -> Report:
-    """Idempotent: a finished report is returned untouched (stall recovery may re-deliver)."""
+    """Idempotent: a finished report is returned untouched (stall recovery may re-deliver).
+
+    D33: if `scorer` is unavailable the *whole* report is re-scored on `fallback`, so a
+    report never mixes models and its provenance names the one that produced it."""
     report = (
         await session.execute(
             select(Report).where(Report.id == report_id, Report.workspace_id == workspace_id)
@@ -247,8 +271,8 @@ async def score_report(
                                     timings={"scoring_ms": 0, "model_calls": 0})
 
     scoring_started = time.perf_counter()
-    raw, failed, calls = await run_scoring(
-        scorer, criteria=criteria, turns=turns, buyer_name=scenario.persona_name,
+    raw, failed, calls, fallback_from = await score_with_fallback(
+        scorer, fallback, criteria=criteria, turns=turns, buyer_name=scenario.persona_name,
         scenario_title=scenario.title,
     )
     verification = verify(raw, turns)
@@ -258,12 +282,14 @@ async def score_report(
         "quotes_checked": len(verification.checks),
         "quotes_rejected_final": len(failed),
     }
+    if fallback_from is not None:
+        timings["fallback_from"] = fallback_from
     if ended_at is not None:
         timings["end_to_report_ms"] = int((datetime.now(UTC) - ended_at).total_seconds() * 1000)
 
     for i, call in enumerate(calls):
         await record_usage(
-            session, workspace_id=workspace_id, event_type=EVENT_SCORING, provider="agentrouter",
+            session, workspace_id=workspace_id, event_type=EVENT_SCORING, provider=call.provider,
             model_id=call.model_id, input_units=call.input_tokens, output_units=call.output_tokens,
             cost=UsageCost(cost_microusd=call.cost_microusd, rate_missing=call.rate_missing),
             metadata={"report_id": str(report_id), "call": i, "unit": "tokens",

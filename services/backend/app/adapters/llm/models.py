@@ -36,17 +36,32 @@ DEFAULT_VOICE: Final = "en-IN-NeerjaNeural"
 # D28: every Claude model on the available gateway returns "no channel"; gpt-5.6-sol is
 # reached through the same official Anthropic SDK and passed Spike 3 (D13 0/0, 3 runs).
 SCORING_MODEL: Final = "gpt-5.6-sol"
-# The documented Claude choice, kept so switching back is one constant (D28 revisit).
-SCORING_MODEL_CLAUDE: Final = "claude-opus-5"
+# D33: the current Opus, used as SCORING_FALLBACK_MODEL by default or as the primary.
+SCORING_MODEL_CLAUDE: Final = "claude-opus-5-5"
+# D33: models that reject a forced `tool_choice` (400) and run thinking that cannot be
+# disabled, so the scorer asks for the tool instead and sets effort explicitly.
+NO_FORCED_TOOL_CHOICE: Final = frozenset({"claude-opus-5-5", "claude-sonnet-5-5", "claude-fable-5-1"})
+CLAUDE_SCORING_EFFORT: Final = "medium"
+# D33: on the direct Anthropic route, the API re-runs a refused request on a fallback model.
+CLAUDE_REFUSAL_FALLBACK_BETA: Final = "server-side-fallback-2026-07-01"
+
+# D34: the AI rep in the live smoke harness (never product traffic).
+REP_SIM_MODEL: Final = "gpt-5.6-sol"
+
+
+def is_claude(model_id: str) -> bool:
+    return model_id.startswith("claude-")
 VOLUME_MODEL: Final = "claude-haiku-4-5"
 # Reserved for disputed-score adjudication, and only once evals show the need (D9).
 ADJUDICATION_MODEL: Final = "claude-fable-5"
 
 # --- Prices (RULES §1: prices live only here) -------------------------------------
 # micro-USD per 1M tokens. gpt-5.6-sol: $4 in / $0.40 cached / $20 out, OpenAI list price
-# (promotional through 2026-11-21, checked 2026-10-29). Opus 5: $5 / $0.50 / $25.
+# (promotional through 2026-11-21, checked 2026-10-29). Opus 5.5: $4 / $0.20 / $20 and
+# Opus 5: $5 / $0.50 / $25, Anthropic list (checked 2026-10-29).
 MODEL_PRICES_MICROUSD_PER_1M: Final[dict[str, tuple[int, int, int]]] = {
     "gpt-5.6-sol": (4_000_000, 400_000, 20_000_000),
+    "claude-opus-5-5": (4_000_000, 200_000, 20_000_000),
     "claude-opus-5": (5_000_000, 500_000, 25_000_000),
     "claude-haiku-4-5": (1_000_000, 100_000, 5_000_000),
 }

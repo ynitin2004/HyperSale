@@ -10,7 +10,7 @@ from uuid import UUID
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.adapters.llm.scorer import build_scorer
+from app.adapters.llm.scorer import build_fallback_scorer, build_scorer
 from app.db.session import tenant_session
 from app.modules.platform.jobs import JOB_RECORD_REALTIME_USAGE
 from app.modules.platform.queue import ClaimedJob
@@ -97,6 +97,7 @@ async def score_report(session: AsyncSession, job: ClaimedJob) -> None:
         report = await scoring_service.score_report(
             session, build_scorer(), workspace_id=job.workspace_id, report_id=report_id,
             ended_at=datetime.fromisoformat(ended_at) if ended_at else None,
+            fallback=build_fallback_scorer(),
         )
     except Exception as exc:
         if job.is_final_attempt:
