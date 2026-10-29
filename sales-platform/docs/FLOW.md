@@ -75,6 +75,22 @@ actually scored) + overall + 3 drills -> usage rows per model call, provider = r
 Final failure after 3 attempts -> report `failed` (visible).
 Reads: `GET /reports/{id}`, `GET /evidence/integrity`, `GET /metrics/latency` (insights).
 
+**D. Evals (M2, D36-D38).** Gold set: `evals.goldset simulate` (AI rep vs AI buyer on the
+seeded persona instructions, `evals/sim.py`, via the adapter client) + `import-live` (call
+traces) -> `evals/goldset/*.json`. Raters: `scripts/eval_labels.py import-items` -> Evals
+workspace `eval_items` -> rater page `#/rate` (`GET/PUT /evals/items...`, blind, own labels
+only) -> `export` -> `evals/labels/human-*.json`; until then `evals.model_rater` writes
+`model-*.json` (provisional). Harness: `evals.harness` -> product `run_scoring` per item ->
+`verify` -> `evals/runs/<stamp>.json` -> `evaluate` (consensus, ceiling, QWK/MAE, IE drift,
+fabricated=0) -> exit 1 on failure. CI: `--replay` on every run (free); paid job on scoring-path
+changes (`.github/workflows/evals.yml`, GitLab `evals`).
+
+**E. Manager loop (M2, D39).** `POST /assignments` (manager; assignee must be a member) ->
+`GET /assignments` (manager: all; rep: own) derives completion from `practice.workspace_sessions`
++ `scoring.reports_for_sessions` -> `GET /team/summary` (manager) aggregates per member via
+`scoring.scores_for_reports` -> `GET /practice/sessions?user_id=` for attempt review. `/me`
+records the member's email on `memberships`. UI: `#/team`, Home "Assigned to you".
+
 **Guards.** `tests/integration/test_m1_loop.py` runs B+C end to end on Postgres with stub
 providers; `apps/web/e2e/roleplay.spec.ts` runs them in a browser; `scripts/live_smoke.py`
 runs them on real providers through the UI, with an AI rep (`scripts/ai_rep.py`, D34) that

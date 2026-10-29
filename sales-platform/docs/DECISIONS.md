@@ -311,3 +311,71 @@ data except by speaking. Every run appends a trace (scenario, skill, seed, full 
 scores, latency, cost) to `docs/evidence/call-traces/`, indexed in `CALL-TRACES.md`.
 `--scripted` keeps the old fixed rep for regression comparison. **Revisit:** M2 needs a fixed,
 reproducible call set (that is the gold set, not this harness).
+
+## D35 - One scoring call per report (amends ARCHITECTURE §5's parallel split).
+User approval 2026-10-29 after the diagnostic in `evidence/scoring-latency-2026-10-29.json`.
+Live reports with two criteria per parallel call took 31.3 / 33.7 s. On the same live
+transcript, one call for all five criteria took 10.6 / 28.2 s and three parallel calls
+23.2 / 38.2 s: the D28 gateway queues parallel requests, and every split call re-sends the
+transcript, so splitting costs time and tokens here. `PARALLEL_SPLIT_MIN_CRITERIA` is now 8,
+above rubric-v1's 7 criteria; the split code stays for larger rubrics or a provider that
+truly runs calls in parallel. Effort=low gave no consistent gain and is not used.
+**Revisit:** a provider change (re-run the split comparison), or a rubric over 7 criteria.
+
+## D36 - Gold set v1: text simulations plus live calls; a provisional model baseline until humans label.
+User decision 2026-10-29 (M2 quiz). The gold set lives in the repo as versioned fixtures
+(`services/backend/evals/goldset/*.json`): ~35 text-only simulated calls (an AI rep of drawn
+skill weak/average/strong, D34's prompt, against an AI buyer running the *seeded persona
+instructions*, both gpt-5.6-sol) plus every live AI-rep call trace. Text sims share the
+scorer's input shape (indexed rep/buyer turns) but lack speech-recognition noise, so the live
+calls stay in the set as the realistic slice and are reported separately. D14 is unchanged:
+the acceptance ceiling is **human** inter-rater agreement. Until the external raters finish,
+the harness also computes a **provisional** ceiling from two independent model-rater passes
+(a separate rater prompt, not the product scoring prompt), stored with `kind:
+"model-provisional"` and printed as such everywhere. Provisional numbers never close M2.
+**Revisit:** human labels arrive (replace the provisional ceiling), or real customer calls exist.
+
+## D37 - Raters label in the app, inside a dedicated Evals workspace.
+User decision 2026-10-29 ("rater page now, humans later"). Gold items and labels are tenant
+tables (`eval_items`, `eval_labels`, FORCE RLS) in one workspace that holds nothing else.
+External raters get accounts whose only membership is that workspace, so existing tenancy -
+not a new role - keeps them away from real practice data. The rater page is blind: it shows
+the transcript and the scenario's criteria with their descriptions, never model scores. A
+rater sees and edits only their own labels (enforced in the service by user_id; RLS isolates
+the workspace). Labels leave the database through `scripts/eval_labels.py export` into
+`evals/labels/<rater>.json`, so CI never needs database access.
+**Revisit:** raters need to label customer workspaces' calls (then a rater role is needed).
+
+## D38 - Eval gate: free replay on every CI run, paid re-score when scoring changes.
+User decision 2026-10-29: GitHub Actions minutes are free on the public repo (D18); only the
+gpt key costs money, which the user accepted. `python -m evals.harness --suite roleplay`
+scores every gold item through the product's own `run_scoring` and writes
+`evals/runs/<stamp>.json`. The gate (`evals/gate.json`) fails when: any fabricated or
+misattributed quote survives (must be 0), consensus quadratic-weighted kappa falls more than
+the allowed margin below the rater ceiling, MAE exceeds the ceiling MAE plus margin, or the
+insufficient-evidence rate drifts past its band. Every CI run replays the committed latest run
+against the gate for free (`--replay`); a paid job re-scores when files on the scoring path
+change (prompt, scorer, models, verify, gold set, labels) and on manual dispatch, only when the
+key is configured as a repository secret. `--prompt-variant degraded` exists to prove the gate
+bites; its failing run is kept as evidence. Same jobs in GitLab (D18 fallback rule).
+**Revisit:** eval cost per run exceeds ~$2, or the gold set outgrows one CI job.
+*Amended 2026-10-29 after the first live run:* a lenient "default to 5, paraphrase quotes"
+prompt stayed within the ceiling margin (QWK 0.84 vs a 0.85 provisional ceiling) and passed,
+so the gate also compares against an accepted **baseline run** (`evals/baseline.json`), item
+for item. Thresholds come from measurement on the same 8 items: the *unchanged* prompt drifted
+0.053 kappa / +0.10 MAE (run-to-run noise), the lenient prompt 0.099 / +0.20, an inverted-scale
+bug -1.28 / +2.48. So kappa may drop at most 0.08 and MAE rise at most 0.15: noise passes, both
+regressions fail. The separation is thin and rests on one noise sample; the paid CI job scores
+all 34 items, which is less noisy, and the thresholds must be re-measured when human labels
+arrive. The ceiling rule stays for absolute quality; the baseline rule catches regressions. Replacing the baseline is a reviewed change (the new run's gate output in the PR).
+
+## D39 - Manager loop: assignments, attempt review, team comparison.
+PHASES M2 scope. `assignments` (tenant table, FORCE RLS): a manager assigns a scenario to a
+member with an optional due date and note. Completion is derived on read - the assignee has a
+practice session for that scenario created after the assignment with a ready/degraded report -
+so the live-call path gains no writes. Managers review attempts through the existing session
+list (managers already see every member's sessions) filtered by member, and a team summary
+aggregates each member's reports (attempts, mean overall, mean per criterion, last attempt).
+Members are shown by email: `memberships.email` is filled from the verified token when the
+member calls `/me`. Reps see their own assignments on Home.
+**Revisit:** invites and roles UI (M4) - assignment targets come from memberships until then.

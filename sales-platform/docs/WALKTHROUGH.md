@@ -202,3 +202,35 @@ Each test enforces one recorded decision (provider SDKs only in adapters, model 
 `models.py`, no credentials in the SPA, one statement per migration execute, FORCE RLS on
 tenant tables, bounded browser usage, no spoofed client identity). The full map from
 decision to guard is `DECISION-TRACES.md`.
+
+## 12. M2: gold set, raters, eval gate, manager loop
+
+Run from the repo root with the backend on `PYTHONPATH` (`services/backend`), `.env` present.
+
+```
+python -m evals.goldset simulate --per-cell 2     # paid: ~30 text sims (5 scenarios x 3 skills x 2)
+python -m evals.goldset import-live               # every live AI-rep call trace
+python -m evals.model_rater --rater strict-vp --rater enablement-lead   # PROVISIONAL labels (D36)
+python -m evals.harness --suite roleplay          # paid: score every item, write evals/runs/, gate
+python -m evals.harness --suite roleplay --replay # free: gate the committed latest run (CI does this)
+python -m evals.harness --suite roleplay --prompt-variant degraded --limit 8   # must FAIL
+```
+
+The harness prints the ceiling kind. `model-provisional` means no human labels yet: the numbers
+are useful for regressions but **do not close M2** (D14).
+
+Human raters (D37), after migration 0004 is on the hosted database:
+
+```
+python scripts/eval_labels.py import-items          # gold set -> "HyperSale Evals" workspace
+python scripts/eval_labels.py add-rater --email someone@example.com   # prints a one-time password
+# rater signs in -> "Label" tab -> scores each call blind -> Save and next
+python scripts/eval_labels.py export                # -> evals/labels/human-<n>.json; commit them
+```
+
+With two or more `human-*.json` files the harness switches to the human ceiling automatically.
+
+Manager loop (D39), as a manager or owner: **Team** tab shows each member's attempts, mean
+overall and mean per criterion; click a member to review their attempts; the form assigns a
+scenario with an optional due date. Reps see "Assigned to you" on Practice; an assignment turns
+`done` when they finish that scenario with a scored report.

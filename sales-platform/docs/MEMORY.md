@@ -1,7 +1,7 @@
 # MEMORY - Living State
 
-Read this first; update last each session. Current phase: **M1 built and live-verified
-2026-10-29; M1 exit gates open; M2 blocked on external raters.**
+Read this first; update last each session. Current phase: **M1 gates met except user-side
+items (Safari, Sentry, OTel, demo seed); M2 engineering built, acceptance blocked on human raters.**
 Application code lives at repository root; sales-platform/ owns product docs.
 
 ## Latest authoritative checkpoint - 2026-10-29
@@ -29,14 +29,24 @@ pushes to both remotes. GitLab MCP is not available in this environment.
 - Live: end->metrics 758 / 744 ms (met). Bucket recording met (17 chunks in `recordings`).
   Weak rep 2.2 vs average rep 4.2: scoring discriminates. Traces in CALL-TRACES.md.
 
+### 2026-10-30 checkpoint (M2 quiz: approve D35, text sims + live, rater page + provisional, paid eval on scoring changes)
+- D35 one scoring call per report: live end->report 29.4 / 18.7 s (met). End->metrics 795 / 1052 ms.
+- M2 built: gold set 34 (30 sims + 4 live), `evals/` harness + gate (ceiling + baseline rules),
+  provisional model raters, rater page `#/rate` (Evals workspace), assignments + team view
+  (`#/team`), migration 0004, CI replay step + paid `evals.yml` (GitLab mirrored).
+- Eval (provisional): product QWK 0.909 / MAE 0.22 vs ceiling 0.850 / 0.37; 0 fabricated.
+  Unchanged prompt passes, lenient and inverted-scale prompts fail. Raters and scorer share a
+  model, so this is NOT human agreement.
+
 ### Open
-1. End->report 31.3 / 33.7 s (target p95 <30). Diagnostic: this gateway queues parallel
-   calls; one call for all criteria was faster. Proposed: one call per report - NEEDS USER
-   APPROVAL, then a live re-measure.
-2. The gpt-5.6-sol key has $0.017 left; scoring needs $0.021/call (403). Needs a top-up or a
-   new key before any live run. Gateway also gave one intermittent 400 on tool calls.
-3. Safari (D24); Sentry MCP needs `/mcp` sign-in, then a DSN; OTel; demo workspace seed.
-4. External raters (D14) - blocks M2 acceptance. GitLab parked by the user.
+1. Hosted migration 0004 not applied: rule is local round trip first; Docker is down until a
+   real Restart. CI runs upgrade/downgrade/upgrade on Postgres. Ask the user.
+2. Human raters (D14): run `scripts/eval_labels.py import-items` + `add-rater` after 0004 is
+   hosted; M2 acceptance needs their labels. Add ANTHROPIC_AUTH_TOKEN/BASE_URL as GitHub
+   secrets for the paid eval job.
+3. Gateway intermittent 400 ("function tools ... /v1/chat/completions") hits ~1 in 10 scoring
+   calls. Proposed (not applied): one retry inside `LLMScorer._call`. Needs user approval.
+4. Safari; Sentry `/mcp` sign-in + DSN; OTel; demo workspace seed. GitLab parked by the user.
 
 ### Environment facts that bit
 - After a WSL/Docker restart, Windows WMI hung: Python's `platform` module (imported by
@@ -179,6 +189,7 @@ Keep GitHub and GitLab CI aligned. Do not touch unrelated sibling projects.
 - 2026-09-23: Claude voice harness committed at a6edbbc; live voice gates left open.
 - 2026-10-29: Spike 3 passed (gpt-5.6-sol); M1 built, hosted-migrated, live-verified via UI; CI #9 green incl. E2E.
 - 2026-10-29 late: D33 dual-model scoring + D34 AI-rep live loop; bucket + metrics gates met; key quota exhausted.
+- 2026-10-30: D35 single-call scoring (report latency met); M2 built (D36-D39), provisional eval gate proven.
 - 2026-10-24: morning read-only audit, then full M0 closure: automated voice spikes, cost
   truth ledgered on hosted DB, restricted roles, auth login, compose stack, D23-D27, push.
 - 2026-10-16: history/source audit, unit/build/synthetic recording checks, read-only MCP

@@ -12,8 +12,8 @@ M0's last open technical gate closed the same day: **Spike 3 passed** on `gpt-5.
 | 5 personas + scenarios seeded, criteria per scenario | **Done** | `seeds/` + `catalog.json`; hosted seeded (5/5/14/rubric-v1); prompt versions content-hashed (D30) |
 | Voice session: preflight → brokered WebRTC → live transcript → chunked recording upload | **Done** | D29/D32; 5 full live calls on Edge 157 + Chromium, 32–42 server-captured turns each, 19 × 10 s chunks |
 | Start < 5 s | **Met** | Click → talking 3.4–3.9 s in the UI; server connect p95 1.9 s |
-| Metrics < 1 s after end | **Met (2026-10-29 live)** | Set-based turn-start UPDATE: server end->metrics **758 ms** and **744 ms** on the two AI-rep calls (Edge, Chromium) |
-| Full report p95 < 30 s | **Not met - repair proposed** | Live with 2 per call (3 parallel calls): **31.3 s / 33.7 s** (scoring 28.9 / 31.5 s of it). Diagnostic on a live transcript: one call for all 5 criteria 10.6 / 28.2 s vs 3 parallel 23.2 / 38.2 s - this gateway queues parallel calls; effort=low no gain (`evidence/scoring-latency-2026-10-29.json`). Proposed: one call per report. Awaiting approval; blocked anyway by the key's quota |
+| Metrics < 1 s after end | **Met, one edge** | Server end->metrics on 4 AI-rep calls: **758 / 744 / 795 / 1052 ms**. p50 well under 1 s; one call at 1.05 s (hosted pooler round trips). Watch on the latency dashboard |
+| Full report p95 < 30 s | **Met (2026-10-29 live, D35)** | One scoring call per report: **29.4 s / 18.7 s** live (was 31.3 / 33.7 s with 3 parallel calls). Eval harness over 34 items: scoring p95 **27.1 s**. Margin is thin on this gateway |
 | Every evidence quote seeks correctly | **Met** | Click → recording at 9.0–9.7 s for turns at 0:10–0:11 (300 ms lead + recorder offset), highlighted rep turn |
 | Zero DB rows fail existence or attribution | **Met** | `/evidence/integrity`: 100/100 persisted hosted quotes re-verified, 0 failing; every report `ready`, never `degraded` |
 | Latency dashboard live | **Met** | `#/latency` + `/api/v1/metrics/latency` (p50/p95 vs budget per stage) |
@@ -48,8 +48,8 @@ and GitLab now also run the OpenAPI/TS drift checks and the E2E job.
   gateway also returned one intermittent 400 ("function tools ... not supported in
   /v1/chat/completions"). Loop stopped after 2 calls.
 
-Remaining before M1 exit: report latency (one call per report, needs approval + a funded key),
-Safari, Sentry DSN + exporter check, OTel, demo workspace seeding. M2 cannot start
+Remaining before M1 exit (all need the user): Safari (Apple device), Sentry `/mcp` sign-in + DSN, OTel endpoint,
+demo workspace seeding, and approval of the scorer retry for the gateway's intermittent 400. M2 cannot start
 engineering acceptance until **external raters** exist (D14).
 
 ## M0 closure checkpoint — 2026-10-24
@@ -249,6 +249,19 @@ update). Timeline assumes solo, ~full-time.
   correctly; zero rows in the DB fail existence or attribution; latency dashboard live.
 
 ## M2 — Weeks 5–6: Evals + manager loop *(this milestone is the interview)*
+
+### M2 checkpoint - 2026-10-29/30 (quiz: text sims + live, rater page + provisional baseline, paid eval only on scoring changes)
+
+| M2 "done when" | Status | Evidence |
+|---|---|---|
+| Gold set >= 30 transcripts | **Built (34)** | 30 text sims (5 scenarios x 3 rep skills x 2) + 4 live AI-rep calls, `services/backend/evals/goldset/` (D36) |
+| Labelled by external raters, rater agreement first | **Open - needs humans (D14)** | Rater page `#/rate` built and tested (blind, own labels, Evals workspace, D37). Provisional ceiling from two model raters: QWK **0.850**, MAE 0.37 - marked `model-provisional`, does not close M2 |
+| Eval harness in CI (kappa + MAE vs ceiling, fabricated/misattributed = 0, IE rate, latency, cost) | **Built** | `python -m evals.harness`; product run: QWK **0.909** / MAE 0.22 vs consensus, 0 fabricated, 0 misattributed, IE 5.3% vs 4.2%, p95 27.1 s, $1.22 for 34 items. Free replay on every CI run; paid job on scoring-path changes (D38) |
+| A deliberately degraded prompt demonstrably fails | **Met (provisional)** | Same 8 items: unchanged prompt PASS (noise 0.053 kappa); lenient prompt FAIL (0.938 -> 0.839, MAE 0.15 -> 0.35); inverted-scale bug FAIL (kappa -0.35). Runs in `evals/runs/` |
+| Manager: assign scenario, review attempts, team comparison | **Built, CI-verified pending** | Migration 0004, `coaching` module, `#/team`, Home "Assigned to you" (D39); integration + E2E tests added. **Hosted migration not applied** (no local round trip: Docker down) |
+
+Caveat: the provisional raters and the scorer are the same model, so model-vs-consensus beating
+the ceiling (0.909 > 0.850) is expected and is **not** evidence of human-level agreement.
 
 - Gold set: ≥30 transcripts labeled by the external raters; inter-rater agreement computed
   **first** (the ceiling).

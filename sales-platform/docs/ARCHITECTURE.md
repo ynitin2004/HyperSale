@@ -55,6 +55,8 @@ vars, never in the browser; the browser gets short-lived ephemeral tokens minted
 | `review` | upload + Zoom ingest, transcription orchestration (M3) |
 | `scoring` | rubric evaluation, evidence verification, provenance — crown jewel |
 | `knowledge` | chunking, embedding, workspace-scoped retrieval |
+| `coaching` | assignments, attempt review, team comparison (D39); reads practice/scoring/identity via their services |
+| `evals` | gold-set items and blind human rater labels (D37); the harness itself is `services/backend/evals/` (D38) |
 | `insights` | aggregates, manager views, benchmarks |
 | `platform` | queue, storage, email, metering, flags, audit |
 
@@ -91,7 +93,7 @@ channel and are reported, bounded, at hang-up (D32). Consequences:
 | Live transcript lag | < 500 ms | Data-channel events → SSE fan-out, no DB write on the display path |
 | Call end → deterministic metrics | < 1 s | Pure computation on the already-durable transcript; no LLM |
 | Call end → first criterion visible | < 8 s | Single Opus 5 structured call, criteria streamed over SSE as produced |
-| Call end → full report | p95 < 30 s | Prompt-cache rubric prefix; split into 2 parallel calls before downgrading model |
+| Call end → full report | p95 < 30 s | Prompt-cache rubric prefix; one call per report on the D28 gateway (D35: it queues parallel calls); split only for rubrics > 7 criteria |
 | Upload → scored report (M3) | Budget owned by transcription; progress always visible via SSE | |
 
 Every stage emits an OTel span; the p95s live on one dashboard from M1.
