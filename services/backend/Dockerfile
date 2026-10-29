@@ -9,6 +9,7 @@ RUN pip install --no-cache-dir '.[migrations]'
 # Migrations ship in the image so the release step runs the exact code being deployed.
 COPY alembic.ini ./
 COPY alembic ./alembic
+COPY seeds ./seeds
 COPY entrypoint.sh ./
 RUN chmod +x entrypoint.sh && useradd --create-home --uid 10001 hypersale
 USER hypersale

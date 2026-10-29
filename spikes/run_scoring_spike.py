@@ -22,10 +22,10 @@ import time
 from datetime import UTC, datetime
 from pathlib import Path
 
+from dotenv import dotenv_values
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "services" / "backend"))
-
-from dotenv import dotenv_values  # noqa: E402
 
 FIXTURE = ROOT / "services/backend/tests/fixtures/transcripts/priya_cold_call_01.json"
 RUBRIC_VERSION = "cold-call-v0"
@@ -138,8 +138,8 @@ def main() -> int:
         if env.get(key) and not os.environ.get(key):
             os.environ[key] = env[key]
 
-    from app.adapters.llm.client import build_client  # noqa: E402
-    from app.adapters.llm.models import SCORING_MODEL  # noqa: E402
+    from app.adapters.llm.client import build_client
+    from app.adapters.llm.models import SCORING_MODEL
 
     model = args.model or SCORING_MODEL
     fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))

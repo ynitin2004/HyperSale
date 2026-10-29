@@ -35,6 +35,8 @@ applies before any major change.
 
 - Strict versioned JSON schemas for every model output; rubric **and prompt** versions immutable
   once referenced.
+- Scoring model amended by D28: `gpt-5.6-sol` through the D27 gateway, still via the official
+  `anthropic` SDK (sync client, D32); the Claude IDs below remain the documented fallback.
 - Anthropic calls: official `anthropic` Python SDK, `claude-opus-5` for scoring/reports with
   structured outputs and adaptive thinking; `claude-haiku-4-5` for high-volume tasks. Prompt
   caching on the static rubric+scenario prefix (stable content first; verify with

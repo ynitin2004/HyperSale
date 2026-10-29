@@ -34,7 +34,7 @@ boundaries. Full rationale for every choice: `DECISIONS.md`.
 | Role | Provider / model | Why |
 |---|---|---|
 | Live voice buyer | **Azure Speech Voice Live**, generative model `GPT Realtime` (speech-to-speech). Model and voice IDs held in `adapters/llm/models.py` | Anthropic has **no realtime speech-to-speech API** — a Claude key cannot power the voice layer. OpenAI Realtime direct could not be provisioned; Azure serves the same model and keeps D8's speech-to-speech design intact (D21). Measured ~2 s turn, barge-in working |
-| Scoring & reports | `claude-opus-5` — $5/M input, $25/M output tokens | Structured outputs (`output_config.format` / `messages.parse()`) give schema-guaranteed rubric JSON; adaptive thinking; prompt caching for the static rubric+scenario prefix. ~6k in + 2k out per report ≈ **$0.08/session** — negligible vs voice minutes |
+| Scoring & reports | **`gpt-5.6-sol` via the Agent Router gateway (D28)** — $4/M in, $20/M out; `claude-opus-5` ($5/$25) is the documented fallback | Structured outputs (`output_config.format` / `messages.parse()`) give schema-guaranteed rubric JSON; adaptive thinking; prompt caching for the static rubric+scenario prefix. ~6k in + 2k out per report ≈ **$0.08/session** — negligible vs voice minutes |
 | High-volume tasks | `claude-haiku-4-5` — $1/M in, $5/M out | Tagging, drill selection, metadata extraction |
 | Disputed-score adjudication (only if measured need) | `claude-fable-5` — $10/M in, $50/M out | D9: add a frontier tier only when evals show Opus 5 disagreement clusters; 2× Opus price buys headroom scoring doesn't normally need |
 | Transcription (M3) | Deepgram or AssemblyAI (verify current pricing) | Diarization + word timestamps; replaceable behind `Transcriber` |
@@ -63,7 +63,11 @@ SQL joins. This keeps later extraction (e.g. `scoring` as its own service) mecha
 
 ## 4. Voice session & the recording gap
 
-Browser ↔ Azure Speech Voice Live directly; our server never proxies audio. Consequences:
+Browser ↔ Azure Speech Voice Live directly for media; our server never proxies audio. The api
+brokers the signalling socket for the life of the call (D29): it relays the SDP offer/answer
+with the server-held key and receives the transcript events, so transcript text is
+server-authoritative. Usage and VAD/response-start events reach only the browser's data
+channel and are reported, bounded, at hang-up (D32). Consequences:
 
 - **Transcript:** Realtime data-channel transcript events are forwarded to `api` live (with turn
   + speaker boundaries — attribution verification depends on them). Durable server-side

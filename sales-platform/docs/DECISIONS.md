@@ -208,3 +208,71 @@ Spoofing another client's identity to satisfy the gateway is out of bounds. Stat
 channel (503), so Spike 3 stays open until the token gains `claude-opus-5` or a direct key
 or OpenRouter credential arrives. **Revisit:** when a model answers, re-run
 `spikes/run_scoring_spike.py` and record its cost beside D19's $0.08 estimate.
+
+## D28 - Scoring runs on `gpt-5.6-sol` through the Agent Router gateway, via the Anthropic SDK.
+User decision 2026-10-29, amending D19's "Claude for scoring". Every Claude model on the user's
+only credential returns 503 "no channel"; `gpt-5.6-sol` answers through the gateway's
+Anthropic-compatible Messages endpoint. The OpenAI SDK and raw HTTP are both rejected by the
+gateway as "unauthorized client"; the official `anthropic` SDK is accepted, so RULES §3
+("official anthropic SDK") still holds - only the model ID changes, and it lives in
+`adapters/llm/models.py`. Spike 3 evidence (3 runs on the fixture): schema-valid tool-forced
+JSON every time, D13 fabricated/misattributed 0/0 every time, 10-13 s, ~760 in / ~900 out
+tokens = **~$0.02 per report** at $4/$20 per 1M (OpenAI list, promotional through
+2026-11-21). Variance seen: `objection_handling` flipped between `insufficient_evidence` and 1
+across runs - exactly what M2's eval harness exists to measure. Prompt caching
+(`cache_read_input_tokens`) is not reported by this gateway path; RULES §3's cache check is
+waived until the provider changes. **Revisit:** a Claude channel appears (re-run the spike and
+compare), M2 kappa against the rater ceiling is unacceptable, or promotional pricing ends.
+
+## D29 - The api brokers the Voice Live signalling socket (amends D1 and D8).
+User decision 2026-10-29, from the quiz. Voice Live has no ephemeral-token API, the resource
+has no Azure OpenAI realtime surface (`/openai/v1/realtime/client_secrets` -> 404), and D23
+showed the call dies with the socket. So `api` opens the socket with the server-held key,
+relays the browser's SDP offer and answer, and holds the socket for the life of the call;
+media stays browser<->Azure direct (D8's "never proxy audio" survives). The held socket also
+carries every transcript and `response.done.usage` event, so **the transcript and the usage
+ledger become server-authoritative**: the browser can no longer forge either, and the M0
+client-reported usage endpoint becomes a fallback. Session caps are enforced by closing the
+socket. Cost: `api` is stateful per live call - one instance (or sticky routing), and an api
+restart ends in-flight calls, which the session marks `interrupted` with its partial
+transcript preserved. **Revisit:** Azure ships browser-safe tokens for Voice Live, or more
+than one api instance is needed.
+
+## D30 - Global, read-only catalog; content-hashed prompt versions.
+Personas, scenarios, rubric versions and drills are product content shared by every
+workspace in v1 (no builder UI, PRD §4), so they live in global tables seeded from
+`services/backend/seeds/` rather than per workspace. The app role gets SELECT only; RLS is
+enabled with a read-all policy so the "every table has RLS" check stays uniform. A persona's
+`prompt_version` is the first 12 hex chars of the SHA-256 of its instructions, so editing a
+prompt creates a new row instead of mutating one a score already references (D16). Per-
+workspace scenarios arrive with the builder UI (V2-ROADMAP), as a nullable `workspace_id`.
+
+## D31 - Stub providers for CI and E2E; storage adapter for recordings.
+RULES §4 requires E2E against a stubbed voice provider. `VOICE_PROVIDER=stub` makes the api
+return a scripted session (no WebRTC) and the browser play the stub path; `SCORING_PROVIDER=stub`
+returns deterministic scores whose quotes are taken verbatim from rep turns, so the same
+verification code runs. Real-provider smoke runs are separate and paid (D25 budget).
+Recordings upload in ~10 s chunks to a `RecordingStore` adapter: local filesystem in dev/CI,
+Supabase Storage (private bucket, server-side upload) when configured. The api receives the
+chunks rather than issuing signed URLs in v1 - recording upload is not live media, so D8 is
+not breached, and it removes a storage-policy surface. **Revisit:** recording bandwidth
+through `api` shows up in latency or cost.
+
+## D32 - Transcript text is server-authoritative; usage and turn timing come from the browser, bounded.
+Measured 2026-10-29 by counting every raw event on the api-held Voice Live socket during a
+live call: it carries **only** transcription events (`response.audio_transcript.*`,
+`conversation.item.input_audio_transcription.*`, `session.updated`). `response.done` usage,
+`input_audio_buffer.speech_started` and `response.output_item.added` arrive only on the
+browser's WebRTC data channel. So D29's "usage ledger becomes server-authoritative" was wrong
+and is amended: (1) **transcript text stays server-authoritative** - it is what D13 verifies,
+and the browser cannot alter it; (2) the browser reports usage at hang-up and the api accepts
+it only within physical caps (~40 audio tokens per second of call, bounded responses), writing
+the ledger row with `source=data_channel` so its provenance is visible; (3) the browser reports
+turn start times, which may only move a turn *earlier* than the server's arrival-time estimate
+and by at most 30 s - timing moves, text never does. Without (3), evidence seeks landed at the
+end of a rep's utterance. Live check after the change: a 3-minute call ledgered 22,405 in /
+1,105 out tokens = $0.128 (M0 measured $0.142), and a quote click seeked to 9.0 s for a turn
+starting at 0:10. Separately, the D28 gateway admits the SDK's sync client but rejects its
+async client ("unauthorized client"), so scoring runs the official sync client on a worker
+thread - the SDK as shipped, no spoofed identity (D27). **Revisit:** Azure starts sending
+usage on the signalling socket (the per-session `provider_events` counts will show it).

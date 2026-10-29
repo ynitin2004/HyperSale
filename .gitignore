@@ -28,3 +28,6 @@ my-claude-skills-main/
 spikes/runs/
 # Local Codex/MCP config (project-scoped Supabase token); never committed.
 .codex/
+var/
+apps/web/playwright-report/
+apps/web/test-results/

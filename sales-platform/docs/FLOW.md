@@ -42,6 +42,38 @@ Findings feed D23/D24/D25.
 (official SDK, `ANTHROPIC_BASE_URL`) -> tool-forced rubric JSON -> D13 existence +
 attribution checks. Gateway currently returns 503/403 (D27); no score has been produced yet.
 
+### Verified M1 chains (2026-10-29)
+
+**B. Roleplay (the money path), as built.** SPA `#/practice/<scenario>` -> preflight
+(`getUserMedia`, level meter) -> `POST /api/v1/practice/sessions` (row `created`, persona +
+`prompt_version` + `rubric_version` pinned) -> browser builds the SDP offer + data channel ->
+`POST /sessions/{id}/connect` -> atomic `created->connecting` guard -> `build_voice_provider()`
+-> `AzureVoiceLiveProvider.open_call` opens `wss://.../voice-live/realtime/calls` with the
+server key, sends `rtc.call.sdp.create` with the persona prompt, returns the SDP answer ->
+`mark_connected` -> `live.registry.start` (consumer task + cap timer) -> 200 with the answer.
+Media: browser<->Azure. Transcript: Azure -> api socket -> `upsert_turn` per completed turn
+(idempotent on item id). Data channel -> browser: live transcript, VAD starts, usage.
+Recording: Web Audio mix -> MediaRecorder 10 s chunks -> `PUT /recording/{seq}` ->
+`RecordingStore`. End: `POST /end` {usage, turn_starts, recorder_offset_ms} ->
+`registry.finalize` (exactly once; also on cap, provider close, shutdown) -> close socket ->
+`apply_turn_starts` (earlier-only, D32) -> `renumber_turns` -> `mark_ended` -> usage ledger
+(`source` = server_socket | data_channel, bounded) -> `scoring.create_report` (metrics now) +
+enqueue `scoring.score_report` in the same transaction. Restart safety: lifespan
+`sweep_orphans` closes sessions left `live`.
+
+**C. Scoring, as built.** Worker claims `scoring.score_report` -> `score_report` (idempotent,
+row-locked) -> transcript via `practice.get_transcript`, criteria via `catalog` -> criteria
+split in two halves scored in parallel (ARCHITECTURE §5) -> `LLMScorer` (official SDK, sync
+client on a thread, tool-forced schema) -> `verify` (existence + attribution) -> failed or
+missing criteria retried with feedback, max 2 -> `persist_scores` drops any unverified quote,
+flags the criterion, marks the report `degraded` if needed -> provenance + overall + 3 drills
+-> usage rows per model call. Final failure after 3 attempts -> report `failed` (visible).
+Reads: `GET /reports/{id}`, `GET /evidence/integrity`, `GET /metrics/latency` (insights).
+
+**Guards.** `tests/integration/test_m1_loop.py` runs B+C end to end on Postgres with stub
+providers; `apps/web/e2e/roleplay.spec.ts` runs them in a browser; `scripts/live_smoke.py`
+runs them on real providers through the UI.
+
 ## 0. Onboarding pass (adapted from the "staff engineer" prompt)
 
 When a session needs to rebuild context and this file is stale, run this against the repo —
@@ -111,8 +143,8 @@ registering it here fails review.
 
 | ID | Where | Model | Output | Guardrail |
 |---|---|---|---|---|
-| AI-1 | `scoring/` criterion scores + evidence | `claude-opus-5` | Strict JSON schema | Existence + attribution verified in code; provenance; retry-then-degrade; eval-gated in CI |
-| AI-2 | `scoring/` drill recommendations | `claude-haiku-4-5` | Choice from seeded drill catalog only | Cannot invent drills; invalid id → fallback to rule-based pick |
+| AI-1 | `scoring/` criterion scores + evidence | `gpt-5.6-sol` (D28) | Strict JSON schema | Existence + attribution verified in code; provenance; retry-then-degrade; eval-gated in CI |
+| AI-2 | `scoring/` drill recommendations | none in M1 — rule-based (weakest scored criteria -> seeded drills) | Choice from seeded drill catalog only | No model involved yet; Haiku tier deferred until a volume model is reachable |
 | AI-3 | Live buyer persona | Azure Voice Live `gpt-realtime` (D21) | Speech | Persona instructions only; **no tools in hot path**; session cap server-side; transcript logged for later audit |
 | AI-4 (M3) | `review/` call tagging/metadata | `claude-haiku-4-5` | Enum tags | Schema-constrained; tags advisory, never gate anything |
 

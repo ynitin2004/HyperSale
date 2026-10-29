@@ -26,6 +26,7 @@ last action of every working session, not optional.
 | `docs/FLOW.md` | Entry points, execution order, what calls what, AI-decision-point registry | Every PR that adds/changes an execution path |
 | `docs/MEMORY.md` | Living memory: baseline, risks, next actions, log | End of every session |
 | `docs/V2-ROADMAP.md` | Hyperbound-parity gap list, triggers to build each | A design partner asks for something on it |
+| `docs/DECISION-TRACES.md` | Why each decision was made and the test that guards it | Every new decision, and whenever a guard changes |
 | `docs/WALKTHROUGH.md` | How to run, test and re-verify every M0 gate, with expected output | A gate's command or expected result changes |
 | `docs/evidence/` | Archived spike reports (JSON) that PHASES.md cites | Every evidence-producing run |
 

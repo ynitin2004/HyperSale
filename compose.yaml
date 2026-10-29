@@ -14,6 +14,7 @@ x-backend: &backend
     DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/hypersale
     ALEMBIC_DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/hypersale
     WORKER_DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/hypersale
+    ADMIN_DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/hypersale
 
 services:
   db:

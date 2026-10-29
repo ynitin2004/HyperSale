@@ -1,5 +1,40 @@
 # Delivery Phases
 
+## M1 checkpoint — 2026-10-29 (built; live-verified on real providers)
+
+User authorized M1 build (quiz 2026-10-29: api-brokered voice socket D29, scoring on
+`gpt-5.6-sol` D28, ~$5 live budget, hosted migrations after local round trip, pushes).
+M0's last open technical gate closed the same day: **Spike 3 passed** on `gpt-5.6-sol`
+(3/3 schema-valid, D13 fabricated/misattributed 0/0, ~$0.02/report).
+
+| M1 "done when" | Status | Evidence |
+|---|---|---|
+| 5 personas + scenarios seeded, criteria per scenario | **Done** | `seeds/` + `catalog.json`; hosted seeded (5/5/14/rubric-v1); prompt versions content-hashed (D30) |
+| Voice session: preflight → brokered WebRTC → live transcript → chunked recording upload | **Done** | D29/D32; 5 full live calls on Edge 157 + Chromium, 32–42 server-captured turns each, 19 × 10 s chunks |
+| Start < 5 s | **Met** | Click → talking 3.4–3.9 s in the UI; server connect p95 1.9 s |
+| Metrics < 1 s after end | **Fixed, re-verify** | Server 0.56 s before D32; D32's per-turn updates pushed p95 to 1.87 s; replaced by one set-based UPDATE (integration green). Re-measure live |
+| Full report p95 < 30 s | **Fixed, re-verify** | Live: 25.7 / 29.7 / 83.6 s (2-way split; slow gateway + retries). Offline on a 40-turn live transcript: 3 parallel calls = **17.1 s**, 0 failed quotes → now 2 criteria per call, 60 s timeout, 1 SDK retry. Re-measure live |
+| Every evidence quote seeks correctly | **Met** | Click → recording at 9.0–9.7 s for turns at 0:10–0:11 (300 ms lead + recorder offset), highlighted rep turn |
+| Zero DB rows fail existence or attribution | **Met** | `/evidence/integrity`: 100/100 persisted hosted quotes re-verified, 0 failing; every report `ready`, never `degraded` |
+| Latency dashboard live | **Met** | `#/latency` + `/api/v1/metrics/latency` (p50/p95 vs budget per stage) |
+| Rubric v1, scenario-scoped, `insufficient_evidence`, provenance | **Met** | 7 criteria; out-of-scope criteria never scored; reports carry rubric/prompt/model/metrics + persona prompt version |
+| 3 drills | **Met (rule-based)** | Weakest scored criteria → seeded drills; Haiku tier (AI-2) deferred, no reachable volume model |
+| Safari | **Open (D24)** | No Apple device; M1 exit gate |
+| Recording storage on Supabase | **Open (needs OK)** | Adapter built; live runs used local storage because creating a hosted bucket was not authorized |
+| Sentry / OTel exporters | **Open (needs accounts)** | Code paths exist; no DSN/endpoint configured |
+
+Cost truth, live (hosted ledger, `/usage/summary`): voice 4 calls $0.532 (≈ $0.045/min),
+scoring 12 model calls $0.492 at $4/$20 per 1M (the 2-way split wrote long outputs; the
+3-way split cuts output per call). A 3-minute roleplay + report ≈ **$0.17**.
+
+Tests: 73 unit (incl. 8 executable decision tests), 15 integration (full loop over HTTP on
+Postgres, RLS per new table), 4 Playwright E2E (stub providers), 5 live UI runs. CI: GitHub
+and GitLab now also run the OpenAPI/TS drift checks and the E2E job.
+
+Remaining before M1 exit: one live re-measure of metrics + report latency with the fixes,
+Safari, Supabase Storage bucket (authorization), Sentry/OTel accounts. M2 cannot start
+engineering acceptance until **external raters** exist (D14).
+
 ## M0 closure checkpoint — 2026-10-24
 
 User authorized full build-out on 2026-10-24 (quiz answered: scoring via gateway, Safari
@@ -103,8 +138,8 @@ billing remain untested.
 
 | Phase | Status | Evidence and remaining gates |
 |---|---|---|
-| M0 | Closed 2026-10-24 (scoring credential + raters external) | See the closure checkpoint above: cost $0.050/min measured and ledgered, audio truth on Chromium/Edge, control channel answered, auth + restricted role verified, local stack and tests green. |
-| M1 | Cleared to start 2026-10-24 | Priya persona, fixture, model registry, VoiceProvider protocol, LLM client factory, automated voice harness. First task: browser-safe Voice Live credential (D23). Azure adapter, session flow, scoring module, report page unbuilt. |
+| M0 | Closed 2026-10-24; Spike 3 passed 2026-10-29 (raters still external) | See the closure checkpoint above: cost $0.050/min measured and ledgered, audio truth on Chromium/Edge, control channel answered, auth + restricted role verified, local stack and tests green. |
+| M1 | Built and live-verified 2026-10-29; exit gates open | See M1 checkpoint above: full loop live on Azure + gpt-5.6-sol + hosted Supabase; latency fixes to re-measure; Safari, storage bucket, Sentry/OTel open. |
 | M2 | Not demonstrated | No implemented eval harness or manager loop found; external rater recruitment unconfirmed. |
 | M3 | Not implemented | Review module is a placeholder; recording pipeline remains planned. |
 | M4 | Not implemented | Commercial surface and acceptance checks remain planned. |

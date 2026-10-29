@@ -1,4 +1,4 @@
-# WALKTHROUGH - running and verifying HyperSale M0
+# WALKTHROUGH - running and verifying HyperSale (M0 + M1)
 
 Written for a developer (or interviewer) with the repo, Docker Desktop and a filled `.env`.
 Every step below was executed on 2026-10-24; expected output is quoted from those runs.
@@ -41,11 +41,12 @@ From `services/backend`:
 
 ```
 .venv/Scripts/python -m ruff check . ../../scripts ../../spikes      -> All checks passed!
-.venv/Scripts/python -m pytest -q --ignore=tests/integration          -> 42 passed
+.venv/Scripts/python -m pytest -q --ignore=tests/integration          -> 73 passed (incl. 8 decision tests)
 set DATABASE_URL / ALEMBIC_DATABASE_URL / TEST_DATABASE_URL to postgresql+asyncpg://postgres:postgres@localhost:5432/hypersale_test
 .venv/Scripts/python -m alembic upgrade head && downgrade base && upgrade head
 .venv/Scripts/python -m alembic check                                 -> No new upgrade operations detected.
-.venv/Scripts/python -m pytest -q tests/integration                   -> 13 passed (unprivileged role, RLS enforced)
+.venv/Scripts/python -m pytest -q tests/integration                   -> 15 passed (unprivileged role, RLS enforced,
+                                                                         full M1 loop over HTTP)
 ```
 
 Use a database the compose stack does not run against (`CREATE DATABASE hypersale_test` once
@@ -128,3 +129,67 @@ corepack pnpm@9.15.0 dev:web      # http://localhost:5173, "Check M0 gates" call
 
 `docs/PHASES.md` (gate table), `docs/evidence/`, `docs/DECISIONS.md` D23-D27, hosted
 `usage_events` / `jobs` rows in the dev workspace, and the CI runs on GitHub/GitLab.
+
+---
+
+# M1 — the roleplay loop
+
+## 8. Catalog and hosted schema
+
+```
+cd services/backend && ALEMBIC_DATABASE_URL=<session pooler> .venv/Scripts/python -m alembic upgrade head
+python -m app.modules.catalog.seed     (from the repo root)
+  catalog seeded: {'personas_new': 5, 'scenarios': 5, 'drills': 14, 'rubric_new': 1}
+```
+
+Re-running the seed is a no-op; editing a persona prompt creates a new `prompt_version` row;
+changing `rubric-v1` criteria fails loudly (D16, D30). In Docker, the `migrate` role runs both.
+
+## 9. Browser E2E with stub providers (no spend, D31)
+
+```
+DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/hypersale_e2e python scripts/e2e_setup.py
+cd apps/web && E2E_PYTHON=<absolute path to the backend venv python> pnpm exec playwright test
+  ok 1 signed-out visitors see the sign-in form, not the app
+  ok 2 catalog shows five scenarios with one highlighted to try first
+  ok 3 a full roleplay produces a verified, speaker-labelled report
+  ok 4 latency dashboard and evidence integrity reflect the calls made
+```
+
+Playwright starts the API, the worker (health port 8766) and a built SPA itself. On Windows,
+pass `E2E_PYTHON` as an absolute, quoted path.
+
+## 10. The real thing, through the UI (paid, ~$0.15 per run)
+
+```
+python scripts/live_smoke.py --browser msedge      # or chromium; --lines 3 for a 1-minute call
+```
+
+What it does, step by step, with the screenshot it saves to
+`docs/evidence/m1-live-<date>/<run>/`:
+
+| Step | Screen | What to look for |
+|---|---|---|
+| Sign in with the dev user (real Supabase Auth) | `01-login.png` | Form, no app content before sign-in |
+| Scenario catalog | `02-catalog.png` | Five scenarios, Elena highlighted "Try this first", recent calls with scores |
+| Preflight | `03-preflight.png` | Brief, scored criteria, Enable microphone, level meter |
+| Live call | `04-live-call.png` | `Live`, elapsed / 5:00 cap, mic meter, live transcript from the data channel |
+| End of call | `05-live-call-end.png` | Full transcript, End call |
+| Report, first second | `06-report-metrics.png` | Metrics strip before any model output; scoring progress banner |
+| Scored report | `07-report.png` | Overall, per-criterion scores, rationale, rep-labelled quotes, 3 drills, provenance footer |
+| Evidence click | `08-evidence-seek.png` | Highlighted rep turn; the recording seeks to that moment |
+| Latency dashboard | `09-latency.png` | p50/p95 vs budget per stage; evidence integrity "0 failing" |
+
+`summary.json` records the measured numbers and the API's own view of the report, usage and
+latency, so the screenshots can be checked against ground truth.
+
+## 11. Decision tests
+
+```
+cd services/backend && .venv/Scripts/python -m pytest -q tests/test_decisions.py
+```
+
+Each test enforces one recorded decision (provider SDKs only in adapters, model IDs only in
+`models.py`, no credentials in the SPA, one statement per migration execute, FORCE RLS on
+tenant tables, bounded browser usage, no spoofed client identity). The full map from
+decision to guard is `DECISION-TRACES.md`.

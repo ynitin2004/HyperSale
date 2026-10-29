@@ -62,6 +62,9 @@ backend:
     # A drifted model is a silent production bug; autogenerate must find nothing to do.
     - alembic check
     - pytest -q
+    # API contract matches the committed spec (RULES §5 codegen drift).
+    - python -m app.openapi > ../../apps/web/src/api/openapi.json
+    - git diff --exit-code -- ../../apps/web/src/api/openapi.json
 
 image:
   stage: build
@@ -97,4 +100,44 @@ web:
     - pnpm config set store-dir .pnpm-store
   script:
     - pnpm install --frozen-lockfile=false
+    # Generated TS client matches the spec (no hand-written API types).
+    - pnpm --dir apps/web gen:api
+    - git diff --exit-code -- apps/web/src/api/schema.d.ts
     - pnpm -r build
+
+e2e:
+  stage: test
+  # Browsers and their system libraries come with the image; its tag must match the
+  # @playwright/test version in apps/web/package.json.
+  image: mcr.microsoft.com/playwright:v1.62.1-noble
+  services:
+    - name: postgres:16-alpine
+      alias: postgres
+  variables:
+    POSTGRES_DB: hypersale_e2e
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/hypersale_e2e
+    E2E_DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/hypersale_e2e
+    E2E_PYTHON: /opt/venv/bin/python
+    CI: "true"
+  before_script:
+    - apt-get update && apt-get install -y --no-install-recommends python3 python3-venv postgresql-client
+    - |
+      for _ in $(seq 1 30); do
+        pg_isready -h postgres -U postgres -d hypersale_e2e && break
+        sleep 2
+      done
+    - python3 -m venv /opt/venv
+    - /opt/venv/bin/pip install -e 'services/backend[dev]'
+    - corepack enable
+    - corepack prepare "$(node -p 'require("./package.json").packageManager')" --activate
+  script:
+    - pnpm install --frozen-lockfile=false
+    - /opt/venv/bin/python scripts/e2e_setup.py
+    - pnpm --dir apps/web exec playwright test
+  artifacts:
+    when: on_failure
+    expire_in: 7 days
+    paths:
+      - apps/web/playwright-report

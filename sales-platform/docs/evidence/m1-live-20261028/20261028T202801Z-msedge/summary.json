@@ -1,0 +1,214 @@
+{
+  "run": "20261028T202801Z",
+  "browser": "msedge",
+  "scenario": "priya-cold-call",
+  "screens": [
+    "01-login.png",
+    "02-catalog.png",
+    "03-preflight.png",
+    "04-live-call.png",
+    "05-live-call-end.png",
+    "06-report-metrics.png",
+    "07-report.png",
+    "08-evidence-seek.png",
+    "09-latency.png"
+  ],
+  "browser_version": "157.0.4341.16",
+  "click_to_live_ms": 3981,
+  "live_turns_seen": 38,
+  "end_click_to_metrics_ms": 4371,
+  "end_click_to_report_ms": 37698,
+  "report_id": "5b4c6605-292a-47b7-b514-00f296083cc1",
+  "evidence_quotes": 16,
+  "evidence_all_rep": true,
+  "seek": {
+    "currentTime": 9.033925,
+    "duration": 182.404,
+    "paused": false,
+    "highlighted": "rep hit",
+    "ts": "0:10"
+  },
+  "integrity_text": "53 persisted quotes across 4 reports re-verified against their transcripts: 0 failing.",
+  "console_errors": [],
+  "report": {
+    "status": "ready",
+    "overall": 2.33,
+    "provenance": {
+      "rubric_version": "rubric-v1",
+      "prompt_version": "score-v1-2026-10-29",
+      "model_id": "gpt-5.6-sol",
+      "metrics_version": "metrics-v1",
+      "persona_prompt_version": "d1890d376459"
+    },
+    "timings": {
+      "scoring_ms": 30458,
+      "model_calls": 1,
+      "quotes_checked": 16,
+      "end_to_report_ms": 34299,
+      "end_to_metrics_ms": 1867,
+      "metrics_compute_ms": 36,
+      "quotes_rejected_final": 0
+    },
+    "metrics": {
+      "turns": 38,
+      "questions": 3,
+      "rep_turns": 20,
+      "rep_words": 231,
+      "buyer_turns": 18,
+      "buyer_words": 118,
+      "duration_ms": 166668,
+      "filler_words": 1,
+      "open_questions": 2,
+      "talk_ratio_rep": 0.662,
+      "metrics_version": "metrics-v1",
+      "next_step_quote": "Would a 20-minute walkthrough with both of you next Tuesday be a reasonable next step?",
+      "next_step_with_date": true,
+      "fillers_per_100_words": 0.43,
+      "longest_monologue_words": 24
+    },
+    "criteria": [
+      {
+        "id": "opening",
+        "outcome": "scored",
+        "score": 2,
+        "verified": true,
+        "quotes": 2
+      },
+      {
+        "id": "discovery",
+        "outcome": "scored",
+        "score": 2,
+        "verified": true,
+        "quotes": 2
+      },
+      {
+        "id": "listening",
+        "outcome": "scored",
+        "score": 1,
+        "verified": true,
+        "quotes": 3
+      },
+      {
+        "id": "value",
+        "outcome": "scored",
+        "score": 3,
+        "verified": true,
+        "quotes": 3
+      },
+      {
+        "id": "objection_handling",
+        "outcome": "scored",
+        "score": 2,
+        "verified": true,
+        "quotes": 3
+      },
+      {
+        "id": "next_step",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 3
+      }
+    ],
+    "drills": [
+      "listening-reflect",
+      "opening-30s",
+      "discovery-five-whys"
+    ]
+  },
+  "integrity": {
+    "reports": 4,
+    "quotes_checked": 53,
+    "quotes_failing": 0
+  },
+  "latency": [
+    {
+      "key": "connect_ms",
+      "label": "Click to connected",
+      "budget_ms": 5000,
+      "samples": 4,
+      "p50_ms": 1208,
+      "p95_ms": 1742,
+      "max_ms": 1742,
+      "within_budget": true,
+      "recent": [
+        1122,
+        1742,
+        1208,
+        1328
+      ]
+    },
+    {
+      "key": "end_to_metrics_ms",
+      "label": "Call end to metrics",
+      "budget_ms": 1000,
+      "samples": 4,
+      "p50_ms": 557,
+      "p95_ms": 1867,
+      "max_ms": 1867,
+      "within_budget": false,
+      "recent": [
+        1867,
+        470,
+        557,
+        632
+      ]
+    },
+    {
+      "key": "scoring_ms",
+      "label": "Model scoring time",
+      "budget_ms": 30000,
+      "samples": 4,
+      "p50_ms": 25825,
+      "p95_ms": 30933,
+      "max_ms": 30933,
+      "within_budget": false,
+      "recent": [
+        30458,
+        13728,
+        25825,
+        30933
+      ]
+    },
+    {
+      "key": "end_to_report_ms",
+      "label": "Call end to full report",
+      "budget_ms": 30000,
+      "samples": 4,
+      "p50_ms": 27390,
+      "p95_ms": 254049,
+      "max_ms": 254049,
+      "within_budget": false,
+      "recent": [
+        34299,
+        15721,
+        27390,
+        254049
+      ]
+    }
+  ],
+  "usage": {
+    "workspace_id": "b71986ce-055e-4648-8da5-95a3bf3ccd86",
+    "since": "2026-10-27T20:32:09.342969+00:00",
+    "total_cost_microusd": 315934,
+    "rate_missing": false,
+    "by_event_type": [
+      {
+        "event_type": "realtime_audio",
+        "events": 1,
+        "input_units": 22405,
+        "output_units": 1105,
+        "cost_microusd": 128238,
+        "rate_missing": false
+      },
+      {
+        "event_type": "scoring",
+        "events": 4,
+        "input_units": 4849,
+        "output_units": 8415,
+        "cost_microusd": 187696,
+        "rate_missing": false
+      }
+    ]
+  }
+}

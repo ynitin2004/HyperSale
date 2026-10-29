@@ -13,7 +13,9 @@ case "$ROLE" in
     exec python -m app.workers.main
     ;;
   migrate)
-    exec alembic upgrade head
+    # The catalog seed is idempotent and versioned (D30), so every release re-runs it.
+    alembic upgrade head
+    exec python -m app.modules.catalog.seed
     ;;
   *)
     echo "Unknown PROCESS_ROLE '$ROLE' (expected: api, worker, migrate)" >&2
