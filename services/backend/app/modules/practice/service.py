@@ -82,11 +82,24 @@ async def get_session_by_id(session: AsyncSession, workspace_id: UUID, session_i
     ).scalar_one_or_none()
 
 
-async def list_sessions(session: AsyncSession, principal: Principal, limit: int = 50) -> list[PracticeSession]:
+async def list_sessions(
+    session: AsyncSession, principal: Principal, limit: int = 50, user_id: UUID | None = None
+) -> list[PracticeSession]:
     query = select(PracticeSession).where(PracticeSession.workspace_id == principal.workspace_id)
     if not principal.has_role(ROLE_MANAGER):
         query = query.where(PracticeSession.user_id == principal.user_id)
+    elif user_id is not None:
+        query = query.where(PracticeSession.user_id == user_id)  # D39: review one member
     rows = await session.execute(query.order_by(PracticeSession.created_at.desc()).limit(limit))
+    return list(rows.scalars().all())
+
+
+async def workspace_sessions(session: AsyncSession, workspace_id: UUID, limit: int = 2000) -> list[PracticeSession]:
+    """Every member's sessions, newest first: input to the D39 team view and assignments."""
+    rows = await session.execute(
+        select(PracticeSession).where(PracticeSession.workspace_id == workspace_id)
+        .order_by(PracticeSession.created_at.desc()).limit(limit)
+    )
     return list(rows.scalars().all())
 
 

@@ -40,6 +40,8 @@ class Membership(Base):
     workspace_id: Mapped[UUID] = mapped_column(ForeignKey("workspaces.id", ondelete="CASCADE"))
     user_id: Mapped[UUID] = mapped_column()
     role: Mapped[str] = mapped_column(String(20), default="rep")
+    # D39: shown to managers; filled from the verified token when the member calls /me.
+    email: Mapped[str | None] = mapped_column(String(320), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 

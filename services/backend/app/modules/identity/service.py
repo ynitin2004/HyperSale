@@ -41,6 +41,24 @@ async def list_memberships(session: AsyncSession, user_id: UUID) -> list[Members
     return list(result.scalars().all())
 
 
+async def list_members(session: AsyncSession, workspace_id: UUID) -> list[Membership]:
+    rows = await session.execute(
+        select(Membership).where(Membership.workspace_id == workspace_id).order_by(Membership.created_at)
+    )
+    return list(rows.scalars().all())
+
+
+async def record_email(session: AsyncSession, principal: Principal) -> None:
+    """D39: keep the member's email (from the verified token) so managers can recognise them."""
+    if not principal.email:
+        return
+    row = (await session.execute(select(Membership).where(
+        Membership.workspace_id == principal.workspace_id, Membership.user_id == principal.user_id,
+    ))).scalar_one_or_none()
+    if row is not None and row.email != principal.email:
+        row.email = principal.email
+
+
 async def resolve_membership(
     session: AsyncSession, user_id: UUID, workspace_id: UUID | None = None
 ) -> Membership:

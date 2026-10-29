@@ -4,9 +4,9 @@ from uuid import UUID
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
-from app.db.session import identity_session
+from app.db.session import identity_session, tenant_session
 from app.modules.identity.deps import CurrentPrincipal, current_claims
-from app.modules.identity.service import list_memberships
+from app.modules.identity.service import list_memberships, record_email
 from app.modules.identity.tokens import TokenClaims
 
 router = APIRouter()
@@ -26,6 +26,8 @@ class MeResponse(BaseModel):
 
 @router.get("/me", response_model=MeResponse)
 async def current_user(principal: CurrentPrincipal) -> MeResponse:
+    async with tenant_session(principal.workspace_id) as session:
+        await record_email(session, principal)
     return MeResponse(
         user_id=principal.user_id,
         email=principal.email,

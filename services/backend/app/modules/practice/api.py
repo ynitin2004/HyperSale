@@ -50,6 +50,7 @@ class SessionOut(BaseModel):
     recording_mime: str | None
     recorder_offset_ms: int | None
     created_at: str
+    user_id: UUID | None = None
     report_id: UUID | None = None
     report_status: str | None = None
     overall: float | None = None
@@ -97,7 +98,7 @@ def _session_out(row: PracticeSession, report=None) -> SessionOut:
         rubric_version=row.rubric_version, end_reason=row.end_reason, duration_ms=row.duration_ms,
         recording_chunks=row.recording_chunks, recording_mime=row.recording_mime,
         recorder_offset_ms=row.recorder_offset_ms, created_at=row.created_at.isoformat(),
-        report_id=report.id if report else None, report_status=report.status if report else None,
+        user_id=row.user_id, report_id=report.id if report else None, report_status=report.status if report else None,
         overall=float(report.overall) if report is not None and report.overall is not None else None,
     )
 
@@ -123,10 +124,13 @@ async def create_session(
 
 
 @router.get("/sessions", response_model=list[SessionOut])
-async def list_sessions(principal: CurrentPrincipal, session: TenantSession) -> list[SessionOut]:
+async def list_sessions(
+    principal: CurrentPrincipal, session: TenantSession, user_id: UUID | None = None
+) -> list[SessionOut]:
+    """Reps see their own; managers see everyone's, or one member's with `user_id` (D39)."""
     from app.modules.scoring import service as scoring
 
-    rows = await practice.list_sessions(session, principal)
+    rows = await practice.list_sessions(session, principal, user_id=user_id)
     reports = await scoring.reports_for_sessions(session, [r.id for r in rows])
     return [_session_out(r, reports.get(r.id)) for r in rows]
 

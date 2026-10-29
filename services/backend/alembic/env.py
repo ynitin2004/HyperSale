@@ -15,6 +15,8 @@ from app.config import get_settings
 from app.db import models  # noqa: F401  (import registers tables on the metadata)
 from app.db.base import Base
 from app.modules.catalog import models as catalog_models  # noqa: F401
+from app.modules.coaching import models as coaching_models  # noqa: F401
+from app.modules.evals import models as evals_models  # noqa: F401
 from app.modules.practice import models as practice_models  # noqa: F401
 from app.modules.scoring import models as scoring_models  # noqa: F401
 
