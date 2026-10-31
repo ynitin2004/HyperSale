@@ -153,11 +153,6 @@ evals:
     - if: '$ANTHROPIC_AUTH_TOKEN == null || $ANTHROPIC_AUTH_TOKEN == ""'
       when: never
     - if: '$CI_PIPELINE_SOURCE == "web"'
-    - changes:
-        - services/backend/app/modules/scoring/**/*
-        - services/backend/app/adapters/llm/**/*
-        - services/backend/evals/**/*
-        - services/backend/seeds/catalog.json
   variables:
     SCORING_FALLBACK_MODEL: ""
   before_script:

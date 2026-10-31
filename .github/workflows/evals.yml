@@ -1,17 +1,11 @@
 name: Evals
 
-# D38: paid re-score of the gold set through the product's scoring path. Runs when that path
-# changes, or by hand. GitHub Actions minutes are free on this public repo (D18); the only
-# cost is the scoring key (~$1 per run). Skips cleanly when the key secret is not configured.
+# D38: paid re-score of the gold set through the product's scoring path, by hand only (D41): the
+# gateway's WAF serves GitHub runners a browser-check page, so scoring changes are evaluated from
+# a developer machine and CI replays the committed run. The only cost is the scoring key
+# (~$1.75 per run). Skips cleanly when the key secret is not configured.
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - services/backend/app/modules/scoring/**
-      - services/backend/app/adapters/llm/**
-      - services/backend/evals/**
-      - services/backend/seeds/catalog.json
 
 jobs:
   evals:

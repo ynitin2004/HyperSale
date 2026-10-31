@@ -391,3 +391,11 @@ missing criteria and takes the existing re-ask path. Claude keeps the tool call.
 verification (D13) is unchanged. Prompt version `score-v2-2026-10-31` (D16). Measured on all 34
 gold items: QWK 0.895 (was 0.909), MAE 0.25 (was 0.22), gate PASS, 0 fabricated quotes, 0 errors.
 **Revisit:** when the gateway accepts tools again, or a real Claude key gives a fallback (D33).
+
+## D41 - The paid eval runs from a developer machine, not on push (amends D38).
+The gateway's Aliyun WAF answers GitHub runners with an HTML browser-check page, so every item
+errored in runs 41231874125 and 41232187592 at no cost. Passing a bot check would break D27, so
+we do not try. `evals.yml` and the GitLab job are manual only. After a scoring change, run
+`python -m evals.harness --suite roleplay` from the repo root and commit the run; the free replay
+gate in CI then gates `runs/latest.json`. Nothing in CI yet proves that run is fresh.
+**Revisit:** a scoring route that admits CI runners, such as a direct Claude key.
