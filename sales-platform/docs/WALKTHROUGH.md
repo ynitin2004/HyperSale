@@ -41,11 +41,11 @@ From `services/backend`:
 
 ```
 .venv/Scripts/python -m ruff check . ../../scripts ../../spikes      -> All checks passed!
-.venv/Scripts/python -m pytest -q --ignore=tests/integration          -> 73 passed (incl. 8 decision tests)
+.venv/Scripts/python -m pytest -q --ignore=tests/integration          -> 90 passed (incl. decision tests)
 set DATABASE_URL / ALEMBIC_DATABASE_URL / TEST_DATABASE_URL to postgresql+asyncpg://postgres:postgres@localhost:5432/hypersale_test
 .venv/Scripts/python -m alembic upgrade head && downgrade base && upgrade head
 .venv/Scripts/python -m alembic check                                 -> No new upgrade operations detected.
-.venv/Scripts/python -m pytest -q tests/integration                   -> 15 passed (unprivileged role, RLS enforced,
+.venv/Scripts/python -m pytest -q tests/integration                   -> 17 passed (unprivileged role, RLS enforced,
                                                                          full M1 loop over HTTP)
 ```
 

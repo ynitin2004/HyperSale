@@ -379,3 +379,15 @@ aggregates each member's reports (attempts, mean overall, mean per criterion, la
 Members are shown by email: `memberships.email` is filled from the verified token when the
 member calls `/me`. Reps see their own assignments on Home.
 **Revisit:** invites and roles UI (M4) - assignment targets come from memberships until then.
+
+## D40 - Gateway GPT models score through a JSON reply, not a tool call (amends D33).
+On 2026-10-31 the Agent Router gateway began rejecting every tool call for all three models on
+our keys (`gpt-5.6-sol`, `gpt-6.1-sol`, `gpt-6-astra`) with a 400 "Function tools with
+reasoning_effort are not supported"; plain text still answers. The `reasoning_effort`,
+`output_config` and `thinking` overrides did not help, and `/v1/responses` is not reachable
+through the Anthropic SDK path D27 requires. Non-Claude models now get the same schema in the
+system prompt, return one JSON object, and `LLMScorer` parses it; an unusable reply counts as
+missing criteria and takes the existing re-ask path. Claude keeps the tool call. Quote
+verification (D13) is unchanged. Prompt version `score-v2-2026-10-31` (D16). Measured on all 34
+gold items: QWK 0.895 (was 0.909), MAE 0.25 (was 0.22), gate PASS, 0 fabricated quotes, 0 errors.
+**Revisit:** when the gateway accepts tools again, or a real Claude key gives a fallback (D33).
