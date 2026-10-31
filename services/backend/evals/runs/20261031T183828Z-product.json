@@ -1,0 +1,759 @@
+{
+  "suite": "roleplay",
+  "variant": "product",
+  "created": "2026-10-31T18:38:28+00:00",
+  "prompt_version": "score-v2-2026-10-31",
+  "items": [
+    {
+      "item": "live-20261029T165504Z",
+      "source": "live",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "1",
+        "value": "2",
+        "objection_handling": "1",
+        "next_step": "4",
+        "positioning": "2"
+      },
+      "quotes": 10,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 20309,
+      "cost_usd": 0.04514,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "live-20261029T170051Z",
+      "source": "live",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "4",
+        "listening": "3",
+        "value": "4",
+        "next_step": "5"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 17661,
+      "cost_usd": 0.04178,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "live-20261029T172934Z",
+      "source": "live",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "5",
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "4",
+        "next_step": "insufficient_evidence",
+        "positioning": "4"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 30801,
+      "cost_usd": 0.04868,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "live-20261029T173419Z",
+      "source": "live",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "4",
+        "next_step": "4",
+        "positioning": "4"
+      },
+      "quotes": 15,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 32723,
+      "cost_usd": 0.05848,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-dana-incumbent-objections-average-17644",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "5",
+        "next_step": "4",
+        "positioning": "5"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 24033,
+      "cost_usd": 0.04619,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-dana-incumbent-objections-average-20410",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "4",
+        "value": "4",
+        "objection_handling": "4",
+        "next_step": "3",
+        "positioning": "3"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 14409,
+      "cost_usd": 0.03445,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-dana-incumbent-objections-strong-40601",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "4",
+        "next_step": "4",
+        "positioning": "3"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 22697,
+      "cost_usd": 0.0417,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-dana-incumbent-objections-strong-78703",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "4",
+        "value": "4",
+        "objection_handling": "3",
+        "next_step": "2",
+        "positioning": "3"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 19095,
+      "cost_usd": 0.0446,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-dana-incumbent-objections-weak-28551",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "2",
+        "value": "3",
+        "objection_handling": "2",
+        "next_step": "2",
+        "positioning": "4"
+      },
+      "quotes": 11,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 14077,
+      "cost_usd": 0.0351,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-dana-incumbent-objections-weak-98417",
+      "source": "sim",
+      "scenario": "dana-incumbent-objections",
+      "outcomes": {
+        "listening": "4",
+        "value": "4",
+        "objection_handling": "3",
+        "next_step": "2",
+        "positioning": "3"
+      },
+      "quotes": 15,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 24775,
+      "cost_usd": 0.04096,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-elena-inbound-follow-up-average-12298",
+      "source": "sim",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "4",
+        "value": "4",
+        "next_step": "4"
+      },
+      "quotes": 10,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 31325,
+      "cost_usd": 0.04491,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-elena-inbound-follow-up-average-47068",
+      "source": "sim",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "4",
+        "value": "4",
+        "next_step": "4"
+      },
+      "quotes": 8,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 17840,
+      "cost_usd": 0.04321,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-elena-inbound-follow-up-strong-32746",
+      "source": "sim",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "5",
+        "listening": "5",
+        "value": "4",
+        "next_step": "4"
+      },
+      "quotes": 10,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 24632,
+      "cost_usd": 0.05051,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-elena-inbound-follow-up-strong-85180",
+      "source": "sim",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "5",
+        "value": "4",
+        "next_step": "4"
+      },
+      "quotes": 8,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 13702,
+      "cost_usd": 0.02498,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-elena-inbound-follow-up-weak-52918",
+      "source": "sim",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "2",
+        "listening": "3",
+        "value": "4",
+        "next_step": "4"
+      },
+      "quotes": 11,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 18658,
+      "cost_usd": 0.04489,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-elena-inbound-follow-up-weak-65600",
+      "source": "sim",
+      "scenario": "elena-inbound-follow-up",
+      "outcomes": {
+        "opening": "3",
+        "discovery": "2",
+        "listening": "2",
+        "value": "4",
+        "next_step": "4"
+      },
+      "quotes": 8,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 30018,
+      "cost_usd": 0.05273,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-marcus-discovery-average-100629",
+      "source": "sim",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "5",
+        "next_step": "insufficient_evidence",
+        "positioning": "4"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 17373,
+      "cost_usd": 0.04138,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-marcus-discovery-average-36739",
+      "source": "sim",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "3",
+        "next_step": "3",
+        "positioning": "4"
+      },
+      "quotes": 16,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 26604,
+      "cost_usd": 0.05223,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-marcus-discovery-strong-35917",
+      "source": "sim",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "5",
+        "value": "insufficient_evidence",
+        "objection_handling": "insufficient_evidence",
+        "next_step": "insufficient_evidence",
+        "positioning": "2"
+      },
+      "quotes": 9,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 27529,
+      "cost_usd": 0.05888,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-marcus-discovery-strong-56795",
+      "source": "sim",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "2",
+        "discovery": "5",
+        "listening": "5",
+        "value": "insufficient_evidence",
+        "objection_handling": "4",
+        "next_step": "insufficient_evidence",
+        "positioning": "insufficient_evidence"
+      },
+      "quotes": 8,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 18595,
+      "cost_usd": 0.04606,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-marcus-discovery-weak-4637",
+      "source": "sim",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "3",
+        "discovery": "2",
+        "listening": "2",
+        "value": "3",
+        "objection_handling": "3",
+        "next_step": "4",
+        "positioning": "4"
+      },
+      "quotes": 17,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 47412,
+      "cost_usd": 0.08415,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-marcus-discovery-weak-62379",
+      "source": "sim",
+      "scenario": "marcus-discovery",
+      "outcomes": {
+        "opening": "3",
+        "discovery": "1",
+        "listening": "2",
+        "value": "3",
+        "objection_handling": "2",
+        "next_step": "4",
+        "positioning": "2"
+      },
+      "quotes": 15,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 2,
+      "latency_ms": 30556,
+      "cost_usd": 0.07278,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-priya-cold-call-average-62034",
+      "source": "sim",
+      "scenario": "priya-cold-call",
+      "outcomes": {
+        "opening": "3",
+        "discovery": "4",
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "5",
+        "next_step": "4"
+      },
+      "quotes": 16,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 24067,
+      "cost_usd": 0.06074,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-priya-cold-call-average-82052",
+      "source": "sim",
+      "scenario": "priya-cold-call",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "4",
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "4",
+        "next_step": "4"
+      },
+      "quotes": 16,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 18599,
+      "cost_usd": 0.04303,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-priya-cold-call-strong-14820",
+      "source": "sim",
+      "scenario": "priya-cold-call",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "5",
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "5",
+        "next_step": "2"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 16161,
+      "cost_usd": 0.03934,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-priya-cold-call-strong-36690",
+      "source": "sim",
+      "scenario": "priya-cold-call",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "4",
+        "listening": "5",
+        "value": "4",
+        "objection_handling": "4",
+        "next_step": "insufficient_evidence"
+      },
+      "quotes": 10,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 15417,
+      "cost_usd": 0.03842,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-priya-cold-call-weak-33046",
+      "source": "sim",
+      "scenario": "priya-cold-call",
+      "outcomes": {
+        "opening": "3",
+        "discovery": "1",
+        "listening": "1",
+        "value": "3",
+        "objection_handling": "2",
+        "next_step": "2"
+      },
+      "quotes": 16,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 26225,
+      "cost_usd": 0.04741,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-priya-cold-call-weak-62336",
+      "source": "sim",
+      "scenario": "priya-cold-call",
+      "outcomes": {
+        "opening": "4",
+        "discovery": "1",
+        "listening": "2",
+        "value": "3",
+        "objection_handling": "2",
+        "next_step": "2"
+      },
+      "quotes": 13,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 2,
+      "latency_ms": 58256,
+      "cost_usd": 0.14528,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-sam-cfo-pricing-average-29870",
+      "source": "sim",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "4",
+        "value": "3",
+        "objection_handling": "4",
+        "next_step": "4",
+        "positioning": "4"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 29336,
+      "cost_usd": 0.07224,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-sam-cfo-pricing-average-56696",
+      "source": "sim",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "3",
+        "value": "2",
+        "objection_handling": "4",
+        "next_step": "4",
+        "positioning": "3"
+      },
+      "quotes": 11,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 25246,
+      "cost_usd": 0.04627,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-sam-cfo-pricing-strong-34901",
+      "source": "sim",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "4",
+        "value": "3",
+        "objection_handling": "4",
+        "next_step": "3",
+        "positioning": "3"
+      },
+      "quotes": 12,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 21154,
+      "cost_usd": 0.05102,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-sam-cfo-pricing-strong-9379",
+      "source": "sim",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "3",
+        "value": "4",
+        "objection_handling": "4",
+        "next_step": "5",
+        "positioning": "3"
+      },
+      "quotes": 14,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 32855,
+      "cost_usd": 0.05802,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-sam-cfo-pricing-weak-12004",
+      "source": "sim",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "1",
+        "value": "2",
+        "objection_handling": "3",
+        "next_step": "4",
+        "positioning": "3"
+      },
+      "quotes": 10,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 19920,
+      "cost_usd": 0.04503,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    },
+    {
+      "item": "sim-sam-cfo-pricing-weak-93746",
+      "source": "sim",
+      "scenario": "sam-cfo-pricing",
+      "outcomes": {
+        "discovery": "2",
+        "value": "3",
+        "objection_handling": "3",
+        "next_step": "4",
+        "positioning": "2"
+      },
+      "quotes": 12,
+      "fabricated": 0,
+      "misattributed": 0,
+      "model_calls": 1,
+      "latency_ms": 17141,
+      "cost_usd": 0.03619,
+      "model_id": "gpt-5.6-sol",
+      "retries": 0
+    }
+  ],
+  "gate": {
+    "ceiling_kind": "model-provisional",
+    "raters": [
+      "model-enablement-lead",
+      "model-strict-vp"
+    ],
+    "items": 34,
+    "errors": 0,
+    "fabricated": 0,
+    "misattributed": 0,
+    "ceiling": {
+      "qwk": 0.8503626843445261,
+      "mae": 0.3707865168539326,
+      "n": 178,
+      "ie_agreement": 0.9789473684210527,
+      "pairs": 1
+    },
+    "model_vs_consensus": {
+      "qwk": 0.8947752370890247,
+      "mae": 0.25280898876404495,
+      "n": 178,
+      "ie_agreement": 0.9631578947368421
+    },
+    "ie_rate_model": 0.04736842105263158,
+    "ie_rate_consensus": 0.042105263157894736,
+    "latency_p95_ms": 32855,
+    "cost_usd": 1.7368,
+    "retried_items": 0,
+    "by_source": {
+      "live": {
+        "qwk": 0.8988195615514334,
+        "mae": 0.3,
+        "n": 20,
+        "ie_agreement": 0.9545454545454546
+      },
+      "sim": {
+        "qwk": 0.8936533473421545,
+        "mae": 0.2468354430379747,
+        "n": 158,
+        "ie_agreement": 0.9642857142857143
+      }
+    },
+    "baseline": {
+      "qwk": 0.9090093010497967,
+      "mae": 0.21910112359550563,
+      "n": 178,
+      "ie_agreement": 0.968421052631579
+    },
+    "passed": true,
+    "failures": []
+  }
+}

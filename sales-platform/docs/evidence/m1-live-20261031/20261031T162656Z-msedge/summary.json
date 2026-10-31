@@ -1,0 +1,66 @@
+{
+  "run": "20261031T162656Z",
+  "browser": "msedge",
+  "scenario": "elena-inbound-follow-up",
+  "screens": [
+    "01-login.png",
+    "02-catalog.png",
+    "03-preflight.png",
+    "05-live-call-end.png",
+    "06-report-metrics.png"
+  ],
+  "rep": {
+    "seed": 833243,
+    "skill": "average",
+    "angle": "lead with a peer company's result",
+    "name": "Arjun"
+  },
+  "recording_store": "supabase",
+  "browser_version": "157.0.4341.30",
+  "click_to_live_ms": 4520,
+  "rep_lines": [
+    {
+      "text": "Hi Elena, Arjun at HyperSale. A peer team now catches coaching gaps weekly instead of at quarter-end. You requested a demo yesterday\u2014good time?",
+      "llm_ms": 8481,
+      "end": false,
+      "audio_s": 10.2
+    },
+    {
+      "text": "Reps practise realistic buyer calls, and managers get weekly scoring tied to exact rep quotes. How do you train SDRs today?",
+      "llm_ms": 5513,
+      "end": false,
+      "audio_s": 9.18
+    },
+    {
+      "text": "Setup is typically lightweight, and we\u2019d scope timing around your team and scenarios. How many SDRs are you training today?",
+      "llm_ms": 6320,
+      "end": false,
+      "audio_s": 8.5
+    },
+    {
+      "text": "Yes\u2014managers see week-by-week trends, with each score linked to the exact quote behind it. Which cold-call skills are hardest for them today?",
+      "llm_ms": 4894,
+      "end": false,
+      "audio_s": 8.88
+    },
+    {
+      "text": "We can do it this week and tailor it to objection handling and openings for your five SDRs. Do mornings or afternoons work better?",
+      "llm_ms": 4059,
+      "end": false,
+      "audio_s": 8.27
+    },
+    {
+      "text": "Thursday morning works. What time and time zone suit you? Once confirmed, I\u2019ll send an invite you can forward to your senior reps.",
+      "llm_ms": 7307,
+      "end": false,
+      "audio_s": 8.97
+    }
+  ],
+  "rep_cost_usd": 0.0441,
+  "rep_tokens": {
+    "in": 3079,
+    "out": 1588
+  },
+  "live_turns_seen": 12,
+  "end_click_to_metrics_ms": 3182
+}

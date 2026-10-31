@@ -1,0 +1,317 @@
+{
+  "run": "20261031T183850Z",
+  "browser": "msedge",
+  "scenario": "priya-cold-call",
+  "screens": [
+    "01-login.png",
+    "02-catalog.png",
+    "03-preflight.png",
+    "05-live-call-end.png",
+    "06-report-metrics.png",
+    "07-report.png",
+    "08-evidence-seek.png",
+    "09-latency.png"
+  ],
+  "rep": {
+    "seed": 70815,
+    "skill": "average",
+    "angle": "lead with a recent hiring push you noticed",
+    "name": "Maya"
+  },
+  "recording_store": "supabase",
+  "browser_version": "157.0.4341.30",
+  "click_to_live_ms": 4396,
+  "rep_lines": [
+    {
+      "text": "Hi Priya, Maya with HyperSale. I noticed Meridian\u2019s recent sales hiring push\u2014can I take 30 seconds to explain why I called, then you decide?",
+      "llm_ms": 5395,
+      "end": false,
+      "audio_s": 10.06
+    },
+    {
+      "text": "We help new reps practise freight buyer calls with AI roleplays, while managers track progress through quote-backed scoring. How are you handling ramp today?",
+      "llm_ms": 3591,
+      "end": false,
+      "audio_s": 9.98
+    },
+    {
+      "text": "Got it. Where do ride-alongs fall short today\u2014manager time, consistency, or reps getting enough practice before live calls?",
+      "llm_ms": 3858,
+      "end": false,
+      "audio_s": 8.28
+    },
+    {
+      "text": "Roughly how many hours a week are managers spending on ride-alongs, and what gets pushed aside as a result?",
+      "llm_ms": 3091,
+      "end": false,
+      "audio_s": 6.82
+    },
+    {
+      "text": "Fair question\u2014I\u2019m selling AI call practice, and I\u2019m asking about manager time to see if it\u2019s relevant. Can I ask two more questions?",
+      "llm_ms": 4918,
+      "end": false,
+      "audio_s": 8.96
+    },
+    {
+      "text": "Thanks. Roughly how many manager hours per week go into ride-alongs across the team?",
+      "llm_ms": 4672,
+      "end": false,
+      "audio_s": 5.84
+    },
+    {
+      "text": "That adds up. When managers lose those five hours, what tends to suffer most\u2014coaching existing reps, forecasting, or something else?",
+      "llm_ms": 4040,
+      "end": false,
+      "audio_s": 9.62
+    },
+    {
+      "text": "That\u2019s where HyperSale may help: reps practice independently, and managers review quote-backed scores instead of every ride-along. Worth a 20-minute look with your enablement lead?",
+      "llm_ms": 4295,
+      "end": false,
+      "audio_s": 11.21
+    },
+    {
+      "text": "Understood. I\u2019ll send a brief note you can forward to your enablement lead, and we can take it from there. Thanks, Priya.",
+      "llm_ms": 3357,
+      "end": true,
+      "audio_s": 8.39
+    }
+  ],
+  "rep_cost_usd": 0.0436,
+  "rep_tokens": {
+    "in": 4120,
+    "out": 1357
+  },
+  "live_turns_seen": 19,
+  "end_click_to_metrics_ms": 3202,
+  "end_click_to_report_ms": 33551,
+  "report_id": "4b46250a-f256-4805-9c47-e2a9b033d9bb",
+  "evidence_quotes": 13,
+  "evidence_all_rep": true,
+  "seek": {
+    "currentTime": 28.854752,
+    "duration": 153.668,
+    "paused": false,
+    "highlighted": "rep hit",
+    "ts": "0:29"
+  },
+  "integrity_text": "180 persisted quotes across 13 reports re-verified against their transcripts: 0 failing.",
+  "console_errors": [],
+  "report": {
+    "status": "ready",
+    "overall": 4.0,
+    "provenance": {
+      "rubric_version": "rubric-v1",
+      "prompt_version": "score-v2-2026-10-31",
+      "model_id": "gpt-5.6-sol",
+      "metrics_version": "metrics-v1",
+      "persona_prompt_version": "d1890d376459"
+    },
+    "timings": {
+      "scoring_ms": 28229,
+      "model_calls": 1,
+      "quotes_checked": 13,
+      "end_to_report_ms": 29994,
+      "end_to_metrics_ms": 1051,
+      "metrics_compute_ms": 39,
+      "quotes_rejected_final": 0
+    },
+    "metrics": {
+      "turns": 19,
+      "questions": 8,
+      "rep_turns": 10,
+      "rep_words": 201,
+      "buyer_turns": 9,
+      "buyer_words": 47,
+      "duration_ms": 139634,
+      "filler_words": 0,
+      "open_questions": 2,
+      "talk_ratio_rep": 0.81,
+      "metrics_version": "metrics-v1",
+      "next_step_quote": null,
+      "next_step_with_date": false,
+      "fillers_per_100_words": 0.0,
+      "longest_monologue_words": 28
+    },
+    "criteria": [
+      {
+        "id": "opening",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 2
+      },
+      {
+        "id": "discovery",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 3
+      },
+      {
+        "id": "listening",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 3
+      },
+      {
+        "id": "value",
+        "outcome": "scored",
+        "score": 4,
+        "verified": true,
+        "quotes": 2
+      },
+      {
+        "id": "objection_handling",
+        "outcome": "scored",
+        "score": 5,
+        "verified": true,
+        "quotes": 1
+      },
+      {
+        "id": "next_step",
+        "outcome": "scored",
+        "score": 3,
+        "verified": true,
+        "quotes": 2
+      }
+    ],
+    "drills": [
+      "next-step-calendar",
+      "opening-30s",
+      "discovery-five-whys"
+    ]
+  },
+  "integrity": {
+    "reports": 13,
+    "quotes_checked": 180,
+    "quotes_failing": 0
+  },
+  "latency": [
+    {
+      "key": "connect_ms",
+      "label": "Click to connected",
+      "budget_ms": 5000,
+      "samples": 13,
+      "p50_ms": 1360,
+      "p95_ms": 1877,
+      "max_ms": 1877,
+      "within_budget": true,
+      "recent": [
+        1754,
+        1603,
+        1304,
+        1222,
+        1431,
+        1524,
+        1342,
+        1360,
+        1877,
+        1122,
+        1742,
+        1208,
+        1328
+      ]
+    },
+    {
+      "key": "end_to_metrics_ms",
+      "label": "Call end to metrics",
+      "budget_ms": 1000,
+      "samples": 13,
+      "p50_ms": 996,
+      "p95_ms": 1867,
+      "max_ms": 1867,
+      "within_budget": false,
+      "recent": [
+        1051,
+        996,
+        1052,
+        795,
+        744,
+        758,
+        1728,
+        1684,
+        1764,
+        1867,
+        470,
+        557,
+        632
+      ]
+    },
+    {
+      "key": "scoring_ms",
+      "label": "Model scoring time",
+      "budget_ms": 30000,
+      "samples": 13,
+      "p50_ms": 27179,
+      "p95_ms": 80058,
+      "max_ms": 80058,
+      "within_budget": false,
+      "recent": [
+        28229,
+        24422,
+        15663,
+        27179,
+        31486,
+        28935,
+        80058,
+        25895,
+        21490,
+        30458,
+        13728,
+        25825,
+        30933
+      ]
+    },
+    {
+      "key": "end_to_report_ms",
+      "label": "Call end to full report",
+      "budget_ms": 30000,
+      "samples": 13,
+      "p50_ms": 29994,
+      "p95_ms": 7744400,
+      "max_ms": 7744400,
+      "within_budget": false,
+      "recent": [
+        29994,
+        7744400,
+        18670,
+        29410,
+        33727,
+        31324,
+        83644,
+        29660,
+        25691,
+        34299,
+        15721,
+        27390,
+        254049
+      ]
+    }
+  ],
+  "usage": {
+    "workspace_id": "b71986ce-055e-4648-8da5-95a3bf3ccd86",
+    "since": "2026-10-30T18:42:25.746390+00:00",
+    "total_cost_microusd": 324483,
+    "rate_missing": false,
+    "by_event_type": [
+      {
+        "event_type": "realtime_audio",
+        "events": 2,
+        "input_units": 15253,
+        "output_units": 2611,
+        "cost_microusd": 219103,
+        "rate_missing": false
+      },
+      {
+        "event_type": "scoring",
+        "events": 2,
+        "input_units": 2430,
+        "output_units": 4783,
+        "cost_microusd": 105380,
+        "rate_missing": false
+      }
+    ]
+  }
+}
