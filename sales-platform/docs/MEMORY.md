@@ -41,7 +41,9 @@ pushes to both remotes. GitLab MCP is not available in this environment.
 ### Open
 1. Gateway rejects all GPT tool calls since 2026-10-31; scoring now uses JSON replies (D40), gate
    PASS and live call OK. No working fallback: the key supplied as "Claude" is a gateway key with
-   only GPT models, and direct Anthropic returned 401. Changes are local, not committed or pushed.
+   only GPT models, and direct Anthropic returned 401. Pushed to GitHub; CI run 41232384126 green at
+   7bc003b. The paid eval is manual because the gateway WAF blocks GitHub runners (D41). Sentry MCP
+   is signed in; the account has no projects yet. GitLab not pushed, at the user's request.
 2. Human raters (D14): two rater accounts created, 34 items loaded, credentials in git-ignored
    `var/rater-credentials.txt`; M2 acceptance needs their labels, then `eval_labels.py export`.
 3. Gateway intermittent 400 ("function tools ... /v1/chat/completions") hits ~1 in 10 scoring

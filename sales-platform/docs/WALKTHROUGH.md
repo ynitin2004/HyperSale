@@ -211,7 +211,7 @@ Run from the repo root with the backend on `PYTHONPATH` (`services/backend`), `.
 python -m evals.goldset simulate --per-cell 2     # paid: ~30 text sims (5 scenarios x 3 skills x 2)
 python -m evals.goldset import-live               # every live AI-rep call trace
 python -m evals.model_rater --rater strict-vp --rater enablement-lead   # PROVISIONAL labels (D36)
-python -m evals.harness --suite roleplay          # paid: score every item, write evals/runs/, gate
+python -m evals.harness --suite roleplay          # paid, local only (D41): score every item, write evals/runs/, gate
 python -m evals.harness --suite roleplay --replay # free: gate the committed latest run (CI does this)
 python -m evals.harness --suite roleplay --prompt-variant degraded --limit 8   # must FAIL
 ```
