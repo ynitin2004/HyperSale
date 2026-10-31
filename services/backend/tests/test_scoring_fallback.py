@@ -70,6 +70,13 @@ def test_an_unusable_reply_leaves_the_criteria_missing(text: str) -> None:
     assert LLMScorer(_settings(), SCORING_MODEL)._criteria(_text_reply(text)) == []
 
 
+def test_a_non_json_gateway_reply_becomes_scorer_unavailable() -> None:
+    scorer = LLMScorer(_settings(), SCORING_MODEL)
+    scorer._client = SimpleNamespace(messages=SimpleNamespace(create=lambda **_: "<html>blocked</html>"))
+    with pytest.raises(ScorerUnavailable, match="blocked"):
+        scorer._call({})
+
+
 def test_a_tool_reply_still_yields_the_criteria() -> None:
     reply = SimpleNamespace(content=[SimpleNamespace(type="tool_use", input={"criteria": [{"id": "x"}]})])
     assert LLMScorer(_settings(), SCORING_MODEL_CLAUDE)._criteria(reply) == [{"id": "x"}]

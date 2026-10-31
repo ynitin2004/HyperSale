@@ -114,9 +114,12 @@ class LLMScorer:
     def _call(self, kwargs: dict[str, Any]) -> Any:
         create = self._client.beta.messages.create if self._direct else self._client.messages.create
         try:
-            return create(**kwargs)
+            response = create(**kwargs)
         except anthropic.APIError as exc:
             raise ScorerUnavailable(self.model_id, f"{type(exc).__name__}: {exc}") from exc
+        if isinstance(response, str):  # the SDK hands back the body of a non-JSON 200 as text
+            raise ScorerUnavailable(self.model_id, f"non-JSON reply: {response[:200]!r}")
+        return response
 
     def _criteria(self, response: Any) -> list[dict[str, Any]]:
         """The scored criteria from either reply shape. A reply that yields none leaves them
