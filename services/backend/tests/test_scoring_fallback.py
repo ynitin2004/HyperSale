@@ -1,4 +1,5 @@
 """D33: dual-model scoring. Request shape per model, error classification, whole-report fallback."""
+import json
 from types import SimpleNamespace
 
 import anthropic
@@ -26,11 +27,11 @@ def _settings(**overrides) -> Settings:
     return Settings(_env_file=None, **{**GATEWAY, **overrides})
 
 
-def test_gpt_keeps_the_forced_tool_call_through_the_gateway() -> None:
+def test_gpt_is_asked_for_json_without_tools_through_the_gateway() -> None:
     scorer = LLMScorer(_settings(), SCORING_MODEL)
     req = scorer.request(system="s", user="u", tool=TOOL)
-    assert req["tool_choice"] == {"type": "tool", "name": TOOL["name"]}
-    assert "output_config" not in req and "betas" not in req
+    assert not {"tools", "tool_choice", "output_config", "betas"} & req.keys()  # D40
+    assert json.dumps(TOOL["input_schema"]) in req["system"][0]["text"]
     assert str(scorer._client.base_url).startswith("https://gateway.example")
 
 
@@ -51,6 +52,27 @@ def test_claude_goes_direct_only_when_a_claude_key_is_set() -> None:
     # A non-Claude model never uses the Claude key.
     gpt = LLMScorer(_settings(claude_api_key="direct"), SCORING_MODEL)
     assert str(gpt._client.base_url).startswith("https://gateway.example")
+
+
+def _text_reply(text: str) -> SimpleNamespace:
+    return SimpleNamespace(content=[SimpleNamespace(type="text", text=text)])
+
+
+@pytest.mark.parametrize("text", ['{"criteria": [{"id": "opening"}]}',
+                                  '```json\n{"criteria": [{"id": "opening"}]}\n```'])
+def test_a_json_reply_yields_the_criteria(text: str) -> None:
+    scorer = LLMScorer(_settings(), SCORING_MODEL)
+    assert scorer._criteria(_text_reply(text)) == [{"id": "opening"}]
+
+
+@pytest.mark.parametrize("text", ["", "no scores here", '{"criteria": [', '{"other": 1}'])
+def test_an_unusable_reply_leaves_the_criteria_missing(text: str) -> None:
+    assert LLMScorer(_settings(), SCORING_MODEL)._criteria(_text_reply(text)) == []
+
+
+def test_a_tool_reply_still_yields_the_criteria() -> None:
+    reply = SimpleNamespace(content=[SimpleNamespace(type="tool_use", input={"criteria": [{"id": "x"}]})])
+    assert LLMScorer(_settings(), SCORING_MODEL_CLAUDE)._criteria(reply) == [{"id": "x"}]
 
 
 def test_api_errors_and_refusals_become_scorer_unavailable() -> None:

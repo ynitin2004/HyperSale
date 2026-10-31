@@ -1,12 +1,13 @@
 """Structured-output scoring calls. The only place a scoring model is invoked (RULES §1).
 
-`LLMScorer` asks for the `submit_scores` tool - forced where the model allows it, requested
-in the prompt where it does not (D33) - and the caller still verifies every quote in code (D13). `StubScorer` (D31) is
-deterministic and quotes real rep lines, so CI exercises the same verification path.
+`LLMScorer` asks Claude for the `submit_scores` tool (D33) and the gateway's GPT models for a
+JSON reply of the same shape, because the gateway rejects their tool calls (D40). Either way the
+caller still verifies every quote in code (D13). `StubScorer` (D31) is deterministic and quotes real rep lines, so CI exercises the same verification path.
 """
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 import time
 from collections.abc import Sequence
@@ -21,6 +22,7 @@ from app.adapters.llm.models import (
     CLAUDE_SCORING_EFFORT,
     MODEL_PRICES_MICROUSD_PER_1M,
     NO_FORCED_TOOL_CHOICE,
+    is_claude,
 )
 from app.config import Settings, get_settings
 
@@ -86,16 +88,21 @@ class LLMScorer:
         kwargs: dict[str, Any] = {
             "model": self.model_id,
             "max_tokens": 4000,
-            "tools": [tool],
             "messages": [{"role": "user", "content": user}],
         }
-        if self.model_id in NO_FORCED_TOOL_CHOICE:
+        if not is_claude(self.model_id):
+            # D40: no `tools`, so the gateway has nothing to reject; `score` parses the reply.
+            system = (f"{system}\n\nRespond with only one JSON object and no other text. It must "
+                      f"match this JSON Schema:\n{json.dumps(tool['input_schema'])}")
+        elif self.model_id in NO_FORCED_TOOL_CHOICE:
             # Forced tool_choice is a 400 here; ask for the tool. A reply without it leaves
             # the criteria missing, which run_scoring already re-asks for.
             system = f"{system}\n\nRespond only by calling the `{tool['name']}` tool, exactly once."
+            kwargs["tools"] = [tool]
             kwargs["tool_choice"] = {"type": "auto"}
             kwargs["output_config"] = {"effort": CLAUDE_SCORING_EFFORT}
         else:
+            kwargs["tools"] = [tool]
             kwargs["tool_choice"] = {"type": "tool", "name": tool["name"]}
         # Stable content first so a caching provider can reuse the rubric prefix.
         kwargs["system"] = [{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}]
@@ -111,6 +118,20 @@ class LLMScorer:
         except anthropic.APIError as exc:
             raise ScorerUnavailable(self.model_id, f"{type(exc).__name__}: {exc}") from exc
 
+    def _criteria(self, response: Any) -> list[dict[str, Any]]:
+        """The scored criteria from either reply shape. A reply that yields none leaves them
+        missing, which run_scoring already re-asks for."""
+        block = next((b for b in response.content if b.type == "tool_use"), None)
+        if block:
+            return list((block.input or {}).get("criteria", []))
+        text = "".join(b.text for b in response.content if b.type == "text")
+        try:
+            reply = json.loads(text[text.index("{"):text.rindex("}") + 1])
+            return list(reply["criteria"])
+        except (ValueError, KeyError, TypeError):
+            log.warning("scoring reply was not the expected JSON", extra={"model_id": self.model_id})
+            return []
+
     async def score(
         self, *, system: str, user: str, tool: dict[str, Any], turns: Sequence[Any]
     ) -> ScorerResult:
@@ -118,8 +139,7 @@ class LLMScorer:
         response = await asyncio.to_thread(self._call, self.request(system=system, user=user, tool=tool))
         if response.stop_reason == "refusal":
             raise ScorerUnavailable(self.model_id, "refusal")
-        block = next((b for b in response.content if b.type == "tool_use"), None)
-        criteria = list((block.input or {}).get("criteria", [])) if block else []
+        criteria = self._criteria(response)
         usage = response.usage
         return ScorerResult(
             criteria=criteria,

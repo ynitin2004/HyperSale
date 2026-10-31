@@ -6,7 +6,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import Any
 
-SCORING_PROMPT_VERSION = "score-v1-2026-10-29"
+SCORING_PROMPT_VERSION = "score-v2-2026-10-31"
 TOOL_NAME = "submit_scores"
 
 
