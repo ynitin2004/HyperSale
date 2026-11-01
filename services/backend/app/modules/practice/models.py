@@ -18,12 +18,16 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base
 
+KIND_ROLEPLAY = "roleplay"
+KIND_REVIEW = "review"  # an uploaded real call (D43)
+
 
 class PracticeSession(Base):
     __tablename__ = "practice_sessions"
     __table_args__ = (
         Index("ix_practice_sessions_workspace_created", "workspace_id", "created_at"),
         Index("ix_practice_sessions_status", "status"),
+        CheckConstraint("kind IN ('roleplay', 'review')", name="ck_practice_sessions_kind"),
     )
     id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4)
     workspace_id: Mapped[UUID] = mapped_column(ForeignKey("workspaces.id", ondelete="CASCADE"))
@@ -44,6 +48,8 @@ class PracticeSession(Base):
     recording_bytes: Mapped[int] = mapped_column(Integer, default=0)
     recording_mime: Mapped[str | None] = mapped_column(String(80), nullable=True)
     timings: Mapped[dict] = mapped_column(JSONB, default=dict)
+    kind: Mapped[str] = mapped_column(String(20), default=KIND_ROLEPLAY, server_default=KIND_ROLEPLAY)
+    consent_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     connected_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     ended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

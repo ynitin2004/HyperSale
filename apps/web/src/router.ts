@@ -8,6 +8,7 @@ export type Route =
   | { name: 'report'; reportId: string }
   | { name: 'latency' }
   | { name: 'team' }
+  | { name: 'review' }
   | { name: 'rate' }
   | { name: 'rateItem'; itemId: string }
 
@@ -17,6 +18,7 @@ export function parse(hash: string): Route {
   if (parts[0] === 'report' && parts[1]) return { name: 'report', reportId: parts[1] }
   if (parts[0] === 'latency') return { name: 'latency' }
   if (parts[0] === 'team') return { name: 'team' }
+  if (parts[0] === 'review') return { name: 'review' }
   if (parts[0] === 'rate' && parts[1]) return { name: 'rateItem', itemId: parts[1] }
   if (parts[0] === 'rate') return { name: 'rate' }
   return { name: 'home' }

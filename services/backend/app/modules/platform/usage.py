@@ -18,6 +18,7 @@ from app.config import Settings, get_settings
 EVENT_REALTIME_AUDIO = "realtime_audio"
 EVENT_TRANSCRIPTION = "transcription"
 EVENT_SCORING = "scoring"
+EVENT_TRANSCRIPTION = "transcription"
 
 _INSERT_USAGE = text("""
     INSERT INTO usage_events (

@@ -6,6 +6,7 @@ closed, api restart) and the partial transcript was kept. Both lead to a report.
 """
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from uuid import UUID
@@ -17,7 +18,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.errors import AppError
 from app.modules.catalog import service as catalog
 from app.modules.identity.service import ROLE_MANAGER, Principal
-from app.modules.practice.models import PracticeSession, TranscriptTurn
+from app.modules.practice.models import KIND_ROLEPLAY, PracticeSession, TranscriptTurn
 
 LIVE_STATUSES = ("connecting", "live")
 FINAL_STATUSES = ("ended", "interrupted", "failed")
@@ -95,9 +96,11 @@ async def list_sessions(
 
 
 async def workspace_sessions(session: AsyncSession, workspace_id: UUID, limit: int = 2000) -> list[PracticeSession]:
-    """Every member's sessions, newest first: input to the D39 team view and assignments."""
+    """Every member's practice, newest first: input to the D39 team view and assignments.
+    Uploaded calls are not practice, so they can never complete an assignment (D43)."""
     rows = await session.execute(
-        select(PracticeSession).where(PracticeSession.workspace_id == workspace_id)
+        select(PracticeSession)
+        .where(PracticeSession.workspace_id == workspace_id, PracticeSession.kind == KIND_ROLEPLAY)
         .order_by(PracticeSession.created_at.desc()).limit(limit)
     )
     return list(rows.scalars().all())
@@ -176,6 +179,18 @@ async def renumber_turns(session: AsyncSession, session_id: UUID) -> None:
         """),
         {"sid": str(session_id)},
     )
+
+
+async def add_turns(
+    session: AsyncSession, row: PracticeSession, turns: Sequence[tuple[str, str, int, int]]
+) -> None:
+    """Store a finished transcript in one go; (speaker, text, start_ms, end_ms) per turn."""
+    session.add_all(
+        TranscriptTurn(workspace_id=row.workspace_id, session_id=row.id, idx=i, speaker=speaker, text=text,
+                       start_ms=start, end_ms=end, item_id=f"upload-{i}")
+        for i, (speaker, text, start, end) in enumerate(turns)
+    )
+    await session.flush()
 
 
 async def get_transcript(session: AsyncSession, session_id: UUID) -> list[TurnView]:

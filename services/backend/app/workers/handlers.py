@@ -1,7 +1,8 @@
 """Job handlers.
 
 `platform.record_realtime_usage` meters client-reported voice usage (the M0 path, now a
-fallback under D29); `scoring.score_report` is FLOW chain C, the report pipeline.
+fallback under D29); `scoring.score_report` is FLOW chain C, the report pipeline;
+`review.transcribe` is FLOW chain D, which hands an uploaded call to chain C.
 """
 import logging
 from datetime import datetime
@@ -11,6 +12,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.adapters.llm.scorer import build_fallback_scorer, build_scorer
+from app.adapters.transcription import build_transcriber
 from app.db.session import tenant_session
 from app.modules.platform.jobs import JOB_RECORD_REALTIME_USAGE
 from app.modules.platform.queue import ClaimedJob
@@ -21,6 +23,8 @@ from app.modules.platform.usage import (
     realtime_token_cost,
     record_usage,
 )
+from app.modules.review import service as review_service
+from app.modules.review.service import JOB_REVIEW_TRANSCRIBE
 from app.modules.scoring import service as scoring_service
 from app.modules.scoring.service import JOB_SCORE_REPORT
 from app.workers.registry import register
@@ -86,6 +90,20 @@ async def record_realtime_usage(session: AsyncSession, job: ClaimedJob) -> None:
             "usage recorded without a configured rate",
             extra={"usage_event_id": str(usage_id), "session_ref": payload.session_ref},
         )
+
+
+@register(JOB_REVIEW_TRANSCRIBE)
+async def review_transcribe(session: AsyncSession, job: ClaimedJob) -> None:
+    """FLOW chain D. A final failure is user-visible, like scoring's."""
+    session_id = UUID(job.payload["session_id"])
+    try:
+        await review_service.process(session, build_transcriber(), workspace_id=job.workspace_id,
+                                     session_id=session_id)
+    except Exception:
+        if job.is_final_attempt:
+            async with tenant_session(job.workspace_id) as tx:
+                await review_service.mark_failed(tx, job.workspace_id, session_id)
+        raise
 
 
 @register(JOB_SCORE_REPORT)

@@ -104,6 +104,19 @@ test('a manager compares the team, reviews attempts and assigns a scenario (D39)
   await expect(page.getByTestId('my-assignments')).toContainText('Warm inbound')
 })
 
+test('an uploaded call gets the same verified report as a roleplay (D43)', async ({ page }) => {
+  await signedIn(page)
+  await page.goto('/#/review')
+  await page.getByTestId('review-scenario').selectOption({ index: 1 })
+  await page.getByTestId('review-file').setInputFiles({ name: 'call.mp3', mimeType: 'audio/mpeg', buffer: Buffer.from('audio') })
+  await page.getByTestId('review-first').selectOption('buyer')
+  await expect(page.getByTestId('review-upload')).toBeDisabled()
+  await page.getByTestId('review-consent').check()
+  await page.getByTestId('review-upload').click()
+  await expect(page).toHaveURL(/#\/report\//, { timeout: 30_000 })
+  await expect(page.getByTestId('criteria').locator('article').first()).toBeVisible({ timeout: 30_000 })
+})
+
 test('the rater page is empty outside the Evals workspace (D37)', async ({ page }) => {
   await signedIn(page)
   await page.goto('/#/rate')

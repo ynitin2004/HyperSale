@@ -13,6 +13,12 @@ from typing import Final
 VOICE_LIVE_API_VERSION: Final = "2026-01-01-preview"
 VOICE_LIVE_MODEL: Final = "gpt-realtime"
 
+# Azure Speech fast transcription (M3, D43). The rate is a third-party reading of Azure's price
+# list ($0.36 per audio hour, East US); replace it with the invoice figure when one exists.
+TRANSCRIBE_MODEL: Final = "azure-fast-transcription"
+TRANSCRIBE_API_VERSION: Final = "2025-10-15"
+TRANSCRIBE_MICROUSD_PER_HOUR: Final = 360_000
+
 # WebRTC negotiation uses `/calls`; the plain `/realtime` path is the WebSocket-only
 # transport where the server would have to proxy audio, which D8 forbids.
 VOICE_LIVE_CALLS_PATH: Final = "/voice-live/realtime/calls"

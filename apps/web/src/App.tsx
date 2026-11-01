@@ -7,6 +7,7 @@ import { LatencyPage } from './pages/Latency'
 import { PracticePage } from './pages/Practice'
 import { RateItemPage, RateListPage } from './pages/Rate'
 import { ReportPage } from './pages/Report'
+import { ReviewPage } from './pages/Review'
 import { TeamPage } from './pages/Team'
 import { navigate, useRoute } from './router'
 
@@ -22,6 +23,7 @@ export function App() {
         <a className="brand" href="#/">HYPERSALE</a>
         <nav>
           <a href="#/" className={route.name === 'home' ? 'active' : ''}>Practice</a>
+          <a href="#/review" className={route.name === 'review' ? 'active' : ''}>Review</a>
           {manager && <a href="#/team" className={route.name === 'team' ? 'active' : ''}>Team</a>}
           <a href="#/rate" className={route.name.startsWith('rate') ? 'active' : ''}>Label</a>
           <a href="#/latency" className={route.name === 'latency' ? 'active' : ''}>Latency</a>
@@ -35,6 +37,7 @@ export function App() {
         {route.name === 'report' && <ReportPage reportId={route.reportId} />}
         {route.name === 'latency' && <LatencyPage />}
         {route.name === 'team' && <TeamPage />}
+        {route.name === 'review' && <ReviewPage />}
         {route.name === 'rate' && <RateListPage />}
         {route.name === 'rateItem' && <RateItemPage itemId={route.itemId} />}
       </main>

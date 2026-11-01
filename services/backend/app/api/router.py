@@ -7,6 +7,7 @@ from app.modules.identity.api import router as identity_router
 from app.modules.insights.api import router as insights_router
 from app.modules.platform.api import router as platform_router
 from app.modules.practice.api import router as practice_router
+from app.modules.review.api import router as review_router
 from app.modules.scoring.api import router as scoring_router
 
 api_router = APIRouter()
@@ -18,3 +19,4 @@ api_router.include_router(scoring_router, tags=["scoring"])
 api_router.include_router(insights_router, tags=["insights"])
 api_router.include_router(coaching_router, tags=["coaching"])
 api_router.include_router(evals_router, tags=["evals"])
+api_router.include_router(review_router, tags=["review"])

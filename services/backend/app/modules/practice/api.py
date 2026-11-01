@@ -24,7 +24,7 @@ from app.modules.platform.jobs import JOB_RECORD_REALTIME_USAGE
 from app.modules.platform.queue import enqueue
 from app.modules.practice import live
 from app.modules.practice import service as practice
-from app.modules.practice.models import PracticeSession
+from app.modules.practice.models import KIND_REVIEW, PracticeSession
 
 router = APIRouter()
 
@@ -39,6 +39,7 @@ class CreateSessionIn(BaseModel):
 class SessionOut(BaseModel):
     id: UUID
     scenario_id: UUID
+    kind: str
     status: str
     provider: str
     cap_seconds: int
@@ -97,7 +98,7 @@ def _session_out(row: PracticeSession, report=None) -> SessionOut:
         cap_seconds=row.cap_seconds, prompt_version=row.prompt_version,
         rubric_version=row.rubric_version, end_reason=row.end_reason, duration_ms=row.duration_ms,
         recording_chunks=row.recording_chunks, recording_mime=row.recording_mime,
-        recorder_offset_ms=row.recorder_offset_ms, created_at=row.created_at.isoformat(),
+        recorder_offset_ms=row.recorder_offset_ms, created_at=row.created_at.isoformat(), kind=row.kind,
         user_id=row.user_id, report_id=report.id if report else None, report_status=report.status if report else None,
         overall=float(report.overall) if report is not None and report.overall is not None else None,
     )
@@ -203,6 +204,8 @@ async def end_session(
     from app.modules.scoring import service as scoring
 
     row = await practice.get_session(session, principal, session_id)
+    if row.kind == KIND_REVIEW:
+        raise AppError("not_a_live_call", "An uploaded call has no live session to end", status_code=409)
     if body.recorder_offset_ms is not None:
         async with tenant_session(principal.workspace_id, principal.user_id) as tx:
             await tx.execute(
@@ -251,6 +254,8 @@ async def upload_chunk(
     row = await practice.get_session(session, principal, session_id)
     if row.user_id != principal.user_id:
         raise AppError("forbidden", "Only the rep can upload this recording", status_code=403)
+    if row.kind == KIND_REVIEW and row.status != "uploading":
+        raise AppError("already_submitted", f"Call is {row.status}", status_code=409)
     data = await request.body()
     if not data:
         raise AppError("empty_chunk", "Recording chunk is empty", status_code=400)

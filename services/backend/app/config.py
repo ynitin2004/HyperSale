@@ -63,6 +63,7 @@ class Settings(BaseSettings):
     recording_dir: str = "var/recordings"
     recording_bucket: str = "recordings"
     recording_max_chunk_bytes: int = 2_000_000
+    review_max_bytes: int = 100_000_000
     supabase_url: str | None = None
     supabase_secret_key: str | None = None
 
