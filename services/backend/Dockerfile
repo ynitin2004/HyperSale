@@ -4,7 +4,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 
 COPY pyproject.toml ./
 COPY app ./app
-RUN pip install --no-cache-dir '.[migrations]'
+RUN pip install --no-cache-dir '.[migrations,telemetry]'
 
 # Migrations ship in the image so the release step runs the exact code being deployed.
 COPY alembic.ini ./
