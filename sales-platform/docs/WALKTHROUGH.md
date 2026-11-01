@@ -156,7 +156,8 @@ cd apps/web && E2E_PYTHON=<absolute path to the backend venv python> pnpm exec p
   ok 4 latency dashboard and evidence integrity reflect the calls made
 ```
 
-Playwright starts the API, the worker (health port 8766) and a built SPA itself. On Windows,
+`pnpm --dir apps/web exec playwright test -c playwright.webkit.config.ts` runs the same suite in
+WebKit (UI only, D44). Playwright starts the API, the worker (health port 8766) and a built SPA itself. On Windows,
 pass `E2E_PYTHON` as an absolute, quoted path.
 
 ## 9b. Review a real call (M3, D43)

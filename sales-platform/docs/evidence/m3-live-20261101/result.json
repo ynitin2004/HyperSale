@@ -1,0 +1,311 @@
+{
+ "session": "c7226f45-b3bd-4017-8fe5-3571288f0b71",
+ "turns": [
+  {
+   "idx": 0,
+   "speaker": "rep",
+   "text": "Hi Sam, this is Deb from HyperSale. Thanks for taking the call. Is now still a good time?",
+   "start_ms": 990,
+   "end_ms": 7310
+  },
+  {
+   "idx": 1,
+   "speaker": "buyer",
+   "text": "I have about 10 minutes. Go ahead.",
+   "start_ms": 8270,
+   "end_ms": 11070
+  },
+  {
+   "idx": 2,
+   "speaker": "rep",
+   "text": "Great. Before I say anything about us, what made you look at sales coaching tools this quarter?",
+   "start_ms": 12270,
+   "end_ms": 17710
+  },
+  {
+   "idx": 3,
+   "speaker": "buyer",
+   "text": "Our new reps take six months to ramp. Each one costs us a lot before they close a deal.",
+   "start_ms": 18910,
+   "end_ms": 24590
+  },
+  {
+   "idx": 4,
+   "speaker": "rep",
+   "text": "Six months is long. What does that cost you per rep, roughly?",
+   "start_ms": 25630,
+   "end_ms": 29710
+  },
+  {
+   "idx": 5,
+   "speaker": "buyer",
+   "text": "Somewhere around $40,000 in salary before they pay for themselves.",
+   "start_ms": 30740,
+   "end_ms": 34900
+  },
+  {
+   "idx": 6,
+   "speaker": "rep",
+   "text": "Got it. And who coaches them today?",
+   "start_ms": 36340,
+   "end_ms": 38660
+  },
+  {
+   "idx": 7,
+   "speaker": "buyer",
+   "text": "Managers, when they have time. Which is almost never.",
+   "start_ms": 39860,
+   "end_ms": 43940
+  },
+  {
+   "idx": 8,
+   "speaker": "rep",
+   "text": "So reps practice on real buyers. We give them voice role plays with an AI buyer, and every score quotes what they actually said.",
+   "start_ms": 44900,
+   "end_ms": 52100
+  },
+  {
+   "idx": 9,
+   "speaker": "buyer",
+   "text": "That sounds nice, but your price is 48,000 a year. Why would I pay that?",
+   "start_ms": 52420,
+   "end_ms": 58100
+  },
+  {
+   "idx": 10,
+   "speaker": "rep",
+   "text": "Fair question. If you cut ramp time by one month across 10 reps, that alone covers it. Does that math match yours?",
+   "start_ms": 59440,
+   "end_ms": 66800
+  },
+  {
+   "idx": 11,
+   "speaker": "buyer",
+   "text": "Maybe. I would need to see proof first.",
+   "start_ms": 67200,
+   "end_ms": 70160
+  },
+  {
+   "idx": 12,
+   "speaker": "rep",
+   "text": "Reasonable. Can we run a two-week pilot with three of your reps, then review the results together next Tuesday at 10?",
+   "start_ms": 71520,
+   "end_ms": 77920
+  },
+  {
+   "idx": 13,
+   "speaker": "buyer",
+   "text": "Tuesday at 10 works. Send me the invite.",
+   "start_ms": 78880,
+   "end_ms": 82320
+  },
+  {
+   "idx": 14,
+   "speaker": "rep",
+   "text": "Will do. Thanks, Sam. Talk soon.",
+   "start_ms": 83600,
+   "end_ms": 86400
+  }
+ ],
+ "report": {
+  "id": "b6ef4916-5e78-4c62-b716-4bdce74106fc",
+  "session_id": "c7226f45-b3bd-4017-8fe5-3571288f0b71",
+  "status": "ready",
+  "scenario_title": "Negotiation: CFO pushing back on a $48k quote",
+  "persona_name": "Sam Whitfield",
+  "metrics": {
+   "turns": 15,
+   "questions": 6,
+   "rep_turns": 8,
+   "rep_words": 128,
+   "buyer_turns": 7,
+   "buyer_words": 78,
+   "duration_ms": 85410,
+   "filler_words": 1,
+   "open_questions": 1,
+   "talk_ratio_rep": 0.621,
+   "metrics_version": "metrics-v1",
+   "next_step_quote": null,
+   "next_step_with_date": false,
+   "fillers_per_100_words": 0.78,
+   "longest_monologue_words": 24
+  },
+  "overall": 4.2,
+  "criteria": [
+   {
+    "criterion_id": "discovery",
+    "name": "Discovery questions",
+    "description": "Asks open, specific questions about the buyer's situation, pain, and process before pitching. Follows up on answers instead of moving to the next scripted question.",
+    "outcome": "scored",
+    "score": 4,
+    "rationale": "You asked specific questions about the trigger, financial impact, and current coaching process, then followed the buyer's answers. Go deeper on the operational consequences and decision process before presenting the solution.",
+    "evidence": [
+     {
+      "turn_index": 2,
+      "quote": "what made you look at sales coaching tools this quarter?",
+      "speaker": "rep",
+      "start_ms": 12270,
+      "end_ms": 17710
+     },
+     {
+      "turn_index": 4,
+      "quote": "What does that cost you per rep, roughly?",
+      "speaker": "rep",
+      "start_ms": 25630,
+      "end_ms": 29710
+     },
+     {
+      "turn_index": 6,
+      "quote": "And who coaches them today?",
+      "speaker": "rep",
+      "start_ms": 36340,
+      "end_ms": 38660
+     }
+    ],
+    "verified": true
+   },
+   {
+    "criterion_id": "value",
+    "name": "Value articulation",
+    "description": "States concretely what the product does and ties it to a pain or number the buyer has expressed. Generic claims ('increase sales', 'best-in-class') earn a 1 or 2.",
+    "outcome": "scored",
+    "score": 4,
+    "rationale": "You connected AI role plays to limited manager capacity and quantified potential payback using the buyer's ramp-cost data. Strengthen this by explaining how the product would credibly achieve the proposed one-month reduction.",
+    "evidence": [
+     {
+      "turn_index": 8,
+      "quote": "We give them voice role plays with an AI buyer, and every score quotes what they actually said.",
+      "speaker": "rep",
+      "start_ms": 44900,
+      "end_ms": 52100
+     },
+     {
+      "turn_index": 10,
+      "quote": "If you cut ramp time by one month across 10 reps, that alone covers it.",
+      "speaker": "rep",
+      "start_ms": 59440,
+      "end_ms": 66800
+     }
+    ],
+    "verified": true
+   },
+   {
+    "criterion_id": "objection_handling",
+    "name": "Objection handling",
+    "description": "When the buyer raises an objection: acknowledges it, asks a clarifying question or reframes, and answers with something specific. Ignoring, arguing, or caving immediately scores low.",
+    "outcome": "scored",
+    "score": 5,
+    "rationale": "You acknowledged both objections, reframed the price through buyer-specific economics, checked the math, and answered the proof concern with a concrete pilot. Continue validating the assumptions and defining success metrics before the pilot begins.",
+    "evidence": [
+     {
+      "turn_index": 10,
+      "quote": "Fair question. If you cut ramp time by one month across 10 reps, that alone covers it. Does that math match yours?",
+      "speaker": "rep",
+      "start_ms": 59440,
+      "end_ms": 66800
+     },
+     {
+      "turn_index": 12,
+      "quote": "Reasonable. Can we run a two-week pilot with three of your reps",
+      "speaker": "rep",
+      "start_ms": 71520,
+      "end_ms": 77920
+     }
+    ],
+    "verified": true
+   },
+   {
+    "criterion_id": "next_step",
+    "name": "Next step",
+    "description": "Explicitly asks for a concrete next step with a time, participants, or agenda, and gives a reason it is worth the buyer's time.",
+    "outcome": "scored",
+    "score": 4,
+    "rationale": "You proposed a concrete pilot, participant count, review agenda, and meeting time tied to the buyer's need for proof. Make the timing fully unambiguous and specify the pilot success criteria and other required stakeholders.",
+    "evidence": [
+     {
+      "turn_index": 12,
+      "quote": "Can we run a two-week pilot with three of your reps, then review the results together next Tuesday at 10?",
+      "speaker": "rep",
+      "start_ms": 71520,
+      "end_ms": 77920
+     }
+    ],
+    "verified": true
+   },
+   {
+    "criterion_id": "positioning",
+    "name": "Positioning",
+    "description": "Differentiates against the buyer's status quo or incumbent (an existing tool, ride-alongs, doing nothing) and against price pressure, without disparaging competitors.",
+    "outcome": "scored",
+    "score": 4,
+    "rationale": "You contrasted AI practice and evidence-based scoring with scarce manager coaching and risky practice on real buyers, then defended the price with an ROI frame. Differentiate further by comparing the expected outcomes and effort against expanding manager-led coaching or doing nothing.",
+    "evidence": [
+     {
+      "turn_index": 8,
+      "quote": "So reps practice on real buyers. We give them voice role plays with an AI buyer",
+      "speaker": "rep",
+      "start_ms": 44900,
+      "end_ms": 52100
+     },
+     {
+      "turn_index": 8,
+      "quote": "every score quotes what they actually said.",
+      "speaker": "rep",
+      "start_ms": 44900,
+      "end_ms": 52100
+     },
+     {
+      "turn_index": 10,
+      "quote": "If you cut ramp time by one month across 10 reps, that alone covers it.",
+      "speaker": "rep",
+      "start_ms": 59440,
+      "end_ms": 66800
+     }
+    ],
+    "verified": true
+   }
+  ],
+  "pending_criteria": [],
+  "drills": [
+   {
+    "id": "discovery-five-whys",
+    "criterion_id": "discovery",
+    "title": "Five open questions",
+    "instructions": "Before your next roleplay, write five open questions about the buyer's process. Ask at least three before saying anything about your product."
+   },
+   {
+    "id": "value-no-adjectives",
+    "criterion_id": "value",
+    "title": "No adjectives",
+    "instructions": "Describe what the product does without using 'best', 'powerful', 'seamless' or 'increase sales'. Say what it does and for whom."
+   },
+   {
+    "id": "next-step-calendar",
+    "criterion_id": "next_step",
+    "title": "Name the day",
+    "instructions": "End every call by proposing a specific day, time, and agenda for the next step. Do not accept 'send me an email' without one more ask."
+   }
+  ],
+  "provenance": {
+   "rubric_version": "rubric-v1",
+   "prompt_version": "score-v2-2026-10-31",
+   "model_id": "gpt-5.6-sol",
+   "metrics_version": "metrics-v1",
+   "persona_prompt_version": "ec576914bb1f"
+  },
+  "timings": {
+   "scoring_ms": 10967,
+   "model_calls": 1,
+   "quotes_checked": 11,
+   "end_to_report_ms": 13472,
+   "end_to_metrics_ms": 391,
+   "metrics_compute_ms": 391,
+   "quotes_rejected_final": 0
+  },
+  "error": null,
+  "recording_available": true,
+  "recorder_offset_ms": null,
+  "created_at": "2026-11-01T15:10:44.488749+00:00",
+  "completed_at": "2026-11-01T15:11:05.749553+00:00"
+ }
+}

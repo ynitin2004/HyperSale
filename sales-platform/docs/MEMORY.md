@@ -1,7 +1,7 @@
 # MEMORY - Living State
 
 Read this first; update last each session. Current phase: **M1 open only on Safari; M2 awaits
-human rater labels; M3 built locally (D43), hosted migration 0005 and push awaiting the user.**
+human rater labels; M3 live on hosted, verified on synthetic calls only (D43); real human calls untested.**
 Application code lives at repository root; sales-platform/ owns product docs.
 
 ## Latest authoritative checkpoint - 2026-10-29
@@ -45,8 +45,8 @@ pushes to both remotes. GitLab MCP is not available in this environment.
    7bc003b. The paid eval is manual because the gateway WAF blocks GitHub runners (D41). Sentry project
    `hypersale-backend` takes errors and traces (D42). Latency: pooler RTT is 64 ms, metrics compute 39 ms,
    model 28 s of the 30 s report. Demo workspace seeded with user approval (13 calls, 6 recordings;
-   login in `.env`). Dockerfile, D42, D43, the seed script and all M3 code are uncommitted. Do not run a
-   live smoke against hosted before 0005: the new ORM column would crash it, as 0004 did. GitLab not pushed, at the user's request.
+   login in `.env`). Hosted is on 0005 and M3 is pushed. Safari: WebKit on Windows passes the UI suite but
+   has no voice APIs, so the gate stays open (D44). Raters need a reachable URL: the app is not deployed. GitLab not pushed, at the user's request.
 2. Human raters (D14): two rater accounts created, 34 items loaded, credentials in git-ignored
    `var/rater-credentials.txt`; M2 acceptance needs their labels, then `eval_labels.py export`.
 3. Gateway intermittent 400 ("function tools ... /v1/chat/completions") hits ~1 in 10 scoring

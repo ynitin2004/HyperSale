@@ -1,0 +1,77 @@
+[
+ {
+  "speaker": "rep",
+  "text": "Hi Sam, this is Dev from HyperSale. Thanks for taking the call. Is now still a good time?",
+  "start_ms": 865
+ },
+ {
+  "speaker": "buyer",
+  "text": "I have about ten minutes. Go ahead.",
+  "start_ms": 8149
+ },
+ {
+  "speaker": "rep",
+  "text": "Great. Before I say anything about us, what made you look at sales coaching tools this quarter?",
+  "start_ms": 12191
+ },
+ {
+  "speaker": "buyer",
+  "text": "Our new reps take six months to ramp. Each one costs us a lot before they close a deal.",
+  "start_ms": 18787
+ },
+ {
+  "speaker": "rep",
+  "text": "Six months is long. What does that cost you per rep, roughly?",
+  "start_ms": 25491
+ },
+ {
+  "speaker": "buyer",
+  "text": "Somewhere around forty thousand dollars in salary before they pay for themselves.",
+  "start_ms": 30576
+ },
+ {
+  "speaker": "rep",
+  "text": "Got it. And who coaches them today?",
+  "start_ms": 36245
+ },
+ {
+  "speaker": "buyer",
+  "text": "Managers, when they have time. Which is almost never.",
+  "start_ms": 39738
+ },
+ {
+  "speaker": "rep",
+  "text": "So reps practise on real buyers. We give them voice role plays with an AI buyer, and every score quotes what they actually said.",
+  "start_ms": 44815
+ },
+ {
+  "speaker": "buyer",
+  "text": "That sounds nice, but your price is forty eight thousand a year. Why would I pay that?",
+  "start_ms": 52283
+ },
+ {
+  "speaker": "rep",
+  "text": "Fair question. If you cut ramp time by one month across ten reps, that alone covers it. Does that math match yours?",
+  "start_ms": 59209
+ },
+ {
+  "speaker": "buyer",
+  "text": "Maybe. I would need to see proof first.",
+  "start_ms": 67087
+ },
+ {
+  "speaker": "rep",
+  "text": "Reasonable. Can we run a two week pilot with three of your reps, then review the results together next Tuesday at ten?",
+  "start_ms": 71414
+ },
+ {
+  "speaker": "buyer",
+  "text": "Tuesday at ten works. Send me the invite.",
+  "start_ms": 78787
+ },
+ {
+  "speaker": "rep",
+  "text": "Will do. Thanks Sam, talk soon.",
+  "start_ms": 83486
+ }
+]

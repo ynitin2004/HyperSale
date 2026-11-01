@@ -422,3 +422,11 @@ itself bills for any attempt it finished, which the single usage row does not sh
 a third-party reading ($0.36 per audio hour). AI-4 call tagging is not built.
 **Revisit:** Azure price from a real invoice; real phone audio, since the test used clean synthetic
 voices; the M4 consent settings replace the checkbox.
+
+## D44 - WebKit on Windows covers Safari's UI, not its voice path (amends D24).
+No Apple device is available. `playwright.webkit.config.ts` runs the E2E suite in Playwright's
+WebKit 26.5: 7/7 pass on 2026-11-01. The Windows build has no `RTCPeerConnection`, `AudioContext`,
+`MediaRecorder` or `navigator.mediaDevices`, so live calls and the mp4 recorder path cannot be
+tested on it, and the D24 Safari gate stays open. A browser extension or user-agent change would
+only relabel Edge, so it proves nothing.
+**Revisit:** one real Safari run, on a cloud device service or a borrowed Apple device.
