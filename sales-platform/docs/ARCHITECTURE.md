@@ -37,7 +37,7 @@ boundaries. Full rationale for every choice: `DECISIONS.md`.
 | Scoring & reports | **`gpt-5.6-sol` via the Agent Router gateway (D28)** — $4/M in, $20/M out; `claude-opus-5-5` ($4/$20) is the whole-report fallback and can be made primary by config (D33; gateway, or direct with `CLAUDE_API_KEY`) | Structured outputs (`output_config.format` / `messages.parse()`) give schema-guaranteed rubric JSON; adaptive thinking; prompt caching for the static rubric+scenario prefix. ~6k in + 2k out per report ≈ **$0.08/session** — negligible vs voice minutes |
 | High-volume tasks | `claude-haiku-4-5` — $1/M in, $5/M out | Tagging, drill selection, metadata extraction |
 | Disputed-score adjudication (only if measured need) | `claude-fable-5` — $10/M in, $50/M out | D9: add a frontier tier only when evals show Opus 5 disagreement clusters; 2× Opus price buys headroom scoring doesn't normally need |
-| Transcription (M3) | Deepgram or AssemblyAI (verify current pricing) | Diarization + word timestamps; replaceable behind `Transcriber` |
+| Transcription (M3) | Azure Speech fast transcription (D43) | Diarization + word timestamps; replaceable behind `Transcriber` |
 
 Rules: all model IDs and prices live **only** in `adapters/llm/models.py` · Anthropic calls use
 the official `anthropic` SDK (never raw HTTP, never OpenAI-compatible shims) · voice-provider calls

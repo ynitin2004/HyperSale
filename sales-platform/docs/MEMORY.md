@@ -1,7 +1,7 @@
 # MEMORY - Living State
 
-Read this first; update last each session. Current phase: **M1 gates met except user-side
-items (Safari, Sentry, OTel, demo seed); M2 engineering built, acceptance blocked on human raters.**
+Read this first; update last each session. Current phase: **M1 open only on Safari; M2 awaits
+human rater labels; M3 built locally (D43), hosted migration 0005 and push awaiting the user.**
 Application code lives at repository root; sales-platform/ owns product docs.
 
 ## Latest authoritative checkpoint - 2026-10-29
@@ -42,8 +42,11 @@ pushes to both remotes. GitLab MCP is not available in this environment.
 1. Gateway rejects all GPT tool calls since 2026-10-31; scoring now uses JSON replies (D40), gate
    PASS and live call OK. No working fallback: the key supplied as "Claude" is a gateway key with
    only GPT models, and direct Anthropic returned 401. Pushed to GitHub; CI run 41232384126 green at
-   7bc003b. The paid eval is manual because the gateway WAF blocks GitHub runners (D41). Sentry MCP
-   is signed in; the account has no projects yet. GitLab not pushed, at the user's request.
+   7bc003b. The paid eval is manual because the gateway WAF blocks GitHub runners (D41). Sentry project
+   `hypersale-backend` takes errors and traces (D42). Latency: pooler RTT is 64 ms, metrics compute 39 ms,
+   model 28 s of the 30 s report. Demo workspace seeded with user approval (13 calls, 6 recordings;
+   login in `.env`). Dockerfile, D42, D43, the seed script and all M3 code are uncommitted. Do not run a
+   live smoke against hosted before 0005: the new ORM column would crash it, as 0004 did. GitLab not pushed, at the user's request.
 2. Human raters (D14): two rater accounts created, 34 items loaded, credentials in git-ignored
    `var/rater-credentials.txt`; M2 acceptance needs their labels, then `eval_labels.py export`.
 3. Gateway intermittent 400 ("function tools ... /v1/chat/completions") hits ~1 in 10 scoring

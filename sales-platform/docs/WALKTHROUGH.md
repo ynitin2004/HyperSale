@@ -159,6 +159,12 @@ cd apps/web && E2E_PYTHON=<absolute path to the backend venv python> pnpm exec p
 Playwright starts the API, the worker (health port 8766) and a built SPA itself. On Windows,
 pass `E2E_PYTHON` as an absolute, quoted path.
 
+## 9b. Review a real call (M3, D43)
+
+Open `#/review`, pick the closest scenario, choose a recording with two speakers, say who spoke
+first, tick the permission box, and press Score this call. The report page opens when scoring
+finishes. A recording with one voice fails with a clear message.
+
 ## 10. The real thing, through the UI (paid, ~$0.25-0.30 per AI-rep run)
 
 ```

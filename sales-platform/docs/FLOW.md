@@ -155,9 +155,10 @@ feedback (cap 2), else mark degraded → persist scores with provenance
 selection → write `usage_event` (tokens, cost) → emit `report.ready`.
 
 ### D. Recording review (M3)
-`POST /recordings` (signed upload) → enqueue → worker: `review.service.process` →
-`adapters/transcription/` (diarize, word timestamps) → normalize to our transcript schema →
-**same chain C** → notify.
+`POST /reviews` (consent, scenario, who spoke first) → chunks through
+`PUT /practice/sessions/{id}/recording/{seq}` → `POST /reviews/{id}/submit` → enqueue
+`review.transcribe` → worker: `review.service.process` → `adapters/transcription.py` (Azure,
+diarized) → name speakers, join turns → **same chain C**. The browser polls the session (D43).
 
 ## 3. AI decision-point registry
 

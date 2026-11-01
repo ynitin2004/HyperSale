@@ -399,3 +399,26 @@ we do not try. `evals.yml` and the GitLab job are manual only. After a scoring c
 `python -m evals.harness --suite roleplay` from the repo root and commit the run; the free replay
 gate in CI then gates `runs/latest.json`. Nothing in CI yet proves that run is fresh.
 **Revisit:** a scoring route that admits CI runners, such as a direct Claude key.
+
+## D42 - Sentry covers errors and tracing for now; no separate OTel backend.
+The M1 exit asked for an observability backend. Sentry project `hypersale-backend` receives both
+errors and request traces through `sentry-sdk`: verified 2026-11-01 with issue
+HYPERSALE-BACKEND-1 and three `/api/v1/config` http.server spans. The OTLP exporter code stays,
+unused, so a real OTel endpoint needs only `OTEL_EXPORTER_OTLP_ENDPOINT`. The Docker image now
+installs the `telemetry` extra; without it a container reported nothing.
+**Revisit:** when traces must leave Sentry, or trace volume costs more than the free tier.
+
+## D43 - An uploaded call is a practice session of kind `review`, transcribed by Azure Speech.
+User quiz 2026-11-01: Azure Speech, a consent checkbox on upload, up to $3. Azure fast
+transcription runs on the Voice Live resource, so there is no second vendor. Migration 0005 adds
+`practice_sessions.kind` and `consent_at`; turns, recordings, reports and evidence reuse the
+roleplay path, which is what "one pipeline" asks for. Audio goes through the existing chunk
+endpoint in 1.5 MB slices, because the bucket caps objects at 2 MB, in place of the signed upload
+in FLOW. Progress is polling, not SSE, matching the report page. Diarized speakers are anonymous,
+so the uploader says who spoke first. A call with one voice fails visibly and is not retried.
+Uploads are not practice: they never count on the team page or complete an assignment. Transcript,
+usage and report are written in one job transaction, so a killed job leaves nothing behind; Azure
+itself bills for any attempt it finished, which the single usage row does not show. The price is
+a third-party reading ($0.36 per audio hour). AI-4 call tagging is not built.
+**Revisit:** Azure price from a real invoice; real phone audio, since the test used clean synthetic
+voices; the M4 consent settings replace the checkbox.

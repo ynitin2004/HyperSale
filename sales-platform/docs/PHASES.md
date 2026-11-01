@@ -21,7 +21,7 @@ M0's last open technical gate closed the same day: **Spike 3 passed** on `gpt-5.
 | 3 drills | **Met (rule-based)** | Weakest scored criteria → seeded drills; Haiku tier (AI-2) deferred, no reachable volume model |
 | Safari | **Open (D24)** | No Apple device; M1 exit gate |
 | Recording storage on Supabase | **Met (2026-10-29 live)** | User approved; private `recordings` bucket (2 MB object limit). Probe: secret-key PUT 200 + read-back, public URL 400, publishable key 400. Live: call `9ebda41e` stored 17 chunks / 354 KB in the bucket; report playback and evidence seek (0:37) served from it |
-| Sentry / OTel exporters | **Open (account ready)** | Sentry org `hypersaleai` created by user 2026-10-29; Sentry MCP added at local scope, needs `/mcp` sign-in. Still no DSN in `.env`; OTel endpoint unset |
+| Sentry / OTel exporters | **Open (account ready)** | Sentry org `hypersaleai` created by user 2026-10-29; Project `hypersale-backend` created 2026-11-01, DSN in local `.env`, test event HYPERSALE-BACKEND-1 received. Traces confirmed too; Sentry covers this gate (D42). Image rebuilt with the `telemetry` extra and checked locally, not yet through CI |
 
 Cost truth, live (hosted ledger, `/usage/summary`): voice 4 calls $0.532 (≈ $0.045/min),
 scoring 12 model calls $0.492 at $4/$20 per 1M (the 2-way split wrote long outputs; the
@@ -273,6 +273,16 @@ the ceiling (0.909 > 0.850) is expected and is **not** evidence of human-level a
   demonstrably fails CI.
 
 ## M3 — Weeks 7–9: Recording review
+
+### M3 checkpoint - 2026-11-01 (quiz: Azure, consent checkbox, $3)
+
+| Gate | Status | Evidence |
+|---|---|---|
+| One pipeline for roleplays and real calls | **Built, local** | Migration 0005, `#/review`, Azure adapter, same scoring path (D43). Local up/down/up + `alembic check` clean; 105 unit, 18 integration, 7/7 E2E |
+| Real audio | **Checked once** | Real 153 s call through Azure: 18 turns against 19 stored, 100% of checkable words on the right speaker, scored 4.0 against the original 4.0, 14 quotes verified. Clean synthetic voices, so real phone audio is untested |
+| Killed job: no duplicate work or double charge | **Simulated** | `test_m3_review.py` raises inside the job before commit, then re-delivers: one report, one usage row, one set of turns. No real process kill yet. A finished Azure attempt is still billed by Azure |
+| Live on hosted | **Open** | Migration 0005 not applied; needs user permission. Nothing committed or pushed |
+| Deviations from the plan | Recorded | Chunk upload, polling not SSE, no AI-4 tagging, no Zoom (D43) |
 
 - Upload → Postgres queue → `Transcriber` (diarize + word timestamps + turns) → **same scoring
   path as M1**. Idempotent retries; visible failure states; SSE progress. Zoom only if a design
