@@ -281,6 +281,7 @@ the ceiling (0.909 > 0.850) is expected and is **not** evidence of human-level a
 | One pipeline for roleplays and real calls | **Built, local** | Migration 0005, `#/review`, Azure adapter, same scoring path (D43). Local up/down/up + `alembic check` clean; 105 unit, 18 integration, 7/7 E2E |
 | Real audio | **Checked once** | Real 153 s call through Azure: 18 turns against 19 stored, 100% of checkable words on the right speaker, scored 4.0 against the original 4.0, 14 quotes verified. Clean synthetic voices; see the degraded call below. Real human calls are untested |
 | Killed job: no duplicate work or double charge | **Simulated** | `test_m3_review.py` raises inside the job before commit, then re-delivers: one report, one usage row, one set of turns. No real process kill yet. A finished Azure attempt is still billed by Azure |
+| Tester access | **Temporary** | Cloudflare quick tunnel from the dev PC (WALKTHROUGH §13), 2026-11-02: a rater account signed in through the public URL, saw 34 calls, opened one with no model scores shown. Up only while the PC and the script run |
 | Live on hosted | **Verified once** | 0005 applied 2026-11-01 with user permission, `alembic check` clean, GitHub CI 41319741817 green at ff372ef. 87 s synthetic call with phone-band noise and two talk-overs, uploaded in 3 chunks: report in 23.7 s, 15/15 turns, 139/139 checkable words on the right speaker, overall 4.2 (`evidence/m3-live-20261101/`) |
 | Deviations from the plan | Recorded | Chunk upload, polling not SSE, no AI-4 tagging, no Zoom (D43) |
 

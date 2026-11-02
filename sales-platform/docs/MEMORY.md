@@ -46,7 +46,9 @@ pushes to both remotes. GitLab MCP is not available in this environment.
    `hypersale-backend` takes errors and traces (D42). Latency: pooler RTT is 64 ms, metrics compute 39 ms,
    model 28 s of the 30 s report. Demo workspace seeded with user approval (13 calls, 6 recordings;
    login in `.env`). Hosted is on 0005 and M3 is pushed. Safari: WebKit on Windows passes the UI suite but
-   has no voice APIs, so the gate stays open (D44). Raters need a reachable URL: the app is not deployed. GitLab not pushed, at the user's request.
+   has no voice APIs, so the gate stays open (D44). Raters reach the app through a temporary Cloudflare tunnel
+   (WALKTHROUGH §13); the URL changes on every restart. `ynitin2004@gmail.com`, one of the two rater
+   accounts, is the user's own address, so a second independent rater is still needed. GitLab not pushed, at the user's request.
 2. Human raters (D14): two rater accounts created, 34 items loaded, credentials in git-ignored
    `var/rater-credentials.txt`; M2 acceptance needs their labels, then `eval_labels.py export`.
 3. Gateway intermittent 400 ("function tools ... /v1/chat/completions") hits ~1 in 10 scoring

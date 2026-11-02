@@ -241,3 +241,20 @@ Manager loop (D39), as a manager or owner: **Team** tab shows each member's atte
 overall and mean per criterion; click a member to review their attempts; the form assigns a
 scenario with an optional due date. Reps see "Assigned to you" on Practice; an assignment turns
 `done` when they finish that scenario with a scored report.
+
+## 13. A temporary public URL for testers and raters
+
+```
+bash scripts/tunnel.sh      # Git Bash, repo root; prints nothing, logs in var/tunnel/
+grep -o 'https://[a-z0-9-]*\.trycloudflare\.com' var/tunnel/cloudflared.log
+```
+
+It starts the API and worker on the real `.env`, builds the web app with `VITE_API_BASE_URL=.`
+(Git Bash rewrites a bare `/` into a Windows path), serves it with `vite preview`, which proxies
+`/api` to port 8000, and opens a Cloudflare quick tunnel. Needs `cloudflared` (winget
+`Cloudflare.cloudflared`). The URL changes on every start and dies when the PC sleeps. To stop it,
+end the processes; on Windows they can outlive the script:
+
+```
+Get-CimInstance Win32_Process | ? { $_.CommandLine -match 'port 8000|app.workers.main|port 4174' } | % { Stop-Process -Id $_.ProcessId -Force }
+```
