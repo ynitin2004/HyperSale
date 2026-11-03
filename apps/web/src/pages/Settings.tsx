@@ -55,15 +55,15 @@ function WorkspaceForm({ current }: { current: WorkspaceSettings }) {
             <input type="number" min={1} max={3650} value={days} disabled={keep} data-testid="retention-days"
               onChange={(e) => setDays(Number(e.target.value))} />
           </label>
-          <label className="small"><input type="checkbox" checked={keep} onChange={(e) => setKeep(e.target.checked)} /> Keep audio forever</label>
+          <label className="small check"><input type="checkbox" checked={keep} onChange={(e) => setKeep(e.target.checked)} /> Keep audio forever</label>
           <p className="muted small">Transcripts and scores are kept either way, so reports and team trends still work.</p>
           <label>Monthly AI spend limit (USD)
             <input type="number" min={0} step={1} value={limit} disabled={unlimited} data-testid="spend-limit"
               onChange={(e) => setLimit(Number(e.target.value))} />
           </label>
-          <label className="small"><input type="checkbox" checked={unlimited} onChange={(e) => setUnlimited(e.target.checked)} /> No limit</label>
+          <label className="small check"><input type="checkbox" checked={unlimited} onChange={(e) => setUnlimited(e.target.checked)} /> No limit</label>
           <p className="muted small">At the limit, new roleplays and uploads are refused. Calls already running finish.</p>
-          <label className="small"><input type="checkbox" checked={record} data-testid="record-audio"
+          <label className="small check"><input type="checkbox" checked={record} data-testid="record-audio"
             onChange={(e) => setRecord(e.target.checked)} /> Record roleplay audio</label>
           {edit && <button type="submit" disabled={save.isPending}>{save.isPending ? 'Saving…' : 'Save'}</button>}
           {save.isSuccess && <p className="ok small" data-testid="settings-saved">Saved.</p>}

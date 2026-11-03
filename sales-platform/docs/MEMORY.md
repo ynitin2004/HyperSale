@@ -15,6 +15,9 @@ M4 built and on hosted (D45-D47), Stripe deliberately not built.**
 - Bit: the API's CORS allowed only GET/POST/PUT, so PATCH/DELETE failed only in the browser; E2E caught it.
 - One workspace per person until a switcher exists: accepting into a second workspace is refused.
 - The invite accept path uses the Supabase secret key the API already had for storage.
+- GitHub CI 41650576285 green at f59ea1a. The quick tunnel died by itself at 02:29Z (Cloudflare
+  "Tunnel not found"); restarted with a new URL. Check `var/tunnel/cloudflared.log` before telling
+  anyone a tunnel URL still works.
 Application code lives at repository root; sales-platform/ owns product docs.
 
 ## Latest authoritative checkpoint - 2026-10-29
