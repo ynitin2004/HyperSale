@@ -58,7 +58,7 @@ vars, never in the browser; the browser gets short-lived ephemeral tokens minted
 | `coaching` | assignments, attempt review, team comparison (D39); reads practice/scoring/identity via their services |
 | `evals` | gold-set items and blind human rater labels (D37); the harness itself is `services/backend/evals/` (D38) |
 | `insights` | aggregates, manager views, benchmarks |
-| `platform` | queue, storage, email, metering, flags, audit |
+| `platform` | queue, storage, email, metering, flags, audit, workspace settings and spend limit (D46, D47) |
 
 **Boundary rule:** modules communicate through service functions and events only. No cross-module
 SQL joins. This keeps later extraction (e.g. `scoring` as its own service) mechanical.

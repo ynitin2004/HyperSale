@@ -430,3 +430,40 @@ WebKit 26.5: 7/7 pass on 2026-11-01. The Windows build has no `RTCPeerConnection
 tested on it, and the D24 Safari gate stays open. A browser extension or user-agent change would
 only relabel Edge, so it proves nothing.
 **Revisit:** one real Safari run, on a cloud device service or a borrowed Apple device.
+
+## D45 - Invites are one-time links tied to one email; the API creates the invitee's account.
+User quiz 2026-11-03: a copyable link, not a Supabase invite email (the free plan sends about two
+emails an hour). A manager invites reps; only an owner invites managers or owners. The link holds
+a random 32-byte token; the database stores only its SHA-256, and it expires after 7 days or on
+first use. A new invitee chooses a password on the join page and the API creates a confirmed
+account for the invited email with the Supabase admin API, through `adapters/auth_admin.py`. That
+uses the secret key the API already holds for recording storage, so no new credential is added.
+Someone who already has an account signs in first; their token's email must match the invite, so
+a forwarded link cannot add a different person. The unauthenticated lookup reads the invite through
+an RLS policy keyed on the token hash (`app.invite_token_hash`), never through a BYPASSRLS role.
+Only an owner changes roles or removes members, and the last owner can be neither demoted nor removed.
+One workspace per person for now: the web app has no workspace switcher, so an account that
+already belongs elsewhere is refused (409 `already_in_workspace`) rather than locked out of both.
+CORS now allows PATCH and DELETE for these endpoints.
+**Revisit:** a design partner who wants invites by email, or SSO.
+
+## D46 - Audio is deleted after a per-workspace window (default 90 days); transcripts stay.
+User quiz 2026-11-03. `workspace_settings.audio_retention_days` (default 90, NULL means keep). The
+worker enqueues `practice.retention_sweep` for each workspace once a UTC day; the sweep lists each
+expired session's objects in storage, deletes them, then sets `recording_deleted_at` and writes an
+audit event. Storage is deleted before the row changes, so a crash in between re-deletes nothing
+harmful on retry. Transcripts, scores and reports are kept, so team trends survive. A deleted
+recording answers 410. The same settings row holds `record_roleplay_audio` (consent: when off, the
+browser does not record and the API refuses chunks for roleplays) and replaces nothing from D43: an
+upload still needs its consent checkbox.
+**Revisit:** a customer contract with a different window, or a request to delete transcripts too.
+
+## D47 - A monthly AI spend limit per workspace blocks new calls (default $10); the audit log is append-only.
+User quiz 2026-11-03. `workspace_settings.monthly_limit_microusd` (default 10,000,000, NULL means
+none) is checked against this UTC month's `usage_events` before a roleplay starts or an upload is
+created; at or over the limit the API answers 402 `spend_limit_reached`. Calls already running
+finish and are scored, so the limit can be overshot by the calls in flight. `audit_events` has a
+SELECT and an INSERT policy and no UPDATE or DELETE policy, so under FORCE RLS the runtime role
+cannot change or remove an event; only the migration owner can. Invites, role changes, removals,
+settings changes and every retention deletion are logged. Stripe stays out until someone asks to pay.
+**Revisit:** paid plans, or a limit that must stop calls already in progress.

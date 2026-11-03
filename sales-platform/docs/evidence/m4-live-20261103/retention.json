@@ -1,0 +1,47 @@
+{
+  "run": "20261103T140444Z",
+  "workspace": "dc0e6555-597a-4e42-a639-73c14fc3f3e5",
+  "before": {
+    "listed": [
+      "dc0e6555-597a-4e42-a639-73c14fc3f3e5/60445d20-ec37-4b5d-8a3a-754d04d46643/00000.part",
+      "dc0e6555-597a-4e42-a639-73c14fc3f3e5/60445d20-ec37-4b5d-8a3a-754d04d46643/00001.part"
+    ],
+    "direct_get": [
+      200,
+      200
+    ]
+  },
+  "sweep": {
+    "sessions": 1,
+    "objects": 2
+  },
+  "after": {
+    "listed": [],
+    "direct_get": [
+      400,
+      400
+    ]
+  },
+  "row": {
+    "recording_deleted_at": "2026-11-03T14:04:51.475055+00:00",
+    "recording_chunks": 0
+  },
+  "audit": [
+    {
+      "action": "recording.deleted",
+      "actor": null,
+      "detail": {
+        "kind": "roleplay",
+        "bytes": 2048,
+        "objects": 2,
+        "retention_days": 90
+      }
+    }
+  ],
+  "rerun": {
+    "sessions": 0,
+    "objects": 0
+  },
+  "pass": true,
+  "cleaned_up": true
+}

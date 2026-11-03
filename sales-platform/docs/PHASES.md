@@ -293,6 +293,19 @@ the ceiling (0.909 > 0.850) is expected and is **not** evidence of human-level a
 
 ## M4 — Weeks 10–12: Commercial surface, behind flags
 
+### M4 checkpoint - 2026-11-03 (quiz: invite links, audio after 90 days, $10 limit blocks, hosted + push)
+
+| Gate | Status | Evidence |
+|---|---|---|
+| Invites, roles | **Built, local + hosted schema** | One-time links tied to one email (D45), `#/join/{token}`, `#/settings` members table. `test_m4_admin.py` invite test; E2E invite + revoke |
+| Consent + retention settings | **Built** | `workspace_settings` (D46): audio window (default 90 days), roleplay recording on/off; upload consent checkbox kept |
+| Audit log | **Built** | `audit_events` append-only by policy (D47); runtime role UPDATE/DELETE affect 0 rows in test; hosted grants SELECT, INSERT only |
+| Retention deletion provably removes audio from storage | **Met on hosted, once** | 2026-11-03 run on hosted Supabase storage, throwaway workspace: 2 objects listed and GET 200 before, listing empty and GET 400 after, row marked, one system audit event, re-run did nothing, bucket still 209 objects (`evidence/m4-live-20261103/retention.json`). No real customer audio is older than 90 days yet: the oldest is 2026-10-28 |
+| Metering + plan limits | **Built** | $10/month default, 402 at the limit for new roleplays and uploads (D47). Calls in flight can overshoot |
+| `test_tenancy.py` green on every table | **Met (local)** | Reads the live schema: every table is a tenant table with forced RLS and workspace-scoped policies, or one of 4 catalog tables; no leak on any tenant table. 115 unit, 23 integration, 8/8 E2E; 0006 up/down/up + `alembic check` clean |
+| Hosted | **Applied** | 0006 applied 2026-11-03 with user permission; `alembic check` clean; FORCE RLS on all three new tables |
+| Not built | Open | Stripe (no one has asked to pay); email invites; workspace switcher (one workspace per person); deleting transcripts; flags beyond the settings row |
+
 - Invites, roles, consent + retention settings, audit log, retention-deletion job (provably
   removes audio from storage). Metering + plan limits before billing; Stripe only when someone
   asks to pay.

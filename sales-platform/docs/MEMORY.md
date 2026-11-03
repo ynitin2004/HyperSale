@@ -1,7 +1,20 @@
 # MEMORY - Living State
 
 Read this first; update last each session. Current phase: **M1 open only on Safari; M2 awaits
-human rater labels; M3 live on hosted, verified on synthetic calls only (D43); real human calls untested.**
+human rater labels; M3 live on hosted, verified on synthetic calls only (D43); real human calls untested;
+M4 built and on hosted (D45-D47), Stripe deliberately not built.**
+
+### 2026-11-03 checkpoint (M4 quiz: invite links, audio after 90 days, $10 limit blocks, hosted + push)
+- M4 built: invites by one-time link tied to one email (D45), `#/join`, `#/settings` (members, roles,
+  invites, audit log), `workspace_settings` with audio retention + roleplay recording switch (D46),
+  daily retention sweep in the worker, $10/month spend limit returning 402 (D47), append-only
+  `audit_events`. Migration 0006. `test_tenancy.py` checks every table from the live schema.
+- Verified: 115 unit, 23 integration, 8/8 E2E, 0006 up/down/up + `alembic check` locally; hosted 0006
+  applied with permission, FORCE RLS + SELECT/INSERT-only audit grants confirmed; retention deleted a
+  test recording from hosted storage (`evidence/m4-live-20261103/retention.json`), bucket otherwise unchanged.
+- Bit: the API's CORS allowed only GET/POST/PUT, so PATCH/DELETE failed only in the browser; E2E caught it.
+- One workspace per person until a switcher exists: accepting into a second workspace is refused.
+- The invite accept path uses the Supabase secret key the API already had for storage.
 Application code lives at repository root; sales-platform/ owns product docs.
 
 ## Latest authoritative checkpoint - 2026-10-29

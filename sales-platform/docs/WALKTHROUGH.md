@@ -41,11 +41,11 @@ From `services/backend`:
 
 ```
 .venv/Scripts/python -m ruff check . ../../scripts ../../spikes      -> All checks passed!
-.venv/Scripts/python -m pytest -q --ignore=tests/integration          -> 90 passed (incl. decision tests)
+.venv/Scripts/python -m pytest -q --ignore=tests/integration          -> 115 passed (incl. decision tests)
 set DATABASE_URL / ALEMBIC_DATABASE_URL / TEST_DATABASE_URL to postgresql+asyncpg://postgres:postgres@localhost:5432/hypersale_test
 .venv/Scripts/python -m alembic upgrade head && downgrade base && upgrade head
 .venv/Scripts/python -m alembic check                                 -> No new upgrade operations detected.
-.venv/Scripts/python -m pytest -q tests/integration                   -> 17 passed (unprivileged role, RLS enforced,
+.venv/Scripts/python -m pytest -q tests/integration                   -> 23 passed (unprivileged role, RLS enforced,
                                                                          full M1 loop over HTTP)
 ```
 
@@ -258,3 +258,21 @@ end the processes; on Windows they can outlive the script:
 ```
 Get-CimInstance Win32_Process | ? { $_.CommandLine -match 'port 8000|app.workers.main|port 4174' } | % { Stop-Process -Id $_.ProcessId -Force }
 ```
+
+## 14. M4: invites, settings, retention, spend limit, audit (D45-D47)
+
+```
+pytest -q tests/integration/test_m4_admin.py tests/integration/test_tenancy.py   -> 5 passed
+```
+
+In the app, as an owner: **Settings** shows this month's AI spend against the limit, the audio
+window, the recording switch, members, invites and the audit log. **Create link** shows the invite
+link once; the invitee opens it signed out, chooses a password and lands in the workspace. A
+manager can invite reps only. At the limit, starting a roleplay or upload says
+`spend_limit_reached`.
+
+Retention runs inside the worker: it checks hourly and enqueues one sweep per workspace per UTC
+day. To prove deletion against hosted storage without touching real data, the 2026-11-03 run made
+a throwaway workspace with one 100-day-old session and two real chunks, ran the sweep as the app
+role, and deleted the workspace afterwards. Result: `docs/evidence/m4-live-20261103/retention.json`.
+

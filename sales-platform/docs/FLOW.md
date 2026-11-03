@@ -160,6 +160,21 @@ selection → write `usage_event` (tokens, cost) → emit `report.ready`.
 `review.transcribe` → worker: `review.service.process` → `adapters/transcription.py` (Azure,
 diarized) → name speakers, join turns → **same chain C**. The browser polls the session (D43).
 
+### E. Audio retention (M4, D46)
+Worker tick → hourly `retention.schedule_daily` on the dispatch session (every workspace, job key
+`retention:{UTC date}`) → `practice.retention_sweep` pinned to one workspace → read
+`workspace_settings.audio_retention_days` → sessions with audio that ended before the cutoff →
+`RecordingStore.list_session` → `delete` → `audit_events` `recording.deleted` (system actor) → set
+`recording_deleted_at`, `recording_chunks = 0`. Download then answers 410; transcript and report stay.
+
+### F. Invites and the spend limit (M4, D45, D47)
+`POST /invites` (manager: rep; owner: any role) → token shown once, hash stored → visitor opens
+`#/join/{token}` → `GET /invites/lookup` through `invite_session` (RLS by token hash) →
+`POST /invites/accept`: new account via `adapters/auth_admin.py` (Supabase admin API), or the
+signed-in account whose email matches → `pin_workspace` → atomic claim → membership + audit event.
+`POST /practice/sessions` and `POST /reviews` first call `workspace_settings.check_spend`: this UTC
+month's `usage_events` at or over the limit → 402 `spend_limit_reached`.
+
 ## 3. AI decision-point registry
 
 Every place where model output influences behavior, with its guardrail. Adding one without
