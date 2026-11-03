@@ -1,8 +1,9 @@
 """Database sessions carry the tenant boundary.
 
-Three shapes, each with a different blast radius:
+Four shapes, each with a different blast radius:
   * `tenant_session`  — everything that touches workspace data; sets both tenant GUCs.
   * `identity_session` — membership lookup before a workspace is known; sets only the user GUC.
+  * `invite_session`   — an invite opened by its token hash (D45); sets the invite GUC.
   * `system_session`   — cross-tenant plumbing (queue dispatch only); sets no GUC at all.
 
 `SET LOCAL` cannot take bind parameters, so the GUCs go through `set_config(..., true)`,
@@ -24,6 +25,7 @@ from app.config import get_settings
 
 WORKSPACE_GUC = "app.workspace_id"
 USER_GUC = "app.user_id"
+INVITE_GUC = "app.invite_token_hash"
 
 _SET_CONFIG = text("SELECT set_config(:name, :value, true)")
 
@@ -80,6 +82,24 @@ async def identity_session(user_id: UUID) -> AsyncIterator[AsyncSession]:
     async with SessionFactory() as session, session.begin():
         await _set_guc(session, USER_GUC, str(user_id))
         yield session
+
+
+@asynccontextmanager
+async def invite_session(token_hash: str, user_id: UUID | None = None) -> AsyncIterator[AsyncSession]:
+    """Open one invite by its token hash before the invitee belongs anywhere (D45).
+
+    RLS shows only the invite whose hash matches. Accepting then pins that invite's workspace
+    with `pin_workspace` in the same transaction, so the membership write passes the usual policy.
+    """
+    async with SessionFactory() as session, session.begin():
+        await _set_guc(session, INVITE_GUC, token_hash)
+        if user_id is not None:
+            await _set_guc(session, USER_GUC, str(user_id))
+        yield session
+
+
+async def pin_workspace(session: AsyncSession, workspace_id: UUID) -> None:
+    await _set_guc(session, WORKSPACE_GUC, str(workspace_id))
 
 
 @asynccontextmanager

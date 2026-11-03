@@ -59,7 +59,8 @@ app.middleware("http")(correlation_id_middleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in get_settings().cors_origins.split(",") if o.strip()],
-    allow_methods=["GET", "POST", "PUT"],
+    # PATCH and DELETE since M4: member roles, removals and invite revocation (D45).
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
     allow_headers=["Authorization", "Content-Type", "X-Workspace-Id", "X-Request-ID"],
     expose_headers=["X-Request-ID"],
 )

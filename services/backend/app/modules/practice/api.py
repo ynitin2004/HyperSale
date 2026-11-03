@@ -20,6 +20,7 @@ from app.db.session import tenant_session
 from app.errors import AppError
 from app.modules.catalog import service as catalog
 from app.modules.identity.deps import CurrentPrincipal, TenantSession
+from app.modules.platform import workspace_settings as ws_settings
 from app.modules.platform.jobs import JOB_RECORD_REALTIME_USAGE
 from app.modules.platform.queue import enqueue
 from app.modules.practice import live
@@ -50,6 +51,7 @@ class SessionOut(BaseModel):
     recording_chunks: int
     recording_mime: str | None
     recorder_offset_ms: int | None
+    recording_deleted_at: str | None = None
     created_at: str
     user_id: UUID | None = None
     report_id: UUID | None = None
@@ -99,6 +101,7 @@ def _session_out(row: PracticeSession, report=None) -> SessionOut:
         rubric_version=row.rubric_version, end_reason=row.end_reason, duration_ms=row.duration_ms,
         recording_chunks=row.recording_chunks, recording_mime=row.recording_mime,
         recorder_offset_ms=row.recorder_offset_ms, created_at=row.created_at.isoformat(), kind=row.kind,
+        recording_deleted_at=row.recording_deleted_at.isoformat() if row.recording_deleted_at else None,
         user_id=row.user_id, report_id=report.id if report else None, report_status=report.status if report else None,
         overall=float(report.overall) if report is not None and report.overall is not None else None,
     )
@@ -117,6 +120,7 @@ async def create_session(
     body: CreateSessionIn, principal: CurrentPrincipal, session: TenantSession
 ) -> SessionOut:
     settings = get_settings()
+    await ws_settings.check_spend(session, principal.workspace_id)
     row = await practice.create_session(
         session, principal, body.scenario_id, provider=settings.voice_provider,
         cap_seconds=settings.session_cap_seconds,
@@ -256,6 +260,9 @@ async def upload_chunk(
         raise AppError("forbidden", "Only the rep can upload this recording", status_code=403)
     if row.kind == KIND_REVIEW and row.status != "uploading":
         raise AppError("already_submitted", f"Call is {row.status}", status_code=409)
+    if row.kind != KIND_REVIEW and not (await ws_settings.get(session, principal.workspace_id)).record_roleplay_audio:
+        # D46: the owner turned roleplay recording off; an upload carries its own consent.
+        raise AppError("recording_disabled", "This workspace does not record roleplays", status_code=409)
     data = await request.body()
     if not data:
         raise AppError("empty_chunk", "Recording chunk is empty", status_code=400)
@@ -270,6 +277,9 @@ async def upload_chunk(
 @router.get("/sessions/{session_id}/recording")
 async def download_recording(session_id: UUID, principal: CurrentPrincipal, session: TenantSession) -> Response:
     row = await practice.get_session(session, principal, session_id)
+    if row.recording_deleted_at is not None:
+        raise AppError("recording_deleted", "This recording was deleted under the workspace's retention policy",
+                       status_code=410)
     if not row.recording_chunks:
         raise AppError("recording_unavailable", "No recording for this session", status_code=404)
     data = await build_recording_store().read_all(principal.workspace_id, session_id, row.recording_chunks)

@@ -19,6 +19,7 @@ from app.adapters.transcription import Phrase, Transcriber, Transcript
 from app.config import get_settings
 from app.errors import AppError
 from app.modules.identity.service import Principal
+from app.modules.platform import workspace_settings as ws_settings
 from app.modules.platform.queue import enqueue
 from app.modules.platform.usage import EVENT_TRANSCRIPTION, UsageCost, record_usage
 from app.modules.practice import service as practice
@@ -58,6 +59,7 @@ async def create_review(
 ) -> PracticeSession:
     if not consent:
         raise AppError("consent_required", "Confirm you have permission to upload this call", status_code=422)
+    await ws_settings.check_spend(session, principal.workspace_id)
     row = await practice.create_session(session, principal, scenario_id, provider="upload", cap_seconds=0)
     row.kind = KIND_REVIEW
     row.status = STATUS_UPLOADING

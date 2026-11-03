@@ -7,11 +7,13 @@ import asyncio
 import contextlib
 import logging
 import signal
+import time
 
 from app.config import Settings, get_settings
 from app.db.session import dispose_engine, system_session, tenant_session
 from app.modules.platform import queue
 from app.modules.platform.queue import ClaimedJob
+from app.modules.practice import retention
 from app.telemetry import setup_telemetry
 from app.workers import handlers  # noqa: F401  (import registers handlers)
 from app.workers.registry import get_handler, registered_types
@@ -25,6 +27,8 @@ class Worker:
     def __init__(self, settings: Settings | None = None) -> None:
         self._settings = settings or get_settings()
         self._stopping = asyncio.Event()
+        # -inf: the first tick schedules immediately after a (re)start.
+        self._last_schedule = float("-inf")
 
     def stop(self) -> None:
         self._stopping.set()
@@ -72,8 +76,23 @@ class Worker:
         log.info("job succeeded", extra={"job_id": str(job.id), "job_type": job.type})
         return True
 
+    async def _schedule(self) -> None:
+        """Periodic work (D46). Checked hourly; the job keys make each sweep once a day."""
+        every = self._settings.retention_check_seconds
+        if not every or time.monotonic() - self._last_schedule < every:
+            return
+        self._last_schedule = time.monotonic()
+        async with system_session() as session:
+            created = await retention.schedule_daily(session)
+        if created:
+            log.info("retention sweeps enqueued", extra={"count": created})
+
     async def run_once(self) -> int:
         """One dispatch tick. Returns the number of jobs processed; used by tests."""
+        try:
+            await self._schedule()
+        except Exception:  # noqa: BLE001 - a scheduling error must not stop job dispatch
+            log.exception("retention scheduling failed")
         async with system_session() as session:
             stalled = await queue.requeue_stalled(
                 session, stall_seconds=self._settings.worker_stall_seconds

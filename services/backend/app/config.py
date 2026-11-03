@@ -92,6 +92,8 @@ class Settings(BaseSettings):
     worker_batch_size: int = 5
     worker_poll_seconds: float = 1.0
     worker_stall_seconds: int = 120
+    # D46: how often the worker checks whether today's retention sweeps are enqueued; 0 disables.
+    retention_check_seconds: int = 3600
     job_max_attempts: int = 5
     job_backoff_base_seconds: int = 5
     job_backoff_max_seconds: int = 900

@@ -50,6 +50,8 @@ class PracticeSession(Base):
     timings: Mapped[dict] = mapped_column(JSONB, default=dict)
     kind: Mapped[str] = mapped_column(String(20), default=KIND_ROLEPLAY, server_default=KIND_ROLEPLAY)
     consent_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    # D46: set by the retention sweep once the audio is gone from storage.
+    recording_deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     connected_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     ended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

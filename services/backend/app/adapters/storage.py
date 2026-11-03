@@ -20,10 +20,19 @@ def chunk_key(workspace_id: UUID, session_id: UUID, seq: int) -> str:
     return f"{workspace_id}/{session_id}/{seq:05d}.part"
 
 
+def session_prefix(workspace_id: UUID, session_id: UUID) -> str:
+    return f"{workspace_id}/{session_id}"
+
+
 class RecordingStore(Protocol):
     async def put_chunk(self, workspace_id: UUID, session_id: UUID, seq: int, data: bytes) -> None: ...
 
     async def read_all(self, workspace_id: UUID, session_id: UUID, chunks: int) -> bytes: ...
+
+    # D46 retention: list what is really stored (not what the row counted), then delete it.
+    async def list_session(self, workspace_id: UUID, session_id: UUID) -> list[str]: ...
+
+    async def delete(self, keys: list[str]) -> None: ...
 
 
 class LocalRecordingStore:
@@ -43,6 +52,17 @@ class LocalRecordingStore:
                 break
             parts.append(path.read_bytes())
         return b"".join(parts)
+
+    async def list_session(self, workspace_id: UUID, session_id: UUID) -> list[str]:
+        prefix = session_prefix(workspace_id, session_id)
+        folder = self._root / prefix
+        if not folder.is_dir():
+            return []
+        return sorted(f"{prefix}/{p.name}" for p in folder.iterdir())
+
+    async def delete(self, keys: list[str]) -> None:
+        for key in keys:
+            (self._root / key).unlink(missing_ok=True)
 
 
 class SupabaseRecordingStore:
@@ -78,6 +98,29 @@ class SupabaseRecordingStore:
                                    status_code=502)
                 parts.append(r.content)
         return b"".join(parts)
+
+    async def list_session(self, workspace_id: UUID, session_id: UUID) -> list[str]:
+        prefix = session_prefix(workspace_id, session_id)
+        keys: list[str] = []
+        async with httpx.AsyncClient(timeout=STORAGE_TIMEOUT_SECONDS) as client:
+            while True:
+                r = await client.post(f"{self._base}/object/list/{self._bucket}", headers=self._headers,
+                                      json={"prefix": prefix, "limit": 1000, "offset": len(keys)})
+                if r.is_error:
+                    raise AppError("recording_store_failed", "Recordings could not be listed", status_code=502)
+                page = [f"{prefix}/{entry['name']}" for entry in r.json()]
+                keys += page
+                if len(page) < 1000:
+                    return keys
+
+    async def delete(self, keys: list[str]) -> None:
+        if not keys:
+            return
+        async with httpx.AsyncClient(timeout=STORAGE_TIMEOUT_SECONDS) as client:
+            r = await client.request("DELETE", f"{self._base}/object/{self._bucket}", headers=self._headers,
+                                     json={"prefixes": keys})
+        if r.is_error:
+            raise AppError("recording_store_failed", "Recordings could not be deleted", status_code=502)
 
 
 def build_recording_store(settings: Settings | None = None) -> RecordingStore:

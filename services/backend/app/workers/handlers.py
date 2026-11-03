@@ -2,7 +2,8 @@
 
 `platform.record_realtime_usage` meters client-reported voice usage (the M0 path, now a
 fallback under D29); `scoring.score_report` is FLOW chain C, the report pipeline;
-`review.transcribe` is FLOW chain D, which hands an uploaded call to chain C.
+`review.transcribe` is FLOW chain D, which hands an uploaded call to chain C;
+`practice.retention_sweep` is chain E, the daily audio deletion (D46).
 """
 import logging
 from datetime import datetime
@@ -12,6 +13,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.adapters.llm.scorer import build_fallback_scorer, build_scorer
+from app.adapters.storage import build_recording_store
 from app.adapters.transcription import build_transcriber
 from app.db.session import tenant_session
 from app.modules.platform.jobs import JOB_RECORD_REALTIME_USAGE
@@ -23,6 +25,8 @@ from app.modules.platform.usage import (
     realtime_token_cost,
     record_usage,
 )
+from app.modules.practice import retention
+from app.modules.practice.retention import JOB_RETENTION_SWEEP
 from app.modules.review import service as review_service
 from app.modules.review.service import JOB_REVIEW_TRANSCRIBE
 from app.modules.scoring import service as scoring_service
@@ -104,6 +108,13 @@ async def review_transcribe(session: AsyncSession, job: ClaimedJob) -> None:
             async with tenant_session(job.workspace_id) as tx:
                 await review_service.mark_failed(tx, job.workspace_id, session_id)
         raise
+
+
+@register(JOB_RETENTION_SWEEP)
+async def retention_sweep(session: AsyncSession, job: ClaimedJob) -> None:
+    """D46: delete expired audio for one workspace. Safe to re-run: deleted rows are skipped."""
+    result = await retention.sweep(session, build_recording_store(), job.workspace_id)
+    log.info("retention sweep", extra={"sessions": result.sessions, "objects": result.objects})
 
 
 @register(JOB_SCORE_REPORT)
