@@ -11,6 +11,8 @@ export type Route =
   | { name: 'review' }
   | { name: 'rate' }
   | { name: 'rateItem'; itemId: string }
+  | { name: 'settings' }
+  | { name: 'join'; token: string }
 
 export function parse(hash: string): Route {
   const parts = hash.replace(/^#\/?/, '').split('/').filter(Boolean)
@@ -21,6 +23,8 @@ export function parse(hash: string): Route {
   if (parts[0] === 'review') return { name: 'review' }
   if (parts[0] === 'rate' && parts[1]) return { name: 'rateItem', itemId: parts[1] }
   if (parts[0] === 'rate') return { name: 'rate' }
+  if (parts[0] === 'settings') return { name: 'settings' }
+  if (parts[0] === 'join' && parts[1]) return { name: 'join', token: parts[1] }
   return { name: 'home' }
 }
 

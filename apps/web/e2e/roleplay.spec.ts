@@ -122,3 +122,34 @@ test('the rater page is empty outside the Evals workspace (D37)', async ({ page 
   await page.goto('/#/rate')
   await expect(page.getByText('No items in this workspace')).toBeVisible()
 })
+
+test('an owner sets retention and the spend limit, and invites by link (D45-D47)', async ({ page, browser }) => {
+  await signedIn(page)
+  await page.goto('/')
+  await page.getByRole('link', { name: 'Settings' }).click()
+  await expect(page.getByTestId('month-spend')).toContainText('AI spend this month')
+  await page.getByTestId('retention-days').fill('30')
+  await page.getByTestId('settings-form').getByRole('button', { name: 'Save' }).click()
+  await expect(page.getByTestId('settings-saved')).toBeVisible()
+  await expect(page.getByTestId('audit-table')).toContainText('Settings changed')
+
+  const email = `invitee-${Date.now()}@hypersale.dev`
+  await page.getByTestId('invite-email').fill(email)
+  await page.getByTestId('invite-form').getByRole('button', { name: 'Create link' }).click()
+  const link = (await page.getByTestId('invite-link').locator('code').innerText()).trim()
+  expect(link).toMatch(/#\/join\/[\w-]{40,}$/)
+  await expect(page.getByTestId('invites-table')).toContainText(email)
+
+  // The link opens signed out, in a fresh browser, and names the workspace and role.
+  const visitor = await browser.newPage()
+  await visitor.goto(link)
+  await expect(visitor.getByTestId('join-title')).toHaveText('Join E2E as rep')
+  await expect(visitor.getByTestId('join-form')).toBeVisible()
+
+  // Revoked: the same link now says so.
+  await page.getByTestId('invites-table').getByRole('button', { name: 'Revoke' }).first().click()
+  await expect(page.getByTestId('invites-table')).toHaveCount(0)
+  await visitor.reload()
+  await expect(visitor.getByTestId('invite-state')).toContainText('revoked')
+  await visitor.close()
+})

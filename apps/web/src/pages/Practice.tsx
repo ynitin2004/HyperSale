@@ -10,6 +10,7 @@ type Phase = 'preflight' | CallState
 export function PracticePage({ scenarioId }: { scenarioId: string }) {
   const scenarios = useQuery({ queryKey: ['scenarios'], queryFn: Api.scenarios })
   const config = useQuery({ queryKey: ['config'], queryFn: Api.config })
+  const settings = useQuery({ queryKey: ['workspace-settings'], queryFn: Api.workspaceSettings })
   const scenario = scenarios.data?.find((s) => s.id === scenarioId)
   const stub = config.data?.voice_provider === 'stub'
 
@@ -71,7 +72,7 @@ export function PracticePage({ scenarioId }: { scenarioId: string }) {
         onBanner: setBanner,
         onAudioEvent: (e: string) => console.debug('[audio]', e),
       }
-      const active = stub ? await startStubCall(session.id, callbacks) : await startWebrtcCall(session.id, mic!, callbacks)
+      const active = stub ? await startStubCall(session.id, callbacks) : await startWebrtcCall(session.id, mic!, callbacks, settings.data?.record_roleplay_audio ?? true)
       call.current = active
       setCap(active.capSeconds)
       setStartedAt(Date.now())

@@ -3,11 +3,13 @@ import { useState } from 'react'
 import { Api } from './api/client'
 import { signIn, signOut, useSession } from './auth'
 import { HomePage } from './pages/Home'
+import { JoinPage } from './pages/Join'
 import { LatencyPage } from './pages/Latency'
 import { PracticePage } from './pages/Practice'
 import { RateItemPage, RateListPage } from './pages/Rate'
 import { ReportPage } from './pages/Report'
 import { ReviewPage } from './pages/Review'
+import { SettingsPage } from './pages/Settings'
 import { TeamPage } from './pages/Team'
 import { navigate, useRoute } from './router'
 
@@ -15,6 +17,8 @@ export function App() {
   const session = useSession()
   const route = useRoute()
   const me = useQuery({ queryKey: ['me'], queryFn: Api.me, retry: false, enabled: !!session })
+  // An invite link must open signed out, and also for someone already signed in (D45).
+  if (route.name === 'join') return <JoinPage token={route.token} />
   if (!session) return <LoginPage />
   const manager = me.data?.role === 'manager' || me.data?.role === 'owner'
   return (
@@ -26,6 +30,7 @@ export function App() {
           <a href="#/review" className={route.name === 'review' ? 'active' : ''}>Review</a>
           {manager && <a href="#/team" className={route.name === 'team' ? 'active' : ''}>Team</a>}
           <a href="#/rate" className={route.name.startsWith('rate') ? 'active' : ''}>Label</a>
+          {manager && <a href="#/settings" className={route.name === 'settings' ? 'active' : ''}>Settings</a>}
           <a href="#/latency" className={route.name === 'latency' ? 'active' : ''}>Latency</a>
           <WhoAmI />
           <button className="link" onClick={() => (signOut(), navigate('/'))}>Sign out</button>
@@ -40,6 +45,7 @@ export function App() {
         {route.name === 'review' && <ReviewPage />}
         {route.name === 'rate' && <RateListPage />}
         {route.name === 'rateItem' && <RateItemPage itemId={route.itemId} />}
+        {route.name === 'settings' && <SettingsPage />}
       </main>
     </div>
   )

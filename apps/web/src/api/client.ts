@@ -19,6 +19,10 @@ export type MemberSummary = S['MemberSummaryOut']
 export type EvalItemSummary = S['EvalItemSummary']
 export type EvalItem = S['EvalItemOut']
 export type EvalOutcome = EvalItem['my_labels'][string]
+export type WorkspaceSettings = S['WorkspaceSettingsOut']
+export type Member = S['MemberOut']
+export type Invite = S['InviteOut']
+export type AuditEvent = S['AuditEventOut']
 
 export const API_BASE = (import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000').replace(/\/$/, '')
 
@@ -78,4 +82,18 @@ export const Api = {
   evalItem: (id: string) => request<EvalItem>(`/api/v1/evals/items/${id}`),
   saveLabels: (id: string, body: S['LabelsIn']) =>
     request<EvalItem>(`/api/v1/evals/items/${id}/labels`, { method: 'PUT', body: JSON.stringify(body) }),
+  // M4 (D45-D47)
+  workspaceSettings: () => request<WorkspaceSettings>('/api/v1/workspace/settings'),
+  saveWorkspaceSettings: (body: S['WorkspaceSettingsIn']) =>
+    request<WorkspaceSettings>('/api/v1/workspace/settings', { method: 'PUT', body: JSON.stringify(body) }),
+  members: () => request<Member[]>('/api/v1/members'),
+  setRole: (userId: string, role: S['RoleIn']['role']) =>
+    request<Member>(`/api/v1/members/${userId}`, { method: 'PATCH', body: JSON.stringify({ role }) }),
+  removeMember: (userId: string) => request<void>(`/api/v1/members/${userId}`, { method: 'DELETE' }),
+  invites: () => request<Invite[]>('/api/v1/invites'),
+  invite: (body: S['InviteIn']) => post<S['InviteCreatedOut']>('/api/v1/invites', body),
+  revokeInvite: (id: string) => request<void>(`/api/v1/invites/${id}`, { method: 'DELETE' }),
+  lookupInvite: (token: string) => request<S['InviteLookupOut']>(`/api/v1/invites/lookup?token=${encodeURIComponent(token)}`),
+  acceptInvite: (body: S['AcceptIn']) => post<S['AcceptOut']>('/api/v1/invites/accept', body),
+  audit: () => request<AuditEvent[]>('/api/v1/audit'),
 }

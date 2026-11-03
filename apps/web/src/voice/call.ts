@@ -51,6 +51,7 @@ export async function startWebrtcCall(
   sessionId: string,
   mic: MediaStream,
   cb: CallCallbacks,
+  record = true,
 ): Promise<ActiveCall> {
   cb.onState('connecting')
   const transcript = new TranscriptModel(cb.onTurns)
@@ -125,7 +126,8 @@ export async function startWebrtcCall(
     audioEl.srcObject = e.streams[0]
     audioEl.play().catch(() => cb.onBanner('Your browser blocked audio. Click anywhere to hear the buyer.'))
     cb.onAudioEvent?.('remote track received')
-    startRecorder(e.streams[0])
+    // D46: the workspace owner can turn roleplay recording off; the transcript still feeds the report.
+    if (record) startRecorder(e.streams[0])
   }
   pc.onconnectionstatechange = () => {
     cb.onAudioEvent?.(`webrtc ${pc.connectionState}`)
